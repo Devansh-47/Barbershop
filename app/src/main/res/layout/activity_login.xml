@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="130dp"
         android:orientation="vertical">
 
         <EditText
@@ -66,10 +67,21 @@
             android:id="@+id/linkforregister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="Register yourself  here..."
             android:textColor="#F6DDBE" />
+
+        <Button
+            android:id="@+id/loginbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="236dp"
+            android:backgroundTint="#A449091B"
+            android:text="Login" />
+
     </LinearLayout>
 
     <!--    <ImageView-->
@@ -80,14 +92,25 @@
     <!--        android:layout_marginTop="50dp"-->
     <!--        app:srcCompat="@drawable/beardmanlogo" />-->
 
-    <Button
-        android:id="@+id/loginbtn"
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="236dp"
-        android:backgroundTint="#A449091B"
-        android:text="Login" />
+        android:layout_marginBottom="200dp"
+        android:text="OR Sign-in With"
+        android:textColor="#F6DDBE"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/googlebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="130dp"
+        android:background="@drawable/roundcorners"
+        app:srcCompat="@drawable/googleicon"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/button2"
@@ -95,7 +118,7 @@
         android:layout_height="40dp"
 
         android:layout_gravity="center_vertical|end"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="-9dp"
         android:layout_marginEnd="58dp"
         android:background="@drawable/eyeicon"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />

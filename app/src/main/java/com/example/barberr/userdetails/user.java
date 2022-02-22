@@ -14,6 +14,21 @@ public class user {
 
     public user(){}
 
+    public String getUser_profile_pic() {
+        return user_profile_pic;
+    }
+
+    public void setUser_profile_pic(String user_profile_pic) {
+        this.user_profile_pic = user_profile_pic;
+    }
+
+    public String getUser_mobile_no() {
+        return user_mobile_no;
+    }
+
+    public void setUser_mobile_no(String user_mobile_no) {
+        this.user_mobile_no = user_mobile_no;
+    }
 
     public String getUser_name() {
         return user_name;
@@ -39,11 +54,5 @@ public class user {
         this.user_password = user_password;
     }
 
-    public String getUse_mobile_no() {
-        return user_mobile_no;
-    }
 
-    public void setUse_mobile_no(String use_mobile_no) {
-        this.user_mobile_no = use_mobile_no;
-    }
 }

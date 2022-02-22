@@ -20,9 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.barberr.userdetails.user;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -44,6 +46,7 @@ public class Login extends AppCompatActivity {
     TextView textView,t;
     EditText user_password,user_email;
     Button button2,loginbtn;
+    ImageButton googlebtn;
     Boolean flag=true;
     public static final String tag ="zesus";
     ProgressDialog progressDialog;
@@ -79,6 +82,8 @@ public class Login extends AppCompatActivity {
         //Log.d(tag,"3kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
         loginbtn=findViewById(R.id.loginbtn);
+        googlebtn=findViewById(R.id.googlebtn);
+
         TextView textView = (TextView) findViewById(R.id.linkforregister);
         SpannableString content = new SpannableString(textView.getText().toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -109,6 +114,12 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, Registration.class));
 //                startActivity(new Intent(Login.this,Registration.class));
+            }
+        });
+        googlebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
             }
         });
 
@@ -212,7 +223,19 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                          //  updateUI(user);
+                            Toast.makeText(Login.this,"Signin With Google",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Login.this,custHomeActivity.class));
+                            user userr=new user();
+                            userr.setUser_name(user.getDisplayName());
+                            userr.setUser_mail(user.getEmail());
+                            userr.setUser_mobile_no(user.getPhoneNumber());
+                            userr.setUser_profile_pic(user.getPhotoUrl().toString());
+
+                            database.getReference().child("Users").child(user.getUid()).setValue(userr);
+
+
+
+                            //  updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());

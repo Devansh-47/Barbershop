@@ -92,7 +92,8 @@ public class Registration extends AppCompatActivity {
 
                                         String id = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser()).getUid();
 
-                                        user user = new user("default", user_name.getText().toString(), user_mail.getText().toString(), user_password.getText().toString(), user_mobile_no.getText().toString());
+                                        user user = new user("default", user_name.getText().toString(), user_mail.getText().toString(),
+                                                user_password.getText().toString(), user_mobile_no.getText().toString());
                                         database.getReference().child("Users").child(id).setValue(user);
 
                                         Toast.makeText(Registration.this, "User Created Successfully", Toast.LENGTH_SHORT).show();

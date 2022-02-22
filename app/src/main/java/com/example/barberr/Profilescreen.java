@@ -3,8 +3,14 @@ package com.example.barberr;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,15 +24,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.barberr.userdetails.user;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,15 +55,18 @@ public class Profilescreen extends Fragment {
 
 
     FirebaseAuth mAuth;
+    FirebaseDatabase database;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     Button logoutbtn;
+    ImageView profileimg;
     private Activity activity;
     EditText editname,editpassword,editmobile,editmail;
-
+    ImageButton browsebtn;
+    ActivityResultLauncher<String> launcher;
 
     public Profilescreen() {
 
@@ -87,7 +103,13 @@ public class Profilescreen extends Fragment {
 
 
         }
-
+        
+        launcher=registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                   profileimg.setImageURI(result) ;
+                    }
+                });
 
 
 //        btn1.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +138,102 @@ public class Profilescreen extends Fragment {
 
         View view= inflater.inflate(R.layout.fragment_profilescreen, container, false);
        logoutbtn= (Button) view.findViewById(R.id.logoutbtn);
+
+       editname=(EditText) view.findViewById(R.id.editname);
+        editmail=(EditText) view.findViewById(R.id.editmail);
+        editmobile=(EditText) view.findViewById(R.id.editmobile);
+        editpassword=(EditText) view.findViewById(R.id.editpassword);
+        browsebtn=(ImageButton)view.findViewById(R.id.browseimg);
+        profileimg=(ImageView)view.findViewById(R.id.profile_image);
+
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+      Log.d("lllllllllllllllllllllll",""+(mAuth.getCurrentUser()).getUid());
+
+
+
+
+
+
+
+
+//      String s="Users/"+mAuth.getCurrentUser().getUid();
+//        Log.d("lllllllllllllllllllllll",s);
+//        DatabaseReference ref = database.getReference(s);
+//
+//// Attach a listener to read the data at our posts reference
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                user post = dataSnapshot.getValue(user.class);
+//                assert post != null;
+//                editname.setText(post.getUser_name());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+//            }
+//        });
+
+
+//        database.getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                user u=snapshot.getValue(user.class);
+//                Log.d("lllllllllllllllllllllll",u.getUser_name());
+//
+//                editname.setText(u.getUser_name());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+//        database.getReference().child("Users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    if(task.getResult().exists()){
+//                        DataSnapshot dataSnapshot=task.getResult();
+//
+//                        String name=String.valueOf(dataSnapshot.child("user_name").getValue());
+//                        editname.setText(name);
+//                        Toast.makeText(getActivity(),"Read SuccessFully",Toast.LENGTH_SHORT).show();
+//                    }else {
+//                        Toast.makeText(getActivity(),"User does not exist",Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }else {
+//                    Toast.makeText(getActivity(),"Read Failedd",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                user post = dataSnapshot.getValue(user.class);
+//                editname.setText(post.getUser_name());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+//            }
+//        });
+
+
+        browsebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launcher.launch("image/*");
+            }
+        });
+
 
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override

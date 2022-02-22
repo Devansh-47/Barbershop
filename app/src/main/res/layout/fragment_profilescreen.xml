@@ -40,6 +40,16 @@
         app:civ_border_overlay="false"
         app:civ_border_width="3dp" />
 
+    <ImageButton
+        android:id="@+id/browseimg"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="-17dp"
+        android:background="@drawable/roundcorners"
+        android:backgroundTint="#D5C6C6"
+        android:src="@drawable/ic_baseline_image_search_24" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
