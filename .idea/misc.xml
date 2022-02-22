@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/ic_menu_camera.xml" value="0.2171875" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/ic_menu_gallery.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/ic_menu_slideshow.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/roundcorners.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1745" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.239" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.239" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/ic_baseline_mobile_friendly_24.xml" value="0.239" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.239" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/roundborder.xml" value="0.1745" />
+        <entry key="..\:/Barberr/app/src/main/res/drawable/style.xml" value="0.2526041666666667" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_firstscreen.xml" value="0.2" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_login.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_owener_registration.xml" value="0.2" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_owner_home.xml" value="0.196875" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_ownerlogin.xml" value="0.19895833333333332" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/activity_registration.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/fragment_apphomescreen.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/fragment_appointmentscreen.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barberr/app/src/main/res/layout/fragment_profilescreen.xml" value="0.2" />
+        <entry key="..\:/Barberr/app/src/main/res/menu/menu_items.xml" value="0.12" />
+        <entry key="..\:/Barberr/app/src/main/res/menu/ownerhomeactivityitems.xml" value="0.176" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable-v24/roundcorners.xml" value="0.1" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.1" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.187" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_mobile_friendly_24.xml" value="0.1" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/roundborder.xml" value="0.1" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_firstscreen.xml" value="0.17864583333333334" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_login.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_owener_registration.xml" value="0.1" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_owner_home.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_ownerlogin.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_registration.xml" value="0.152" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_apphomescreen.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerefragmentprofile.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_profilescreen.xml" value="0.176" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/menu/menu_items.xml" value="0.17864583333333334" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/menu/ownerhomeactivityitems.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/menu/upperrightmenulogout.xml" value="0.17864583333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

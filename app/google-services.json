@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "186152236574",
+    "project_id": "barberr-bb08f",
+    "storage_bucket": "barberr-bb08f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186152236574:android:90412cbcf57657663f200f",
+        "android_client_info": {
+          "package_name": "com.example.barberr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186152236574-d497qd22hpan9fe67mjpleau7sg61l86.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKTqZ33u2OyV5WjR7SWWNSgERi7Wpwf5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186152236574-d497qd22hpan9fe67mjpleau7sg61l86.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/userrr"
+        android:title="Profile"
+        />
+
+    <item
+        android:id="@+id/appointments"
+        android:icon="@drawable/appointmentt"
+        android:title="Appointments"
+        />
+
+    <item
+        android:id="@+id/services"
+        android:icon="@drawable/ownerservices"
+        android:title="services"
+        />
+
+    <item
+        android:id="@+id/Payment"
+        android:icon="@drawable/payment"
+        android:title="Payment"
+        />
+
+    <item
+        android:id="@+id/reviews"
+        android:icon="@drawable/reviews"
+        android:title="reviews"
+        />
+
+
+</menu>
