@@ -42,9 +42,9 @@ public class Registration extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         t=findViewById(R.id.textView2);
         t.setPaintFlags(t.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        user_password=findViewById(R.id.user_password);
-        user_name=findViewById(R.id.user_email);
-        user_mail=findViewById(R.id.user_mail);
+        user_password=findViewById(R.id.shop_password);
+        user_name=findViewById(R.id.shopmaill);
+        user_mail=findViewById(R.id.shop_mail);
         user_mobile_no=findViewById(R.id.user_mobile_no);
 
 

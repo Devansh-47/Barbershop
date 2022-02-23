@@ -22,7 +22,7 @@ tools:context=".Registration">
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/user_email"
+            android:id="@+id/shopmaill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -36,7 +36,7 @@ tools:context=".Registration">
             android:textSize="26sp" />
 
         <EditText
-            android:id="@+id/user_mail"
+            android:id="@+id/shop_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -64,7 +64,7 @@ tools:context=".Registration">
             android:textSize="26sp" />
 
         <EditText
-            android:id="@+id/user_password"
+            android:id="@+id/shop_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

@@ -94,7 +94,7 @@ public class Profilescreen extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // logoutbtn.setBackgroundColor(16711680);
-        mAuth = FirebaseAuth.getInstance();
+
         if (getArguments() != null) {
 
 
@@ -103,6 +103,7 @@ public class Profilescreen extends Fragment {
 
 
         }
+        mAuth = FirebaseAuth.getInstance();
         
         launcher=registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
                     @Override

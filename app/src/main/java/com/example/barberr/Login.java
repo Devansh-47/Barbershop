@@ -14,9 +14,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,9 +67,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        user_password=findViewById(R.id.user_password);
+        user_password=findViewById(R.id.shop_password);
 
-        user_email=findViewById(R.id.user_email);
+        user_email=findViewById(R.id.shopmaill);
         //Log.d(tag,"1kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
         //db=new dbhelper(this);
@@ -84,7 +81,7 @@ public class Login extends AppCompatActivity {
         loginbtn=findViewById(R.id.loginbtn);
         googlebtn=findViewById(R.id.googlebtn);
 
-        TextView textView = (TextView) findViewById(R.id.linkforregister);
+        TextView textView = (TextView) findViewById(R.id.linkforregisterr);
         SpannableString content = new SpannableString(textView.getText().toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         textView.setText(content);

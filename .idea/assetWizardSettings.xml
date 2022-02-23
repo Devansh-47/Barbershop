@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../android/icons/material/materialicons/image_search/baseline_image_search_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../android/icons/material/materialicons/home/baseline_home_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -35,7 +35,7 @@
                           <map>
                             <entry key="color" value="020101" />
                             <entry key="opacityPercent" value="97" />
-                            <entry key="outputName" value="ic_baseline_image_search_24" />
+                            <entry key="outputName" value="ic_baseline_home_24" />
                             <entry key="sourceFile" value="D:\Barberr" />
                           </map>
                         </option>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FBF9F9"
     android:orientation="vertical"
-    tools:context=".Apphomescreen">
+    tools:context=".Profilescreen">
 
     <TextView
         android:id="@+id/Profiletext"

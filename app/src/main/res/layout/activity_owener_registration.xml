@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/user_email"
+            android:id="@+id/shopmaill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -50,7 +50,7 @@
             android:textSize="26sp" />
 
         <EditText
-            android:id="@+id/shoprmobile"
+            android:id="@+id/shopmobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -58,13 +58,13 @@
             android:drawableLeft="@drawable/phoneicon"
             android:ems="10"
             android:hint="Shop-number"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp"
             android:paddingLeft="15dp"
             android:textSize="26sp" />
 
         <EditText
-            android:id="@+id/user_mail"
+            android:id="@+id/shop_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -78,7 +78,7 @@
             android:textSize="26sp" />
 
         <EditText
-            android:id="@+id/user_password"
+            android:id="@+id/shop_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

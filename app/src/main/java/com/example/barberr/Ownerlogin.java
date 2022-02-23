@@ -1,6 +1,8 @@
 package com.example.barberr;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.graphics.Paint;
 import android.os.Bundle;
 
@@ -16,14 +18,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Objects;
 
 public class Ownerlogin extends AppCompatActivity {
+
+    private static final int RC_SIGN_IN =69 ;
     TextView textView,t;
-    EditText password,shopname;
+    EditText password,shopmail;
     Button button2,loginbtn;
     Boolean flag=true;
+    ProgressDialog progressDialog;
+    private FirebaseAuth mAuth;
+    FirebaseDatabase database;
    // dbhelperforowner db;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //updateUI(currentUser);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +55,14 @@ public class Ownerlogin extends AppCompatActivity {
       //  db = new dbhelperforowner(this);
 
 
+        password = findViewById(R.id.shop_password);
+        shopmail=findViewById(R.id.shopmaill);
+        button2 = findViewById(R.id.button2);
+        loginbtn = findViewById(R.id.loginbtn);
+
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        TextView textView = (TextView) findViewById(R.id.linkforregister);
+        TextView textView = (TextView) findViewById(R.id.linkforregisterr);
         SpannableString content = new SpannableString(textView.getText().toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         textView.setText(content);
@@ -43,6 +70,14 @@ public class Ownerlogin extends AppCompatActivity {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         t = findViewById(R.id.textView2);
         t.setPaintFlags(t.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        progressDialog=new ProgressDialog(Ownerlogin.this);
+        progressDialog.setTitle("Thank You For Sign-in");
+        progressDialog.setMessage("Take a Sip..");
+
+        mAuth=FirebaseAuth.getInstance();
+        database=FirebaseDatabase.getInstance();
+
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +88,7 @@ public class Ownerlogin extends AppCompatActivity {
         });
 
 
-        password = findViewById(R.id.user_password);
-        shopname = findViewById(R.id.user_email);
-        button2 = findViewById(R.id.button2);
-        loginbtn = findViewById(R.id.loginbtn);
+
 
 
 
@@ -79,10 +111,26 @@ public class Ownerlogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (shopname.getText().toString().equals("") || password.getText().toString().equals("")) {
+                if (shopmail.getText().toString().equals("") || password.getText().toString().equals("")) {
                     Toast.makeText(Ownerlogin.this, "enterrrr all fields", Toast.LENGTH_SHORT).show();
                 }
-                    startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
+                else{
+                    progressDialog.show();
+                    mAuth.signInWithEmailAndPassword(shopmail.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
+                            if(task.isSuccessful()) {
+                                Toast.makeText(Ownerlogin.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
+                            }
+                            else{
+                                Toast.makeText(Ownerlogin.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                   // startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
                     //                 else {
 //                    Boolean checkuser = db.checkshopnamepassword(shopname.getText().toString(), password.getText().toString());
 //
@@ -95,6 +143,9 @@ public class Ownerlogin extends AppCompatActivity {
 //                }
             }
         });
+        if(mAuth.getCurrentUser()!=null){
+            startActivity(new Intent(Ownerlogin.this, OwnerHomeActivity.class));
+        }
 
 
 
