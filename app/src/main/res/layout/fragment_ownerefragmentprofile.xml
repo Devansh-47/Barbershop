@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="bottom"
     android:background="#99FBE4E4"
     android:orientation="vertical"
     tools:context=".Ownerefragmentprofile">
@@ -23,18 +24,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-19dp"
+        android:layout_marginTop="-21dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:text="________________________________________"
         android:textColor="#000000"
         android:textSize="20sp" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="196dp"
-        android:layout_height="193dp"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-1dp"
+        android:scaleType="fitXY"
         android:src="@drawable/shopimg"
         app:civ_border_color="#372121"
         app:civ_border_overlay="false"
@@ -53,7 +56,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -68,20 +71,22 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
 
-                android:text="Shop 𝙽𝚊𝚖𝚎:"
+                android:text="Shop Name      :"
                 android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
-                android:hint="name here"
+                android:hint="name here  "
+
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
@@ -97,20 +102,22 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
 
-                android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎:"
+                android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎    :"
                 android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editownername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/rounded_edittext_field"
+
                 android:ems="10"
                 android:hint="name here"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
@@ -126,20 +133,21 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
 
-                android:text="Shop  𝚖𝚊𝚒𝚕:"
+                android:text="Shop  𝚖𝚊𝚒𝚕      :"
                 android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
                 android:hint="mail here"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
@@ -155,26 +163,28 @@
                 android:layout_height="wrap_content"
 
                 android:drawableLeft="@drawable/ic_baseline_mobile_friendly_24"
-                android:text="Contact No.:"
+                android:text="Contact No.       :"
                 android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editmobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
+
+                android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
                 android:hint="mobile here"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
@@ -183,9 +193,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text=" 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍:"
+                android:text=" 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍       :"
                 android:textColor="#4E2222"
-                android:textSize="27sp"
+                android:textSize="22sp"
                 app:drawableLeftCompat="@drawable/ic_baseline_lock_24" />
 
             <EditText
@@ -193,18 +203,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
+
+                android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
                 android:hint="Password here"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
@@ -216,18 +228,20 @@
                 android:drawableLeft="@drawable/ic_baseline_home_24"
                 android:text="𝚂𝚑𝚘𝚙 𝙰𝚍𝚍𝚛𝚎𝚜𝚜:"
                 android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editaddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
+
+                android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
                 android:hint="𝙰𝚍𝚍𝚛𝚎𝚜𝚜 here"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
@@ -240,21 +254,45 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="53dp"
-            android:layout_height="51dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="7dp"
-            android:backgroundTint="#4BFB9696"
-            android:src="@drawable/ic_baseline_edit_24"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/editbutton"
+                android:layout_width="53dp"
+                android:layout_height="51dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundcorners"
+                android:backgroundTint="#4BFB9696"
+                android:src="@drawable/ic_baseline_edit_24"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/savebtn"
+                android:layout_width="53dp"
+                android:layout_height="51dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0"
+                android:background="@drawable/roundcorners"
+                android:backgroundTint="#4BFB9696"
+                android:src="@drawable/ic_baseline_save_24"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/logoutbtnn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="3dp"
             android:backgroundTint="#E85757"
             android:src="@drawable/ic_baseline_login_24"
             tools:ignore="SpeakableTextPresentCheck" />

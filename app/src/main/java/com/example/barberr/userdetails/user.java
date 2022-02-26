@@ -5,7 +5,6 @@ public class user {
 
     public user(String user_profile_pic,String user_name, String user_mail, String user_password, String user_mobile_no) {
         this.user_name = user_name;
-
         this.user_profile_pic=user_profile_pic;
         this.user_mail = user_mail;
         this.user_password = user_password;
@@ -56,3 +55,4 @@ public class user {
 
 
 }
+

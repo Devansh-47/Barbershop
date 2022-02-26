@@ -29,7 +29,7 @@ public class OwenerRegistration extends AppCompatActivity {
     Button button;
     TextView t;
     //dbhelperforowner db;
-    EditText password,shopname,shopmail,ownername,shopnumber;
+    EditText password,shopname,shopmail,ownername,shopnumber,shopaddress;
     Boolean flag=true;
     ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
@@ -46,6 +46,7 @@ public class OwenerRegistration extends AppCompatActivity {
         shopname=findViewById(R.id.shopmaill);
         ownername=findViewById(R.id.ownername);
         shopmail=findViewById(R.id.shop_mail);
+        shopaddress=findViewById(R.id.shop_address);
         shopnumber=findViewById(R.id.shopmobile);
 
         button2=findViewById(R.id.button2);
@@ -112,7 +113,7 @@ public class OwenerRegistration extends AppCompatActivity {
                                         String id = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser()).getUid();
 
                                         Owner owner = new Owner("default", shopname.getText().toString(),ownername.getText().toString(), shopmail.getText().toString(),
-                                                password.getText().toString(), shopnumber.getText().toString());
+                                                password.getText().toString(), shopnumber.getText().toString(),shopaddress.getText().toString());
                                         database.getReference().child("Owners").child(id).setValue(owner);
 
                                         Toast.makeText(OwenerRegistration.this, "Shop Created Successfully", Toast.LENGTH_SHORT).show();

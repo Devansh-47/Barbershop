@@ -1,6 +1,7 @@
 package com.example.barberr;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +31,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.barberr.userdetails.user;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +42,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -56,7 +64,8 @@ public class Profilescreen extends Fragment {
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
-
+    FirebaseStorage Storage;
+    StorageReference reference;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -65,8 +74,9 @@ public class Profilescreen extends Fragment {
     ImageView profileimg;
     private Activity activity;
     EditText editname,editpassword,editmobile,editmail;
-    ImageButton browsebtn;
+    ImageButton browsebtn,editbutton,savebutton;
     ActivityResultLauncher<String> launcher;
+    ProgressDialog progressDialog;
 
     public Profilescreen() {
 
@@ -93,7 +103,20 @@ public class Profilescreen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setTitle("Getting Info...");
+        progressDialog.setMessage("Take a Sip..");
+        progressDialog.show();
+
+
+//        ProgressDialog progressDialog2=new ProgressDialog(getContext());
+//        progressDialog2.setTitle("Uploading Image");
+//        progressDialog2.setMessage("Take a Sip...");
+
         // logoutbtn.setBackgroundColor(16711680);
+
+
 
         if (getArguments() != null) {
 
@@ -104,34 +127,92 @@ public class Profilescreen extends Fragment {
 
         }
         mAuth = FirebaseAuth.getInstance();
-        
-        launcher=registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        database = FirebaseDatabase.getInstance();
+
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+//        progressDialog=new ProgressDialog(getContext());
+//        progressDialog.setTitle("Getting Info...");
+//        progressDialog.setMessage("Take a Sip..");
+
+
+        launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+            profileimg.setImageURI(result);
+
+
+            Storage=FirebaseStorage.getInstance();
+
+            reference=Storage.getReference().child("images").child(mAuth.getCurrentUser().getUid());
+            reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onActivityResult(Uri result) {
-                   profileimg.setImageURI(result) ;
+                    public void onSuccess(Uri uri) {
+                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                               // progressDialog2.dismiss();
+                                Toast.makeText(getContext(),"Image Uploaded Successfully",Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
                     }
                 });
+                }
+            });
+        });
 
 
-//        btn1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(activity, Login.class);
-////                activity.startActivity(intent);
-////                activity.finish();
-//
-//            }
-//        });
+
+
+        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                user userdetail = snapshot.getValue(user.class);
+                assert userdetail != null;
+                editname.setText(userdetail.getUser_name());
+                editpassword.setText(userdetail.getUser_password());
+                editmail.setText(userdetail.getUser_mail());
+                editmobile.setText(userdetail.getUser_mobile_no());
+                Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // yourMethod();
+
+                        progressDialog.dismiss();
+
+
+                        editname.setEnabled(false);
+                        editmail.setEnabled(false);
+                        editpassword.setEnabled(false);
+                        editmobile.setEnabled(false);
+                    }
+                }, 2500);   //5 seconds
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
     }
-
-
-
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,7 +221,10 @@ public class Profilescreen extends Fragment {
         View view= inflater.inflate(R.layout.fragment_profilescreen, container, false);
        logoutbtn= (Button) view.findViewById(R.id.logoutbtn);
 
-       editname=(EditText) view.findViewById(R.id.editname);
+        editbutton= (ImageButton) view.findViewById(R.id.editbutton);
+        savebutton=(ImageButton)view.findViewById(R.id.savebutton);
+
+        editname=(EditText) view.findViewById(R.id.editname);
         editmail=(EditText) view.findViewById(R.id.editmail);
         editmobile=(EditText) view.findViewById(R.id.editmobile);
         editpassword=(EditText) view.findViewById(R.id.editpassword);
@@ -148,93 +232,46 @@ public class Profilescreen extends Fragment {
         profileimg=(ImageView)view.findViewById(R.id.profile_image);
 
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        savebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_name").setValue(editname.getText().toString());
+                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
+                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mobile_no").setValue(editmobile.getText().toString());
+                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
 
-      Log.d("lllllllllllllllllllllll",""+(mAuth.getCurrentUser()).getUid());
-
-
-
-
-
-
-
-
-//      String s="Users/"+mAuth.getCurrentUser().getUid();
-//        Log.d("lllllllllllllllllllllll",s);
-//        DatabaseReference ref = database.getReference(s);
-//
-//// Attach a listener to read the data at our posts reference
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                user post = dataSnapshot.getValue(user.class);
-//                assert post != null;
-//                editname.setText(post.getUser_name());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
+                Toast.makeText(getContext(),"Data Updated Successfully :)",Toast.LENGTH_SHORT).show();
 
 
-//        database.getReference("Users").child(mAuth.getCurrentUser().getUid().toString()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                user u=snapshot.getValue(user.class);
-//                Log.d("lllllllllllllllllllllll",u.getUser_name());
-//
-//                editname.setText(u.getUser_name());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
-//        database.getReference().child("Users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if(task.isSuccessful()){
-//                    if(task.getResult().exists()){
-//                        DataSnapshot dataSnapshot=task.getResult();
-//
-//                        String name=String.valueOf(dataSnapshot.child("user_name").getValue());
-//                        editname.setText(name);
-//                        Toast.makeText(getActivity(),"Read SuccessFully",Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        Toast.makeText(getActivity(),"User does not exist",Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                }else {
-//                    Toast.makeText(getActivity(),"Read Failedd",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                user post = dataSnapshot.getValue(user.class);
-//                editname.setText(post.getUser_name());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
+                editname.setEnabled(false);
+                editmail.setEnabled(false);
+                editpassword.setEnabled(false);
+                editmobile.setEnabled(false);
 
 
+
+            }
+        });
+        editbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editname.setEnabled(true);
+                editmail.setEnabled(true);
+                editpassword.setEnabled(true);
+                editmobile.setEnabled(true);
+
+                Toast.makeText(getContext(),"Data is in Edit Mode !!",Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
         browsebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 launcher.launch("image/*");
             }
         });
-
 
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,6 +282,9 @@ public class Profilescreen extends Fragment {
                 startActivity(new Intent(getActivity(),Login.class));
             }
         });
+
+
+
          return view;
     }
 }
@@ -280,61 +320,3 @@ public class Profilescreen extends Fragment {
 
 
 
-//        logoutbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mAuth.signOut();
-//                startActivity(new Intent(getActivity(),Login.class));
-//            }
-//        });
-
-
-
-//     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-//        DatabaseReference ref = database.getReference();
-//        ref.child("users").child(mAuth.getCurrentUser().getUid());
-//        editname=getView().findViewById(R.id.editname);
-//        editpassword=getView().findViewById(R.id.editpassword);
-
-// Attach a listener to read the data at our posts reference
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                user user = dataSnapshot.getValue(user.class);
-//
-//                editname.setText(user.getUser_name());
-//                editpassword.setText(user.getUser_password());
-//
-//                System.out.println(user);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
-
-
-
-
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.upperrightmenulogout,menu);
-//
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//int id=item.getItemId();
-//
-//    if(id==R.id.Help){
-//        Toast.makeText(getActivity(),"help activity",Toast.LENGTH_SHORT).show();
-//    }
-//    if(id==R.id.logout){
-//        mAuth.signOut();
-//        startActivity(new Intent(getActivity(),Login.class));
-//    }
-//    return super.onOptionsItemSelected(item);
-//    }
