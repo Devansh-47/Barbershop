@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/enterotp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter OTP Here : "
+
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <EditText
+            android:id="@+id/otpinput1"
+            android:layout_width="45dp"
+            android:gravity="center"
+
+            android:inputType="number"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/rounded_edittext_field">   <requestFocus />
+        </EditText>
+        <EditText
+            android:id="@+id/otpinput2"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/rounded_edittext_field">
+        </EditText>
+        <EditText
+            android:id="@+id/otpinput3"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/rounded_edittext_field">
+        </EditText>
+        <EditText
+            android:id="@+id/otpinput4"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/rounded_edittext_field">
+        </EditText>
+        <EditText
+            android:id="@+id/otpinput5"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/rounded_edittext_field">
+        </EditText>
+        <EditText
+            android:id="@+id/otpinput6"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/rounded_edittext_field">
+        </EditText>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/black"/>
+
+</LinearLayout>

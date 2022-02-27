@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import java.util.Objects;
 public class custHomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView;
         FirebaseAuth mAuth;
+        String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,14 @@ public class custHomeActivity extends AppCompatActivity {
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fm,new Apphomescreen()).commit();
+        userid=getIntent().getStringExtra("userid");
+
+
+       // Log.d("piooo cust",userid);
+        Bundle bundle = new Bundle();
+        bundle.putString("userid", userid);
+
+
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -41,7 +51,9 @@ public class custHomeActivity extends AppCompatActivity {
 
                 if (item.getItemId() == R.id.home) {
                     fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fm,new Apphomescreen()).commit();
+                    Apphomescreen apphomescreen=new Apphomescreen();
+//                    apphomescreen.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.fm,apphomescreen).commit();
                 }
                 if (item.getItemId() == R.id.appointments) {
                    fragmentTransaction=getSupportFragmentManager().beginTransaction();
@@ -49,7 +61,9 @@ public class custHomeActivity extends AppCompatActivity {
                 }
                 if (item.getItemId() == R.id.profile) {
                    fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fm,new Profilescreen()).commit();
+                    Profilescreen profilescreen=new Profilescreen();
+                    profilescreen.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.fm,profilescreen).commit();
                 }
 
                 return true;

@@ -10,6 +10,7 @@
     <string name="Help">Help</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_maps2">MapsActivity2</string>
+    <string name="title_activity_maps_activitysa">MapsActivitysa</string>
 
     <!--    <string name="default_web_client_id">"186152236574-d497qd22hpan9fe67mjpleau7sg61l86.apps.googleusercontent.com"</string>-->
 </resources>

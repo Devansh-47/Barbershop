@@ -49,6 +49,9 @@ tools:context=".Registration">
             android:paddingLeft="15dp"
             android:textSize="26sp" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <EditText
             android:id="@+id/user_mobile_no"
             android:layout_width="wrap_content"
@@ -62,6 +65,30 @@ tools:context=".Registration">
             android:minHeight="48dp"
             android:paddingLeft="13dp"
             android:textSize="26sp" />
+
+            <ImageView
+                android:id="@+id/check"
+                android:src="@drawable/ic_baseline_check_24"
+                android:layout_width="25dp"
+                android:visibility="gone"
+                android:indeterminateTint="#B8520F"
+                android:layout_height="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="-30dp"
+        />
+            <ProgressBar
+                android:id="@+id/progress_loader"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="25dp"
+                android:indeterminateTint="#B8520F"
+                android:layout_height="25dp"
+               android:layout_marginTop="20dp"
+                android:layout_marginStart="-30dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
 
         <EditText
             android:id="@+id/shop_password"

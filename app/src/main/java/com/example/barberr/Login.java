@@ -92,7 +92,10 @@ public class Login extends AppCompatActivity {
         //Log.d(tag,"4kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
         progressDialog=new ProgressDialog(Login.this);
-        progressDialog.setTitle("Thank You For Sign-in");
+//        progressDialog.setContentView(R.layout.progress_bar);
+//        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+       progressDialog.setTitle("Thank You For Sign-in");
         progressDialog.setMessage("Take a Sip..");
         // db=new dbhelper(this);
         mAuth=FirebaseAuth.getInstance();
@@ -134,7 +137,12 @@ public class Login extends AppCompatActivity {
                             progressDialog.dismiss();
                             if(task.isSuccessful()) {
                                 Toast.makeText(Login.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Login.this,custHomeActivity.class));
+                                Log.d("piooo uidinlogin",mAuth.getCurrentUser().getUid());
+                                Intent i = new Intent(Login.this, custHomeActivity.class);
+                                //Log.d("piooo reg uidd mailauth",authwithmail_uid);
+                                i.putExtra("userid","");
+                                startActivity(i);
+                                finish();
                             }
                             else{
                                 Toast.makeText(Login.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_SHORT).show();
@@ -161,9 +169,9 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        if(mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(Login.this, custHomeActivity.class));
-        }
+//        if(mAuth.getCurrentUser()!=null){
+//            startActivity(new Intent(Login.this, custHomeActivity.class));
+//        }
 
         button2=findViewById(R.id.button2);
 

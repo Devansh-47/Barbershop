@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "186152236574",
+    "firebase_url": "https://barberr-bb08f-default-rtdb.firebaseio.com",
     "project_id": "barberr-bb08f",
     "storage_bucket": "barberr-bb08f.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "186152236574-fbv5iapurr77gi0qiaos3gq5enupvvk5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.barberr",
+            "certificate_hash": "bb8cd05db3417dffea896fe55856d64f85ffc593"
+          }
+        },
         {
           "client_id": "186152236574-d497qd22hpan9fe67mjpleau7sg61l86.apps.googleusercontent.com",
           "client_type": 3

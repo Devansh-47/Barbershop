@@ -32,23 +32,41 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="196dp"
-        android:layout_height="196dp"
+        android:layout_height="203dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:src="@drawable/profileimage"
         app:civ_border_color="#372121"
         app:civ_border_overlay="false"
         app:civ_border_width="3dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-12dp">
+        <ProgressBar
+            android:id="@+id/Loadimg"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="25dp"
+            android:indeterminateTint="#B8520F"
+            android:layout_height="25dp"
+            android:layout_marginEnd="-25dp"
 
-    <ImageButton
-        android:id="@+id/browseimg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="-17dp"
-        android:background="@drawable/roundcorners"
-        android:backgroundTint="#D5C6C6"
-        android:src="@drawable/ic_baseline_image_search_24" />
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/browseimg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/roundcorners"
+            android:backgroundTint="#D5C6C6"
+            android:visibility="visible"
+            android:src="@drawable/ic_baseline_image_search_24" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.barberr.userdetails.user;
@@ -47,6 +48,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -73,10 +75,13 @@ public class Profilescreen extends Fragment {
     Button logoutbtn;
     ImageView profileimg;
     private Activity activity;
-    EditText editname,editpassword,editmobile,editmail;
-    ImageButton browsebtn,editbutton,savebutton;
+    EditText editname, editpassword, editmobile, editmail;
+    ImageButton browsebtn, editbutton, savebutton;
     ActivityResultLauncher<String> launcher;
     ProgressDialog progressDialog;
+    ProgressBar Loadimg;
+
+    String userid;
 
     public Profilescreen() {
 
@@ -104,7 +109,7 @@ public class Profilescreen extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        progressDialog=new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Getting Info...");
         progressDialog.setMessage("Take a Sip..");
         progressDialog.show();
@@ -115,7 +120,6 @@ public class Profilescreen extends Fragment {
 //        progressDialog2.setMessage("Take a Sip...");
 
         // logoutbtn.setBackgroundColor(16711680);
-
 
 
         if (getArguments() != null) {
@@ -129,165 +133,313 @@ public class Profilescreen extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
 //        progressDialog=new ProgressDialog(getContext());
 //        progressDialog.setTitle("Getting Info...");
 //        progressDialog.setMessage("Take a Sip..");
 
 
-        launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
-            profileimg.setImageURI(result);
-
-
-            Storage=FirebaseStorage.getInstance();
-
-            reference=Storage.getReference().child("images").child(mAuth.getCurrentUser().getUid());
-            reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                               // progressDialog2.dismiss();
-                                Toast.makeText(getContext(),"Image Uploaded Successfully",Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                    }
-                });
-                }
-            });
-        });
-
-
-
-
-        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                user userdetail = snapshot.getValue(user.class);
-                assert userdetail != null;
-                editname.setText(userdetail.getUser_name());
-                editpassword.setText(userdetail.getUser_password());
-                editmail.setText(userdetail.getUser_mail());
-                editmobile.setText(userdetail.getUser_mobile_no());
-                Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        // yourMethod();
-
-                        progressDialog.dismiss();
-
-
-                        editname.setEnabled(false);
-                        editmail.setEnabled(false);
-                        editpassword.setEnabled(false);
-                        editmobile.setEnabled(false);
-                    }
-                }, 2500);   //5 seconds
-
-
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
+//        launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+//            profileimg.setImageURI(result);
+//
+//
+//            Storage=FirebaseStorage.getInstance();
+//
+//            reference=Storage.getReference().child("images").child(userid);
+//            reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//
+//
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        database.getReference("Users").child(userid).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void unused) {
+//                               // progressDialog2.dismiss();
+//                                Toast.makeText(getContext(),"Image Uploaded Successfully",Toast.LENGTH_SHORT).show();
+//                                Loadimg.setVisibility(View.INVISIBLE);
+//                                browsebtn.setVisibility(View.VISIBLE);
+//
+//                            }
+//                        });
+//                    }
+//                });
+//                }
+//            });
+//        });
+//        database.getReference("Users").child(userid).addValueEventListener(new ValueEventListener() {
+//
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                Log.d("piooo",userid+"data:"+snapshot.getValue(user.class).getUser_name());
+//
+//                user userdetail = snapshot.getValue(user.class);
+//                assert userdetail != null;
+//                editname.setText(userdetail.getUser_name());
+//                editpassword.setText(userdetail.getUser_password());
+//                editmail.setText(userdetail.getUser_mail());
+//                editmobile.setText(userdetail.getUser_mobile_no());
+//                Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // yourMethod();
+//
+//                        progressDialog.dismiss();
+//
+//                        editname.setEnabled(false);
+//                        editmail.setEnabled(false);
+//                        editpassword.setEnabled(false);
+//                        editmobile.setEnabled(false);
+//                    }
+//                }, 2500);   //5 seconds
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view= inflater.inflate(R.layout.fragment_profilescreen, container, false);
-       logoutbtn= (Button) view.findViewById(R.id.logoutbtn);
+        View view = inflater.inflate(R.layout.fragment_profilescreen, container, false);
+        logoutbtn = (Button) view.findViewById(R.id.logoutbtn);
 
-        editbutton= (ImageButton) view.findViewById(R.id.editbutton);
-        savebutton=(ImageButton)view.findViewById(R.id.savebutton);
+        editbutton = (ImageButton) view.findViewById(R.id.editbutton);
+        savebutton = (ImageButton) view.findViewById(R.id.savebutton);
 
-        editname=(EditText) view.findViewById(R.id.editname);
-        editmail=(EditText) view.findViewById(R.id.editmail);
-        editmobile=(EditText) view.findViewById(R.id.editmobile);
-        editpassword=(EditText) view.findViewById(R.id.editpassword);
-        browsebtn=(ImageButton)view.findViewById(R.id.browseimg);
-        profileimg=(ImageView)view.findViewById(R.id.profile_image);
+        editname = (EditText) view.findViewById(R.id.editname);
+        editmail = (EditText) view.findViewById(R.id.editmail);
+        editmobile = (EditText) view.findViewById(R.id.editmobile);
+        editpassword = (EditText) view.findViewById(R.id.editpassword);
+        browsebtn = (ImageButton) view.findViewById(R.id.browseimg);
+        profileimg = (ImageView) view.findViewById(R.id.profile_image);
+        Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
 
+        assert getArguments() != null;
 
-        savebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                 database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_name").setValue(editname.getText().toString());
-                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
-                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mobile_no").setValue(editmobile.getText().toString());
-                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
-
-                Toast.makeText(getContext(),"Data Updated Successfully :)",Toast.LENGTH_SHORT).show();
+        launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+            profileimg.setImageURI(result);
 
 
+            Storage = FirebaseStorage.getInstance();
 
-                editname.setEnabled(false);
-                editmail.setEnabled(false);
-                editpassword.setEnabled(false);
-                editmobile.setEnabled(false);
+            if(!getArguments().getString("userid").equals("")){
+                reference = Storage.getReference().child("images").child(userid);
+                reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
 
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                database.getReference("Users").child(userid).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        // progressDialog2.dismiss();
+                                        Toast.makeText(getContext(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                        Loadimg.setVisibility(View.INVISIBLE);
+                                        browsebtn.setVisibility(View.VISIBLE);
 
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }else{
+
+                reference = Storage.getReference().child("images").child(mAuth.getCurrentUser().getUid());
+                reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        // progressDialog2.dismiss();
+                                        Toast.makeText(getContext(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                        Loadimg.setVisibility(View.INVISIBLE);
+                                        browsebtn.setVisibility(View.VISIBLE);
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }
-        });
-        editbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editname.setEnabled(true);
-                editmail.setEnabled(true);
-                editpassword.setEnabled(true);
-                editmobile.setEnabled(true);
-
-                Toast.makeText(getContext(),"Data is in Edit Mode !!",Toast.LENGTH_SHORT).show();
+            });
 
 
-            }
-        });
-        browsebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launcher.launch("image/*");
-            }
-        });
-
-        logoutbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(getActivity(),"Logging Out",Toast.LENGTH_SHORT).show();
-                mAuth.signOut();
-                startActivity(new Intent(getActivity(),Login.class));
-            }
-        });
+        if (!getArguments().getString("userid").equals("")) {
+            userid = getArguments().getString("userid");
+           Log.d("piooo userid inprofileR", userid);
+            Log.d("piooo mauthuse profileR", mAuth.getCurrentUser().getUid());
+            database.getReference("Users").child(userid).addValueEventListener(new ValueEventListener() {
 
 
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-         return view;
+                    Log.d("piooo", userid + "data:" + snapshot.getValue(user.class).getUser_name());
+
+                    user userdetail = snapshot.getValue(user.class);
+                    assert userdetail != null;
+                    editname.setText(userdetail.getUser_name());
+                    editpassword.setText(userdetail.getUser_password());
+                    editmail.setText(userdetail.getUser_mail());
+                    editmobile.setText(userdetail.getUser_mobile_no());
+                    Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            // yourMethod();
+
+                            progressDialog.dismiss();
+
+                            editname.setEnabled(false);
+                            editmail.setEnabled(false);
+                            editpassword.setEnabled(false);
+                            editmobile.setEnabled(false);
+                        }
+                    }, 2500);   //5 seconds
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            Log.d("piooo userid inprofileL", getArguments().getString("userid"));
+            Log.d("piooo mauthuse profileL", mAuth.getCurrentUser().getUid());
+            database.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                  //  Log.d("piooogettinfoinprofile", mAuth.getCurrentUser().getUid() + "data:" + snapshot.getValue(user.class).getUser_name());
+
+                    user userdetail = snapshot.getValue(user.class);
+                    if(userdetail!=null){
+                        editname.setText(userdetail.getUser_name());
+                        editpassword.setText(userdetail.getUser_password());
+                        editmail.setText(userdetail.getUser_mail());
+                        editmobile.setText(userdetail.getUser_mobile_no());
+                        Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // yourMethod();
+
+                                progressDialog.dismiss();
+
+                                editname.setEnabled(false);
+                                editmail.setEnabled(false);
+                                editpassword.setEnabled(false);
+                                editmobile.setEnabled(false);
+                            }
+                        }, 2500);   //5 seconds
+
+                    }else{
+                        Toast.makeText(getContext(),"fuck youu",Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+            savebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!getArguments().getString("userid").equals("")) {
+                        database.getReference("Users").child(Objects.requireNonNull(userid)).child("user_name").setValue(editname.getText().toString());
+                        database.getReference("Users").child(userid).child("user_mail").setValue(editmail.getText().toString());
+                        database.getReference("Users").child(userid).child("user_mobile_no").setValue(editmobile.getText().toString());
+                        database.getReference("Users").child(userid).child("user_password").setValue(editpassword.getText().toString());
+
+                        Toast.makeText(getContext(), "Data Updated Successfully :)", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        database.getReference("Users").child(Objects.requireNonNull(mAuth.getCurrentUser().getUid())).child("user_name").setValue(editname.getText().toString());
+                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
+                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mobile_no").setValue(editmobile.getText().toString());
+                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
+
+                        Toast.makeText(getContext(), "Data Updated Successfully :)", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    editname.setEnabled(false);
+                    editmail.setEnabled(false);
+                    editpassword.setEnabled(false);
+                    editmobile.setEnabled(false);
+
+
+                }
+            });
+            editbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    editname.setEnabled(true);
+                    editmail.setEnabled(true);
+                    editpassword.setEnabled(true);
+                    editmobile.setEnabled(true);
+
+                    Toast.makeText(getContext(), "Data is in Edit Mode !!", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+            browsebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    launcher.launch("image/*");
+                    browsebtn.setVisibility(View.INVISIBLE);
+                    Loadimg.setVisibility(View.VISIBLE);
+
+                }
+            });
+            logoutbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    startActivity(new Intent(getActivity(), Login.class));
+                }
+            });
+
+
+            return view;
+
     }
+
 }
+
 
 
 
