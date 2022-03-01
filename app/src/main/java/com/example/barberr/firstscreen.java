@@ -29,6 +29,7 @@ public class firstscreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(firstscreen.this, Login.class));
+
             }
         });
 
@@ -36,6 +37,7 @@ public class firstscreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(firstscreen.this,Ownerlogin.class));
+
             }
         });
     }

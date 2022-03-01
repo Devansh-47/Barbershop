@@ -113,12 +113,17 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, Registration.class));
+                finish();
 //                startActivity(new Intent(Login.this,Registration.class));
             }
         });
         googlebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressDialog.setTitle("Sign-in With Google");
+                progressDialog.setMessage("Take a Sip..");
+                progressDialog.show();
                 signIn();
             }
         });
@@ -142,7 +147,7 @@ public class Login extends AppCompatActivity {
                                 //Log.d("piooo reg uidd mailauth",authwithmail_uid);
                                 i.putExtra("userid","");
                                 startActivity(i);
-                                finish();
+
                             }
                             else{
                                 Toast.makeText(Login.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_SHORT).show();
@@ -225,18 +230,20 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            progressDialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(Login.this,"Signin With Google",Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(Login.this,"Signin With Google",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Login.this,custHomeActivity.class));
+
                             user userr=new user();
                             userr.setUser_name(user.getDisplayName());
                             userr.setUser_mail(user.getEmail());
                             userr.setUser_mobile_no(user.getPhoneNumber());
                             userr.setUser_profile_pic(user.getPhotoUrl().toString());
 
-                            database.getReference().child("Users").child(user.getUid()).setValue(userr);
+                            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).setValue(userr);
 
 
 

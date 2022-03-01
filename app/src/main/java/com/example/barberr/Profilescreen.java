@@ -115,12 +115,6 @@ public class Profilescreen extends Fragment {
         progressDialog.show();
 
 
-//        ProgressDialog progressDialog2=new ProgressDialog(getContext());
-//        progressDialog2.setTitle("Uploading Image");
-//        progressDialog2.setMessage("Take a Sip...");
-
-        // logoutbtn.setBackgroundColor(16711680);
-
 
         if (getArguments() != null) {
 
@@ -218,7 +212,6 @@ public class Profilescreen extends Fragment {
 
         editbutton = (ImageButton) view.findViewById(R.id.editbutton);
         savebutton = (ImageButton) view.findViewById(R.id.savebutton);
-
         editname = (EditText) view.findViewById(R.id.editname);
         editmail = (EditText) view.findViewById(R.id.editmail);
         editmobile = (EditText) view.findViewById(R.id.editmobile);
@@ -234,32 +227,6 @@ public class Profilescreen extends Fragment {
 
 
             Storage = FirebaseStorage.getInstance();
-
-            if(!getArguments().getString("userid").equals("")){
-                reference = Storage.getReference().child("images").child(userid);
-                reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                database.getReference("Users").child(userid).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        // progressDialog2.dismiss();
-                                        Toast.makeText(getContext(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                                        Loadimg.setVisibility(View.INVISIBLE);
-                                        browsebtn.setVisibility(View.VISIBLE);
-
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }else{
 
                 reference = Storage.getReference().child("images").child(mAuth.getCurrentUser().getUid());
                 reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -282,57 +249,16 @@ public class Profilescreen extends Fragment {
                         });
                     }
                 });
-            }
+
             });
 
-
-        if (!getArguments().getString("userid").equals("")) {
-            userid = getArguments().getString("userid");
-           Log.d("piooo userid inprofileR", userid);
-            Log.d("piooo mauthuse profileR", mAuth.getCurrentUser().getUid());
-            database.getReference("Users").child(userid).addValueEventListener(new ValueEventListener() {
-
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    Log.d("piooo", userid + "data:" + snapshot.getValue(user.class).getUser_name());
-
-                    user userdetail = snapshot.getValue(user.class);
-                    assert userdetail != null;
-                    editname.setText(userdetail.getUser_name());
-                    editpassword.setText(userdetail.getUser_password());
-                    editmail.setText(userdetail.getUser_mail());
-                    editmobile.setText(userdetail.getUser_mobile_no());
-                    Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            // yourMethod();
-
-                            progressDialog.dismiss();
-
-                            editname.setEnabled(false);
-                            editmail.setEnabled(false);
-                            editpassword.setEnabled(false);
-                            editmobile.setEnabled(false);
-                        }
-                    }, 2500);   //5 seconds
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        } else {
-            Log.d("piooo userid inprofileL", getArguments().getString("userid"));
-            Log.d("piooo mauthuse profileL", mAuth.getCurrentUser().getUid());
+          //  Log.d("piooo userid inprofile", getArguments().getString("userid"));
+            Log.d("piooo mauthuse profile", mAuth.getCurrentUser().getUid());
             database.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
 
                   //  Log.d("piooogettinfoinprofile", mAuth.getCurrentUser().getUid() + "data:" + snapshot.getValue(user.class).getUser_name());
 
@@ -343,6 +269,12 @@ public class Profilescreen extends Fragment {
                         editmail.setText(userdetail.getUser_mail());
                         editmobile.setText(userdetail.getUser_mobile_no());
                         Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
+                        progressDialog.dismiss();
+                        editname.setEnabled(false);
+                        editmail.setEnabled(false);
+                        editpassword.setEnabled(false);
+                        editmobile.setEnabled(false);
+
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
@@ -350,19 +282,13 @@ public class Profilescreen extends Fragment {
 
                                 progressDialog.dismiss();
 
-                                editname.setEnabled(false);
-                                editmail.setEnabled(false);
-                                editpassword.setEnabled(false);
-                                editmobile.setEnabled(false);
+
                             }
-                        }, 2500);   //5 seconds
+                        }, 0);   //5 seconds
 
                     }else{
-                        Toast.makeText(getContext(),"fuck youu",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"cant find any user",Toast.LENGTH_SHORT).show();
                     }
-
-
-
                 }
 
                 @Override
@@ -371,18 +297,11 @@ public class Profilescreen extends Fragment {
                 }
             });
 
-        }
+
             savebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!getArguments().getString("userid").equals("")) {
-                        database.getReference("Users").child(Objects.requireNonNull(userid)).child("user_name").setValue(editname.getText().toString());
-                        database.getReference("Users").child(userid).child("user_mail").setValue(editmail.getText().toString());
-                        database.getReference("Users").child(userid).child("user_mobile_no").setValue(editmobile.getText().toString());
-                        database.getReference("Users").child(userid).child("user_password").setValue(editpassword.getText().toString());
 
-                        Toast.makeText(getContext(), "Data Updated Successfully :)", Toast.LENGTH_SHORT).show();
-                    } else {
 
                         database.getReference("Users").child(Objects.requireNonNull(mAuth.getCurrentUser().getUid())).child("user_name").setValue(editname.getText().toString());
                         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
@@ -390,7 +309,7 @@ public class Profilescreen extends Fragment {
                         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
 
                         Toast.makeText(getContext(), "Data Updated Successfully :)", Toast.LENGTH_SHORT).show();
-                    }
+
 
 
                     editname.setEnabled(false);

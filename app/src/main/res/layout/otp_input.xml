@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp">
         <EditText
             android:id="@+id/otpinput1"
@@ -26,7 +26,7 @@
 
             android:inputType="number"
             android:layout_height="60dp"
-            android:layout_marginStart="10dp"
+
             android:background="@drawable/rounded_edittext_field">   <requestFocus />
         </EditText>
         <EditText

@@ -76,6 +76,16 @@ tools:context=".Registration">
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="-30dp"
         />
+            <ImageView
+                android:id="@+id/incorrectotp"
+                android:src="@drawable/ic_baseline_error_24"
+                android:layout_width="25dp"
+                android:visibility="gone"
+                android:indeterminateTint="#B8520F"
+                android:layout_height="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="-30dp"
+                />
             <ProgressBar
                 android:id="@+id/progress_loader"
                 style="?android:attr/progressBarStyle"
