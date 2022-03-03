@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="bottom"
-    android:background="#99FBE4E4"
-    android:orientation="vertical"
-    tools:context=".Ownerefragmentprofile">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/Profiletext"
@@ -39,20 +38,45 @@
         android:layout_marginTop="-1dp"
         android:scaleType="fitXY"
         android:src="@drawable/shopimg"
-        app:civ_border_color="#372121"
-        app:civ_border_overlay="false"
-        app:civ_border_width="3dp" />
 
-    <ImageButton
-        android:id="@+id/browsebtn"
+        />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-15dp"
-        android:background="@drawable/roundcorners"
-        android:src="@drawable/ic_baseline_image_search_24"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        android:layout_marginTop="-12dp">
+        <ProgressBar
+            android:id="@+id/Loadimg"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="25dp"
+            android:indeterminateTint="#B8520F"
+            android:layout_height="35dp"
+            android:layout_marginEnd="-29dp"
+            android:visibility="gone" />
 
+        <ImageButton
+            android:id="@+id/browseimg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/roundcorners"
+            android:backgroundTint="#D5C6C6"
+            android:visibility="visible"
+            android:src="@drawable/ic_baseline_image_search_24" />
+
+    </LinearLayout>
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,26 +84,30 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nametext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_home_24"
 
-                android:text="Shop Name      :"
+                android:text="Shop Name :"
                 android:textColor="#4E2222"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:layout_marginLeft="5dp"/>
 
             <EditText
                 android:id="@+id/editname"
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
                 android:hint="name here  "
@@ -87,14 +115,18 @@
                 android:inputType="textPersonName"
                 android:paddingLeft="8dp"
                 android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                />
         </LinearLayout>
 
+
         <LinearLayout
-            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+
+            android:layout_width="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/ownernametext"
@@ -102,13 +134,14 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
 
-                android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎    :"
+                android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎:"
                 android:textColor="#4E2222"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:layout_marginLeft="5dp"/>
 
             <EditText
                 android:id="@+id/editownername"
-                android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edittext_field"
@@ -118,14 +151,20 @@
                 android:inputType="textPersonName"
                 android:paddingLeft="8dp"
                 android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+
+
+            android:layout_width="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/emailtext"
@@ -133,13 +172,13 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
 
-                android:text="Shop  𝚖𝚊𝚒𝚕      :"
+                android:text="Shop  𝚖𝚊𝚒𝚕:"
                 android:textColor="#4E2222"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:layout_marginLeft="5dp"/>
 
             <EditText
                 android:id="@+id/editmail"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edittext_field"
@@ -148,33 +187,41 @@
                 android:inputType="textPersonName"
                 android:paddingLeft="8dp"
                 android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+
+
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/mobilenotext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:drawableLeft="@drawable/ic_baseline_mobile_friendly_24"
-                android:text="Contact No.       :"
+                android:layout_marginLeft="5dp"
+                android:text="Contact Number:"
                 android:textColor="#4E2222"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                app:drawableLeftCompat="@drawable/ic_baseline_mobile_friendly_24" />
 
             <EditText
                 android:id="@+id/editmobile"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                android:layout_margin="5dp"
                 android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
+                android:padding="5dp"
+
                 android:hint="mobile here"
                 android:inputType="textPersonName"
                 android:paddingLeft="8dp"
@@ -183,27 +230,29 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:id="@+id/passwordtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text=" 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍       :"
+                android:layout_marginLeft="5dp"
+                android:text=" 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍 :       "
                 android:textColor="#4E2222"
                 android:textSize="22sp"
                 app:drawableLeftCompat="@drawable/ic_baseline_lock_24" />
 
             <EditText
                 android:id="@+id/editpassword"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                    android:layout_margin="5dp"
+                android:padding="5dp"
                 android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
                 android:hint="Password here"
@@ -215,33 +264,38 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/addresstext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:drawableLeft="@drawable/ic_baseline_home_24"
+                android:layout_marginLeft="5dp"
                 android:text="𝚂𝚑𝚘𝚙 𝙰𝚍𝚍𝚛𝚎𝚜𝚜:"
                 android:textColor="#4E2222"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                app:drawableLeftCompat="@drawable/ic_baseline_home_24" />
 
             <EditText
                 android:id="@+id/editaddress"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-
-                android:background="@drawable/rounded_edittext_field"
+                android:background="@drawable/rectangular_edittext"
                 android:ems="10"
                 android:hint="𝙰𝚍𝚍𝚛𝚎𝚜𝚜 here"
-                android:inputType="textPersonName"
-                android:paddingLeft="8dp"
-                android:textSize="18dp"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:isScrollContainer="true"
+                android:overScrollMode="never"
+                android:padding="5dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textSize="18sp"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
@@ -262,6 +316,10 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <ImageButton
                 android:id="@+id/editbutton"
                 android:layout_width="53dp"
@@ -269,33 +327,79 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundcorners"
-                android:backgroundTint="#4BFB9696"
+                android:backgroundTint="#D0EFB16F"
                 android:src="@drawable/ic_baseline_edit_24"
                 tools:ignore="SpeakableTextPresentCheck" />
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:textColor="#4E2222"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
             <ImageButton
                 android:id="@+id/savebtn"
                 android:layout_width="53dp"
                 android:layout_height="51dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
+
                 android:layout_marginTop="10dp"
                 android:layout_weight="0"
                 android:background="@drawable/roundcorners"
-                android:backgroundTint="#4BFB9696"
+                android:backgroundTint="#D0EFB16F"
                 android:src="@drawable/ic_baseline_save_24"
                 tools:ignore="SpeakableTextPresentCheck" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textColor="#4E2222"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/logoutbtnn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="3dp"
-            android:backgroundTint="#E85757"
-            android:src="@drawable/ic_baseline_login_24"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            >
+
+            <Button
+                android:id="@+id/logoutbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="bottom|center_horizontal"
+                android:backgroundTint="#ABDA7494"
+                android:drawableEnd="@drawable/ic_baseline_login_24"
+                android:text="Logout"
+                app:cornerRadius="100dp" />
+
+            <Button
+                android:id="@+id/deletebtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+
+                android:backgroundTint="#95F44336"
+                android:drawableEnd="@drawable/ic_baseline_delete_24"
+                android:text="Delete  Account"
+                app:cornerRadius="100dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+</ScrollView>
+
     </LinearLayout>
 
-</LinearLayout>

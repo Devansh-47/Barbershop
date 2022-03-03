@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/shopmaill"
+            android:id="@+id/shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -36,7 +36,7 @@
             android:textSize="26sp" />
 
         <EditText
-            android:id="@+id/ownername"
+            android:id="@+id/owner_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -48,20 +48,57 @@
             android:minHeight="48dp"
             android:paddingLeft="15dp"
             android:textSize="26sp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/shopmobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/roundcorners"
-            android:drawableLeft="@drawable/phoneicon"
-            android:ems="10"
-            android:hint="Shop-number"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:paddingLeft="15dp"
-            android:textSize="26sp" />
+    <EditText
+        android:id="@+id/shop_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/roundcorners"
+        android:drawableLeft="@drawable/phoneicon"
+        android:ems="10"
+        android:hint="Shop-number"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:paddingLeft="15dp"
+        android:textSize="26sp" />
+
+    <ImageView
+        android:id="@+id/check"
+        android:src="@drawable/ic_baseline_check_24"
+        android:layout_width="25dp"
+        android:visibility="gone"
+        android:indeterminateTint="#B8520F"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="-30dp"
+        />
+    <ImageView
+        android:id="@+id/incorrectotp"
+        android:src="@drawable/ic_baseline_error_24"
+        android:layout_width="25dp"
+        android:visibility="gone"
+        android:indeterminateTint="#B8520F"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="-30dp"
+        />
+    <ProgressBar
+        android:id="@+id/progress_loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="25dp"
+        android:indeterminateTint="#B8520F"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="-30dp"
+        android:visibility="gone" />
+
+</LinearLayout>
+
 
         <EditText
             android:id="@+id/shop_mail"
@@ -107,7 +144,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/loginbtn"
+        android:id="@+id/registrationbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
@@ -115,8 +152,8 @@
         android:backgroundTint="#A449091B"
         android:text="REGISTER" />
 
-    <Button
-        android:id="@+id/button2"
+    <ImageButton
+        android:id="@+id/eyebutton"
         android:layout_width="25dp"
         android:layout_height="40dp"
 

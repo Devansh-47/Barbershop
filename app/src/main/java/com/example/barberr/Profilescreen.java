@@ -72,7 +72,7 @@ public class Profilescreen extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button logoutbtn;
+    Button logoutbtn,deletebtn;
     ImageView profileimg;
     private Activity activity;
     EditText editname, editpassword, editmobile, editmail;
@@ -82,6 +82,8 @@ public class Profilescreen extends Fragment {
     ProgressBar Loadimg;
 
     String userid;
+    //this is for changing email and password of user
+    String mail,pass;
 
     public Profilescreen() {
 
@@ -209,9 +211,10 @@ public class Profilescreen extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profilescreen, container, false);
         logoutbtn = (Button) view.findViewById(R.id.logoutbtn);
+        deletebtn = (Button) view.findViewById(R.id.deletebtn);
 
         editbutton = (ImageButton) view.findViewById(R.id.editbutton);
-        savebutton = (ImageButton) view.findViewById(R.id.savebutton);
+        savebutton = (ImageButton) view.findViewById(R.id.savebtn);
         editname = (EditText) view.findViewById(R.id.editname);
         editmail = (EditText) view.findViewById(R.id.editmail);
         editmobile = (EditText) view.findViewById(R.id.editmobile);
@@ -253,49 +256,54 @@ public class Profilescreen extends Fragment {
             });
 
           //  Log.d("piooo userid inprofile", getArguments().getString("userid"));
-            Log.d("piooo mauthuse profile", mAuth.getCurrentUser().getUid());
-            database.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//            Log.d("piooo mauthuse profile", mAuth.getCurrentUser().getUid());
 
 
-                  //  Log.d("piooogettinfoinprofile", mAuth.getCurrentUser().getUid() + "data:" + snapshot.getValue(user.class).getUser_name());
-
-                    user userdetail = snapshot.getValue(user.class);
-                    if(userdetail!=null){
-                        editname.setText(userdetail.getUser_name());
-                        editpassword.setText(userdetail.getUser_password());
-                        editmail.setText(userdetail.getUser_mail());
-                        editmobile.setText(userdetail.getUser_mobile_no());
-                        Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
-                        progressDialog.dismiss();
-                        editname.setEnabled(false);
-                        editmail.setEnabled(false);
-                        editpassword.setEnabled(false);
-                        editmobile.setEnabled(false);
-
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // yourMethod();
-
-                                progressDialog.dismiss();
 
 
-                            }
-                        }, 0);   //5 seconds
+                database.getReference("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
 
-                    }else{
-                        Toast.makeText(getContext(),"cant find any user",Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                        //  Log.d("piooogettinfoinprofile", mAuth.getCurrentUser().getUid() + "data:" + snapshot.getValue(user.class).getUser_name());
+
+                        user userdetail = snapshot.getValue(user.class);
+                        if (userdetail != null) {
+                            editname.setText(userdetail.getUser_name());
+                            editpassword.setText(userdetail.getUser_password());
+                            editmail.setText(userdetail.getUser_mail());
+                            editmobile.setText(userdetail.getUser_mobile_no());
+                            Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
+                            progressDialog.dismiss();
+                            editname.setEnabled(false);
+                            editmail.setEnabled(false);
+                            editpassword.setEnabled(false);
+                            editmobile.setEnabled(false);
+
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    // yourMethod();
+
+                                    progressDialog.dismiss();
+
+
+                                }
+                            }, 0);   //5 seconds
+
+                        } else {
+                           // Toast.makeText(getContext(), "cant find any user", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    }
+                });
+
 
 
             savebutton.setOnClickListener(new View.OnClickListener() {
@@ -303,12 +311,13 @@ public class Profilescreen extends Fragment {
                 public void onClick(View view) {
 
 
+
                         database.getReference("Users").child(Objects.requireNonNull(mAuth.getCurrentUser().getUid())).child("user_name").setValue(editname.getText().toString());
                         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
                         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mobile_no").setValue(editmobile.getText().toString());
                         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
 
-                        Toast.makeText(getContext(), "Data Updated Successfully :)", Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -316,8 +325,54 @@ public class Profilescreen extends Fragment {
                     editmail.setEnabled(false);
                     editpassword.setEnabled(false);
                     editmobile.setEnabled(false);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+                    if(mail!=editmail.getText().toString()){
 
+                        Log.d("change edittextmail", editmail.getText().toString());
+                        Log.d("change beforeeditmail",mail);
+
+                        user.updateEmail(editmail.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                          //  Log.d(TAG, "User email address updated.");
+//                                            user.sendEmailVerification()
+//                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                        @Override
+//                                                        public void onComplete(@NonNull Task<Void> task) {
+//                                                            if (task.isSuccessful()) {
+//                                                              //  Log.d(TAG, "Email sent.");
+//                                                            }
+//                                                        }
+//                                                    });
+
+                                        }else{
+                                            Toast.makeText(getContext()," Email Updadtion Failed",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                    }
+                    if(pass!=editpassword.getText().toString()){
+
+                        Log.d("change edittextpass", editpassword.getText().toString());
+                        Log.d("change beforeeditpas",pass);
+                        user.updatePassword(editpassword.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+
+                                        }else{
+                                            Toast.makeText(getContext()," password Updadtion Failed",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+
+                    Toast.makeText(getContext(),"Profile Updated Successfully :)",Toast.LENGTH_SHORT).show();
                 }
             });
             editbutton.setOnClickListener(new View.OnClickListener() {
@@ -327,6 +382,9 @@ public class Profilescreen extends Fragment {
                     editmail.setEnabled(true);
                     editpassword.setEnabled(true);
                     editmobile.setEnabled(true);
+
+                    mail=editmail.getText().toString();
+                    pass=editpassword.getText().toString();
 
                     Toast.makeText(getContext(), "Data is in Edit Mode !!", Toast.LENGTH_SHORT).show();
 
@@ -349,8 +407,37 @@ public class Profilescreen extends Fragment {
                     Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
                     mAuth.signOut();
                     startActivity(new Intent(getActivity(), Login.class));
+                    getActivity().finish();
                 }
             });
+
+        deletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.setTitle("Deleting Your Account ");
+                progressDialog.setMessage("Thank You for Visit");
+                progressDialog.show();
+
+              database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
+                      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                      user.delete()
+                              .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                  @Override
+                                  public void onComplete(@NonNull Task<Void> task) {
+                                      if (task.isSuccessful()) {
+                                          progressDialog.dismiss();
+                                          Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                                          startActivity(new Intent(getActivity(), Login.class));
+                                      }
+                                  }
+                              });
+
+                  }
+              });
+            }
+        });
 
 
             return view;

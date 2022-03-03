@@ -22,7 +22,7 @@ tools:context=".Registration">
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/shopmaill"
+            android:id="@+id/shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -128,11 +128,11 @@ tools:context=".Registration">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="150dp"
         android:backgroundTint="#B049091B"
         android:text="REGISTER" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button2"
         android:layout_width="25dp"
         android:layout_height="40dp"

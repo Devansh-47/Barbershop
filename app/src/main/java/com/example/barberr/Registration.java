@@ -2,11 +2,9 @@ package com.example.barberr;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -20,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,10 +27,8 @@ import com.example.barberr.userdetails.user;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -41,7 +38,8 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Registration extends AppCompatActivity {
-    Button registerbtn, eyebutton;
+    Button registerbtn;
+    ImageButton eyebutton;
     Button verify;
     EditText otp1, otp6, otp5, otp4, otp3, otp2;
     TextView t;
@@ -68,7 +66,7 @@ public class Registration extends AppCompatActivity {
         t = findViewById(R.id.textView2);
         t.setPaintFlags(t.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         user_password = findViewById(R.id.shop_password);
-        user_name = findViewById(R.id.shopmaill);
+        user_name = findViewById(R.id.shop_name);
         user_mail = findViewById(R.id.shop_mail);
         user_mobile_no = findViewById(R.id.user_mobile_no);
         check = findViewById(R.id.check);
@@ -128,7 +126,7 @@ public class Registration extends AppCompatActivity {
             public void onClick(View v) {
                 registerbtn.setEnabled(false);
                 incorrect_otp.setVisibility(View.GONE);
-                Loading.setVisibility(View.VISIBLE);
+
 
 
                 if (user_name.getText().toString().equals("") || user_mail.getText().toString().equals("") || user_mobile_no.getText().toString().equals("") || user_password.getText().toString().equals("")) {
@@ -137,10 +135,12 @@ public class Registration extends AppCompatActivity {
 //
                 } else {
                     if (user_mobile_no.getText().toString().length() != 10) {
-                        Toast.makeText(Registration.this, "Invalid mobile no length", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Registration.this, "Invalid mobile no length!! It should be exactly 10", Toast.LENGTH_SHORT).show();
+                        Loading.setVisibility(View.GONE);
                         registerbtn.setEnabled(true);
                     } else {
                         progressDialog.show();
+                        Loading.setVisibility(View.VISIBLE);
                         sendVerificationCode("+91"+user_mobile_no.getText().toString());
 
 
@@ -202,6 +202,8 @@ public class Registration extends AppCompatActivity {
                                                                             Intent i = new Intent(Registration.this, custHomeActivity.class);
                                                                             Log.d("piooo reg uidd mailauth",authwithmail_uid);
                                                                             i.putExtra("userid",authwithmail_uid);
+                                                                            Toast.makeText(Registration.this, "Welcome :)", Toast.LENGTH_SHORT).show();
+
                                                                             startActivity(i);
                                                                             finish();
 
@@ -210,6 +212,8 @@ public class Registration extends AppCompatActivity {
                                                                     }, 2000);
 
                                                                 } else {
+                                                                    registerbtn.setEnabled(true);
+                                                                    Loading.setVisibility(View.GONE);
                                                                     Toast.makeText(Registration.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                                                                 }
@@ -291,7 +295,7 @@ public class Registration extends AppCompatActivity {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(number)            // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setTimeout(0L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(mCallBack)           // OnVerificationStateChangedCallbacks
                         .build();
@@ -427,31 +431,6 @@ public class Registration extends AppCompatActivity {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         codesent=credential.getSmsCode();
         signInWithCredential(credential);
-//        Log.d("piooo  fucking codesent", codesent);
-//        if (code.equals(codesent)) {
-//            Toast.makeText(Registration.this, "Ready To Go", Toast.LENGTH_LONG).show();
-//            Loading.setVisibility(View.GONE);
-//            check.setVisibility(View.VISIBLE);
-//            user user = new user("default", user_name.getText().toString(), user_mail.getText().toString(),
-//                    user_password.getText().toString(), user_mobile_no.getText().toString());
-//            database.getReference().child("Users").child(authwithmail_uid).setValue(user);
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                public void run() {
-//                    Intent i = new Intent(Registration.this, custHomeActivity.class);
-//                    Log.d("piooo reg uidd maauth", mAuth.getCurrentUser().getUid());
-//                    i.putExtra("userid", authwithmail_uid);
-//                    startActivity(i);
-//                    finish();
-//                }
-//            }, 2000);
-//        }
-//        else{
-//            Loading.setVisibility(View.GONE);
-//            incorrect_otp.setVisibility(View.VISIBLE);
-//           // check.setVisibility(View.VISIBLE);
-//            Toast.makeText(Registration.this,"Incorrect OTP!!...Try again",Toast.LENGTH_LONG).show();
-//            registerbtn.setEnabled(true);
-//        }
+
     }
 }

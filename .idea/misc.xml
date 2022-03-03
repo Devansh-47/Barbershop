@@ -3,7 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_registration.xml" value="0.17395833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1825" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.1825" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/rectangular_edittext.xml" value="0.1825" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/rounded_edittext_field.xml" value="0.1825" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_firstscreen.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_login.xml" value="0.23645833333333333" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_owener_registration.xml" value="0.264" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_ownerlogin.xml" value="0.2" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_registration.xml" value="0.264" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerefragmentprofile.xml" value="0.264" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_profilescreen.xml" value="0.2" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/progress_bar.xml" value="0.16197916666666667" />
       </map>
     </option>
   </component>

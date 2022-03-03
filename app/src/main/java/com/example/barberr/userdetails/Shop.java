@@ -1,9 +1,9 @@
 package com.example.barberr.userdetails;
 
-public class Owner {
+public class Shop {
     String shop_profile_pic,shop_name,owner_name,shop_mail,shop_password,shop_mobile_no,shop_address;
 
-    public Owner(String shop_profile_pic, String shop_name, String owner_name, String shop_mail, String shop_password, String shop_mobile_no,String shop_address) {
+    public Shop(String shop_profile_pic, String shop_name, String owner_name, String shop_mail, String shop_password, String shop_mobile_no, String shop_address) {
         this.shop_profile_pic = shop_profile_pic;
         this.shop_name = shop_name;
         this.owner_name = owner_name;
@@ -12,7 +12,7 @@ public class Owner {
         this.shop_mobile_no = shop_mobile_no;
         this.shop_address=shop_address;
     }
-public Owner(){}
+public Shop(){}
 
     public String getShop_profile_pic() {
         return shop_profile_pic;

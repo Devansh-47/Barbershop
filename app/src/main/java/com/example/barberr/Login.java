@@ -34,7 +34,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -42,7 +46,8 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN =65 ;
     TextView textView,t;
     EditText user_password,user_email;
-    Button button2,loginbtn;
+    Button loginbtn;
+    ImageButton eyeicon;
     ImageButton googlebtn;
     Boolean flag=true;
     public static final String tag ="zesus";
@@ -69,7 +74,7 @@ public class Login extends AppCompatActivity {
 
         user_password=findViewById(R.id.shop_password);
 
-        user_email=findViewById(R.id.shopmaill);
+        user_email=findViewById(R.id.shop_name);
         //Log.d(tag,"1kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
         //db=new dbhelper(this);
@@ -100,6 +105,9 @@ public class Login extends AppCompatActivity {
         // db=new dbhelper(this);
         mAuth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
+
+        //186152236574-d497qd22hpan9fe67mjpleau7sg61l86.apps.googleusercontent.com
+        //default_web_client_id
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -133,30 +141,93 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 if(user_email.getText().toString().equals("") || user_password.getText().toString().equals("")) {
                     Toast.makeText(Login.this,"enterrrr all fields",Toast.LENGTH_SHORT).show();
+
+                }else {
+
+
+                    ///sassssssssssssssssssssssssssssssss
+
+//                    FirebaseDatabase.getInstance().getReference().child("Users")
+//                            .addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    int count=0;
+//                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                        user user = snapshot.getValue(user.class);
+//                                        if (user.getUser_mail().equals(user_email.getText().toString()) ) {
+//                                            count++;
+//                                            if(user.getUser_password().equals(user_password.getText().toString())) {
 //
-                }else{
+//                                                Toast.makeText(Login.this, "Log-in Successfully", Toast.LENGTH_SHORT).show();
+////                                                Log.d("piooo uidinlogin", mAuth.getCurrentUser().getUid());
+//                                                Intent i = new Intent(Login.this, custHomeActivity.class);
+//                                                //Log.d("piooo reg uidd mailauth",authwithmail_uid);
+//                                                i.putExtra("userid", "");
+//                                                startActivity(i);
+//                                            }else{
+//                                                Toast.makeText(Login.this, "Invalid password!!", Toast.LENGTH_SHORT).show();
+//
+//                                            }
+//                                        }
+//                                    }
+//                                    if(count==0){
+//                                        Toast.makeText(Login.this, "Invalid email!!", Toast.LENGTH_SHORT).show();
+//
+//                                    }
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//                                }
+//                            });
+
+
+//                                    if (usersBean.getUser_password().equals(user_password.getText().toString())) {
+//                                        Toast.makeText(Login.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
+//                                        Log.d("piooo uidinlogin",mAuth.getCurrentUser().getUid());
+//                                        Intent i = new Intent(Login.this, custHomeActivity.class);
+//                                        //Log.d("piooo reg uidd mailauth",authwithmail_uid);
+//                                        i.putExtra("userid","");
+//                                        startActivity(i);
+                    //saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                     progressDialog.show();
                     mAuth.signInWithEmailAndPassword(user_email.getText().toString(),user_password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if(task.isSuccessful()) {
-                                Toast.makeText(Login.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
-                                Log.d("piooo uidinlogin",mAuth.getCurrentUser().getUid());
-                                Intent i = new Intent(Login.this, custHomeActivity.class);
-                                //Log.d("piooo reg uidd mailauth",authwithmail_uid);
-                                i.putExtra("userid","");
-                                startActivity(i);
+
+                                database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            Toast.makeText(Login.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
+                                            Log.d("piooo uidinlogin",mAuth.getCurrentUser().getUid());
+                                            Intent i = new Intent(Login.this, custHomeActivity.class);
+                                            //Log.d("piooo reg uidd mailauth",authwithmail_uid);
+                                            i.putExtra("userid","");
+                                            startActivity(i);
+                                        }
+                                        else {
+                                            Toast.makeText(Login.this,"User does not Exist",Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+
+                                });
 
                             }
                             else{
-                                Toast.makeText(Login.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-                }
-
-
 
 
 //                if (username.getText().toString().equals("") || user_password.getText().toString().equals("")) {
@@ -171,17 +242,17 @@ public class Login extends AppCompatActivity {
 //
 //                    }
 //                }
-            }
-        });
+                }
+        }});
 
-//        if(mAuth.getCurrentUser()!=null){
+ //        if(mAuth.getCurrentUser()!=null){
 //            startActivity(new Intent(Login.this, custHomeActivity.class));
 //        }
 
-        button2=findViewById(R.id.button2);
+        eyeicon=findViewById(R.id.button2);
 
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        eyeicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(flag){

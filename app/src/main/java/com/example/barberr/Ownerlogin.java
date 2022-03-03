@@ -15,15 +15,20 @@ import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -32,10 +37,12 @@ public class Ownerlogin extends AppCompatActivity {
     private static final int RC_SIGN_IN =69 ;
     TextView textView,t;
     EditText password,shopmail;
-    Button button2,loginbtn;
+    Button loginbtn;
+    ImageButton eyeimg;
     Boolean flag=true;
     ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
+
     FirebaseDatabase database;
    // dbhelperforowner db;
 
@@ -56,8 +63,8 @@ public class Ownerlogin extends AppCompatActivity {
 
 
         password = findViewById(R.id.shop_password);
-        shopmail=findViewById(R.id.shopmaill);
-        button2 = findViewById(R.id.button2);
+        shopmail=findViewById(R.id.shop_name);
+        eyeimg = findViewById(R.id.button2);
         loginbtn = findViewById(R.id.loginbtn);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -84,6 +91,7 @@ public class Ownerlogin extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(Ownerlogin.this, OwenerRegistration.class));
+                finish();
             }
         });
 
@@ -92,7 +100,7 @@ public class Ownerlogin extends AppCompatActivity {
 
 
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        eyeimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (flag) {
@@ -121,11 +129,33 @@ public class Ownerlogin extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if(task.isSuccessful()) {
-                                Toast.makeText(Ownerlogin.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
-                            }
+
+                                database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            Toast.makeText(Ownerlogin.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
+                                            finish();
+
+                                        }
+                                        else {
+                                            Toast.makeText(Ownerlogin.this,"Shop does not Exist",Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+
+                                });
+
+
+                            } 
                             else{
-                                Toast.makeText(Ownerlogin.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Ownerlogin.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
                     });

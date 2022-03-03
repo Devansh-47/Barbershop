@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FBF9F9"
     android:orientation="vertical"
     tools:context=".Profilescreen">
@@ -71,11 +73,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="6dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
@@ -97,14 +99,15 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edittext_field"
                 android:ems="10"
+                android:layout_marginEnd="10dp"
                 android:hint="name here"
                 android:inputType="textPersonName"
                 android:padding="3dp"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
@@ -127,14 +130,15 @@
                 android:background="@drawable/rounded_edittext_field"
 
                 android:ems="10"
+                android:layout_marginEnd="10dp"
                 android:hint="mail here"
                 android:inputType="textPersonName"
                 android:padding="3dp"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
@@ -145,7 +149,7 @@
                 android:layout_height="wrap_content"
 
                 android:drawableLeft="@drawable/ic_baseline_mobile_friendly_24"
-                android:text=" 𝙼𝚘𝚋𝚒𝚕𝚎     :"
+                android:text=" 𝙼𝚘𝚋𝚒𝚕𝚎    :"
                 android:textColor="#4E2222"
                 android:textSize="27sp" />
 
@@ -155,18 +159,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edittext_field"
-
+                android:layout_marginEnd="10dp"
                 android:ems="10"
+
                 android:hint="mobile here"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:padding="3dp"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+
             android:orientation="horizontal">
 
             <TextView
@@ -185,52 +191,122 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edittext_field"
-
+                android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:hint="Password here"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:padding="3dp"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/editbutton"
-            android:layout_width="60sp"
-            android:layout_height="60sp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/roundcorners"
-            android:backgroundTint="#B9FB9696"
-            android:src="@drawable/ic_baseline_edit_24" />
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/savebutton"
-            android:layout_width="60sp"
-            android:layout_height="60sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/roundcorners"
-            android:backgroundTint="#B9FB9696"
-            android:src="@drawable/ic_baseline_save_24" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/editbutton"
+                    android:layout_width="53dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/roundcorners"
+                    android:backgroundTint="#95EFB16F"
+                    android:src="@drawable/ic_baseline_edit_24"
+                    tools:ignore="SpeakableTextPresentCheck" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:textColor="#4E2222"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/savebtn"
+                    android:layout_width="53dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="center_horizontal"
+
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/roundcorners"
+                    android:backgroundTint="#95EFB16F"
+                    android:src="@drawable/ic_baseline_save_24"
+                    tools:ignore="SpeakableTextPresentCheck" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textColor="#4E2222"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/logoutbtnn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:backgroundTint="#A1E85785"-->
+<!--            android:src="@drawable/ic_baseline_login_24"-->
+<!--            tools:ignore="SpeakableTextPresentCheck" />-->
     </LinearLayout>
 
-    <Button
-        android:id="@+id/logoutbtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+    <Button
+        android:id="@+id/logoutbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="bottom|center_horizontal"
+        android:backgroundTint="#DA7494"
         android:drawableEnd="@drawable/ic_baseline_login_24"
         android:text="Logout"
         app:cornerRadius="100dp" />
 
+        <Button
+            android:id="@+id/deletebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+
+            android:backgroundTint="#BFF44336"
+            android:drawableEnd="@drawable/ic_baseline_delete_24"
+            android:text="Delete  Account"
+            app:cornerRadius="100dp" />
+
+    </LinearLayout>
 </LinearLayout>
+
+
+

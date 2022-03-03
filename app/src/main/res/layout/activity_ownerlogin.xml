@@ -35,7 +35,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/shopmaill"
+            android:id="@+id/shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -89,7 +89,7 @@
         android:backgroundTint="#A449091B"
         android:text="Login" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button2"
         android:layout_width="25dp"
         android:layout_height="40dp"

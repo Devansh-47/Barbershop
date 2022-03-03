@@ -24,19 +24,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginTop="-30dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginEnd="15dp"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/customerbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+
                 android:background="@drawable/style"
                 android:backgroundTint="#8ABCAEAE"
                 app:srcCompat="@drawable/cust" />
@@ -52,8 +55,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
             android:orientation="vertical">
 
             <ImageButton
@@ -61,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_margin="20dp"
                 android:background="@drawable/style"
                 android:backgroundTint="#8ABCAEAE"
                 app:srcCompat="@drawable/shop" />

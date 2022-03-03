@@ -3,29 +3,35 @@ package com.example.barberr;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Scroller;
 import android.widget.Toast;
 
-import com.example.barberr.userdetails.Owner;
-import com.example.barberr.userdetails.user;
+import com.example.barberr.userdetails.Shop;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,14 +64,18 @@ public class Ownerefragmentprofile extends Fragment {
     FirebaseStorage Storage;
     StorageReference reference;
 
-    ImageButton logoutbtn;
+    Button logoutbtn,deletebtn;
     ImageView profileimg;
     private Activity activity;
     EditText editshopname,editownername,editpassword,editaddress,editmobile,editmail;
     ImageButton browsebtn,editbutton,savebutton;
     ActivityResultLauncher<String> launcher;
     ProgressDialog progressDialog;
+    ProgressBar Loadimg;
 
+    //this is for changing shops email and password
+
+    String mail,pass;
 
     public Ownerefragmentprofile() {
         // Required empty public constructor
@@ -104,10 +114,10 @@ public class Ownerefragmentprofile extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        Log.d("aayege","1111112");
+
       mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        Log.d("aayege","1111113");
+
 //
 //        launcher=registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
 //            @Override
@@ -116,6 +126,34 @@ public class Ownerefragmentprofile extends Fragment {
 //            }
 //        });
 
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_ownerefragmentprofile, container, false);
+        logoutbtn= (Button) view.findViewById(R.id.logoutbtn);
+       deletebtn= (Button) view.findViewById(R.id.deletebtn);
+
+        editbutton= (ImageButton) view.findViewById(R.id.editbutton);
+        savebutton=(ImageButton)view.findViewById(R.id.savebtn);
+
+        editshopname=(EditText) view.findViewById(R.id.editname);
+        editownername=(EditText) view.findViewById(R.id.editownername);
+        editmail=(EditText) view.findViewById(R.id.editmail);
+        editaddress=(EditText) view.findViewById(R.id.editaddress);
+        editmobile=(EditText) view.findViewById(R.id.editmobile);
+        editpassword=(EditText) view.findViewById(R.id.editpassword);
+        browsebtn=(ImageButton)view.findViewById(R.id.browseimg);
+        profileimg=(ImageView)view.findViewById(R.id.profile_image);
+        profileimg.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
             profileimg.setImageURI(result);
 
@@ -131,10 +169,12 @@ public class Ownerefragmentprofile extends Fragment {
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("shop_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     // progressDialog2.dismiss();
+                                    Loadimg.setVisibility(View.GONE);
+                                    browsebtn.setVisibility(View.VISIBLE);
                                     Toast.makeText(getContext(),"Image Uploaded Successfully",Toast.LENGTH_SHORT).show();
 
                                 }
@@ -145,18 +185,21 @@ public class Ownerefragmentprofile extends Fragment {
             });
         });
 
-        Log.d("aayege","1111114"+mAuth.getCurrentUser().getUid());
-        database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+//        Log.d("aayege","1111114"+mAuth.getCurrentUser().getUid());
 
+        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                Owner ownerdetail = snapshot.getValue(Owner.class);
+                Shop ownerdetail = snapshot.getValue(Shop.class);
                 Log.d("aayege","111111");
                 editshopname.setText(ownerdetail.getShop_name());
-               editownername.setText(ownerdetail.getOwner_name());
-               editaddress.setText(ownerdetail.getShop_address());
+                editownername.setText(ownerdetail.getOwner_name());
+                editaddress.setText(ownerdetail.getShop_address());
+                editaddress.setMaxLines(5);
+//                editaddress.setVerticalScrollBarEnabled(true);
+//                editaddress.setMovementMethod(new ScrollingMovementMethod());
+//                editaddress.setScroller(new Scroller(getContext()));
+
                 editpassword.setText(ownerdetail.getShop_password());
                 editmail.setText(ownerdetail.getShop_mail());
                 editmobile.setText(ownerdetail.getShop_mobile_no());
@@ -166,8 +209,9 @@ public class Ownerefragmentprofile extends Fragment {
                     public void run() {
                         // yourMethod();
 
-                        progressDialog.dismiss();
 
+
+                        progressDialog.dismiss();
 
                         editshopname.setEnabled(false);
                         editmail.setEnabled(false);
@@ -176,10 +220,7 @@ public class Ownerefragmentprofile extends Fragment {
                         editpassword.setEnabled(false);
                         editmobile.setEnabled(false);
                     }
-                }, 2500);   //5 seconds
-
-
-
+                }, 500);   //5 seconds
 
 
             }
@@ -190,71 +231,69 @@ public class Ownerefragmentprofile extends Fragment {
             }
         });
 
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_ownerefragmentprofile, container, false);
-        logoutbtn= (ImageButton) view.findViewById(R.id.logoutbtnn);
-
-        editbutton= (ImageButton) view.findViewById(R.id.editbutton);
-        savebutton=(ImageButton)view.findViewById(R.id.savebtn);
-
-        editshopname=(EditText) view.findViewById(R.id.editname);
-        editownername=(EditText) view.findViewById(R.id.editownername);
-        editmail=(EditText) view.findViewById(R.id.editmail);
-        editaddress=(EditText) view.findViewById(R.id.editaddress);
-        editmobile=(EditText) view.findViewById(R.id.editmobile);
-        editpassword=(EditText) view.findViewById(R.id.editpassword);
-        browsebtn=(ImageButton)view.findViewById(R.id.browsebtn);
-        profileimg=(ImageView)view.findViewById(R.id.profile_image);
-
-
-       // FirebaseUser user = mAuth.getCurrentUser();
-
-
-
-//        browsebtn.setOnClickListener(new View.OnClickListener() {
+        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addValueEventListener(new ValueEventListener() {
+//
 //            @Override
-//            public void onClick(View view) {
-//                launcher.launch("image/*");
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                Shop ownerdetail = snapshot.getValue(Shop.class);
+//                Log.d("aayege","111111");
+//                editshopname.setText(ownerdetail.getShop_name());
+//                editownername.setText(ownerdetail.getOwner_name());
+//                editaddress.setText(ownerdetail.getShop_address());
+//                editaddress.setMaxLines(5);
+////                editaddress.setVerticalScrollBarEnabled(true);
+////                editaddress.setMovementMethod(new ScrollingMovementMethod());
+////                editaddress.setScroller(new Scroller(getContext()));
+//
+//                editpassword.setText(ownerdetail.getShop_password());
+//                editmail.setText(ownerdetail.getShop_mail());
+//                editmobile.setText(ownerdetail.getShop_mobile_no());
+//                Picasso.get().load(Uri.parse(ownerdetail.getShop_profile_pic())).into(profileimg);
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // yourMethod();
+//
+//
+//
+//                        progressDialog.dismiss();
+//
+//                        editshopname.setEnabled(false);
+//                        editmail.setEnabled(false);
+//                        editownername.setEnabled(false);
+//                        editaddress.setEnabled(false);
+//                        editpassword.setEnabled(false);
+//                        editmobile.setEnabled(false);
+//                    }
+//                }, 500);   //5 seconds
+//
+//
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
 //            }
 //        });
 
-//
-        logoutbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Toast.makeText(getActivity(),"Logging Out",Toast.LENGTH_SHORT).show();
-                mAuth.signOut();
-//                Intent intent = new Intent(this, LoginActivity.class);
-//                intent.putExtra("finish", true); // if you are checking for this in your other Activities
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-//                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
-//                        Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
 
-                startActivity(new Intent(getActivity(),Ownerlogin.class));
-            }
-        });
 
         savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("shop_name").setValue(editshopname.getText().toString());
-                database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("shop_mail").setValue(editmail.getText().toString());
-                database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("shop_mobile_no").setValue(editmobile.getText().toString());
-                database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("shop_password").setValue(editpassword.getText().toString());
-                database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("owner_name").setValue(editownername.getText().toString());
-                database.getReference("Owners").child(mAuth.getCurrentUser().getUid()).child("shop_address").setValue(editaddress.getText().toString());
-
-                Toast.makeText(getContext(),"Data Updated Successfully :)",Toast.LENGTH_SHORT).show();
-
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_name").setValue(editshopname.getText().toString());
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_mail").setValue(editmail.getText().toString());
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_mobile_no").setValue(editmobile.getText().toString());
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_password").setValue(editpassword.getText().toString());
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("owner_name").setValue(editownername.getText().toString());
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_address").setValue(editaddress.getText().toString());
 
 
                 editshopname.setEnabled(false);
@@ -263,6 +302,53 @@ public class Ownerefragmentprofile extends Fragment {
                 editmobile.setEnabled(false);
                 editownername.setEnabled(false);
                 editaddress.setEnabled(false);
+
+                if(mail!=editmail.getText().toString()){
+
+                    Log.d("change edittextmail", editmail.getText().toString());
+                    Log.d("change beforeeditmail",mail);
+
+                    user.updateEmail(editmail.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        //  Log.d(TAG, "User email address updated.");
+//                                            user.sendEmailVerification()
+//                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                        @Override
+//                                                        public void onComplete(@NonNull Task<Void> task) {
+//                                                            if (task.isSuccessful()) {
+//                                                              //  Log.d(TAG, "Email sent.");
+//                                                            }
+//                                                        }
+//                                                    });
+
+                                    }else{
+                                        Toast.makeText(getContext()," Email Updadtion Failed",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                }
+                if(pass!=editpassword.getText().toString()){
+
+                    Log.d("change edittextpass", editpassword.getText().toString());
+                    Log.d("change beforeeditpas",pass);
+                    user.updatePassword(editpassword.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                    }else{
+                                        Toast.makeText(getContext()," password Updadtion Failed",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+
+                Toast.makeText(getContext(),"Profile Updated Successfully :)",Toast.LENGTH_SHORT).show();
 
 
 
@@ -278,6 +364,9 @@ public class Ownerefragmentprofile extends Fragment {
                 editownername.setEnabled(true);
                 editaddress.setEnabled(true);
 
+                mail=editmail.getText().toString();
+                pass=editpassword.getText().toString();
+
                 Toast.makeText(getContext(),"Data is in Edit Mode !!",Toast.LENGTH_SHORT).show();
 
 
@@ -288,6 +377,8 @@ public class Ownerefragmentprofile extends Fragment {
             @Override
             public void onClick(View view) {
                 launcher.launch("image/*");
+                browsebtn.setVisibility(View.INVISIBLE);
+                Loadimg.setVisibility(View.VISIBLE);
             }
         });
 
@@ -298,9 +389,41 @@ public class Ownerefragmentprofile extends Fragment {
                 Toast.makeText(getActivity(),"Logging Out",Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 startActivity(new Intent(getActivity(),Ownerlogin.class));
+                getActivity().finish();
             }
         });
 
+        deletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.setTitle("Deleting Your Account ");
+                progressDialog.setMessage("Thank You for Visit");
+                progressDialog.show();
+
+                database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        user.delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getActivity(), Ownerlogin.class));
+                                        }
+                                    }
+                                });
+
+                    }
+                });
+            }
+        });
+
+
+
         return view;
     }
+
+
 }
