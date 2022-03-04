@@ -153,7 +153,7 @@ public class Ownerlogin extends AppCompatActivity {
                                 });
 
 
-                            } 
+                            }
                             else{
                                 Toast.makeText(Ownerlogin.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
                             }

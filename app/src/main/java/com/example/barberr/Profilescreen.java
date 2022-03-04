@@ -1,27 +1,21 @@
 package com.example.barberr;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,18 +23,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barberr.userdetails.user;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,7 +43,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -64,6 +58,8 @@ public class Profilescreen extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
+    AlertDialog alertDialog;
+    AlertDialog.Builder alertDialogBuilder;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     FirebaseStorage Storage;
@@ -72,18 +68,22 @@ public class Profilescreen extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button logoutbtn,deletebtn;
+    Button logoutbtn,deletebtn,re_authsendmailbtn;
     ImageView profileimg;
     private Activity activity;
-    EditText editname, editpassword, editmobile, editmail;
-    ImageButton browsebtn, editbutton, savebutton;
+    EditText editname, editmobile, editmail,reath_password,reauth_mail;
+    ImageButton browsebtn, editbutton, savebutton,re_authcancelbtn;
     ActivityResultLauncher<String> launcher;
     ProgressDialog progressDialog;
     ProgressBar Loadimg;
+    TextView changepassword;
+    View re_authbox;
+    AlertDialog.Builder alertDialogbuilder;
+    AlertDialog resetmailbox;
 
     String userid;
     //this is for changing email and password of user
-    String mail,pass;
+    String mail;
 
     public Profilescreen() {
 
@@ -128,80 +128,6 @@ public class Profilescreen extends Fragment {
         }
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
-//        progressDialog=new ProgressDialog(getContext());
-//        progressDialog.setTitle("Getting Info...");
-//        progressDialog.setMessage("Take a Sip..");
-
-
-//        launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
-//            profileimg.setImageURI(result);
-//
-//
-//            Storage=FirebaseStorage.getInstance();
-//
-//            reference=Storage.getReference().child("images").child(userid);
-//            reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//
-//
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        database.getReference("Users").child(userid).child("user_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void unused) {
-//                               // progressDialog2.dismiss();
-//                                Toast.makeText(getContext(),"Image Uploaded Successfully",Toast.LENGTH_SHORT).show();
-//                                Loadimg.setVisibility(View.INVISIBLE);
-//                                browsebtn.setVisibility(View.VISIBLE);
-//
-//                            }
-//                        });
-//                    }
-//                });
-//                }
-//            });
-//        });
-//        database.getReference("Users").child(userid).addValueEventListener(new ValueEventListener() {
-//
-//
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                Log.d("piooo",userid+"data:"+snapshot.getValue(user.class).getUser_name());
-//
-//                user userdetail = snapshot.getValue(user.class);
-//                assert userdetail != null;
-//                editname.setText(userdetail.getUser_name());
-//                editpassword.setText(userdetail.getUser_password());
-//                editmail.setText(userdetail.getUser_mail());
-//                editmobile.setText(userdetail.getUser_mobile_no());
-//                Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // yourMethod();
-//
-//                        progressDialog.dismiss();
-//
-//                        editname.setEnabled(false);
-//                        editmail.setEnabled(false);
-//                        editpassword.setEnabled(false);
-//                        editmobile.setEnabled(false);
-//                    }
-//                }, 2500);   //5 seconds
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
     }
 
     @Override
@@ -209,19 +135,42 @@ public class Profilescreen extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
+
         View view = inflater.inflate(R.layout.fragment_profilescreen, container, false);
+
+
+        LayoutInflater li = LayoutInflater.from(getContext());
+        re_authbox = li.inflate(R.layout.re_authbox, null);
+        alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+        alertDialogBuilder
+                .setCancelable(false);
+        alertDialogBuilder.setView(re_authbox);
+
+        alertDialog = alertDialogBuilder.create();
+        re_authcancelbtn = (ImageButton) re_authbox.findViewById(R.id.reauth_cancelbtn);
+        re_authsendmailbtn = (Button) re_authbox.findViewById(R.id.reauth_sendmailbtn);
+        reath_password = (EditText) re_authbox.findViewById(R.id.reauth_password);
+        reauth_mail = (EditText) re_authbox.findViewById(R.id.reauth_mail);
+
         logoutbtn = (Button) view.findViewById(R.id.logoutbtn);
-        deletebtn = (Button) view.findViewById(R.id.deletebtn);
+        deletebtn = (Button) view.findViewById(R.id.deletebtnn);
 
         editbutton = (ImageButton) view.findViewById(R.id.editbutton);
         savebutton = (ImageButton) view.findViewById(R.id.savebtn);
         editname = (EditText) view.findViewById(R.id.editname);
         editmail = (EditText) view.findViewById(R.id.editmail);
         editmobile = (EditText) view.findViewById(R.id.editmobile);
-        editpassword = (EditText) view.findViewById(R.id.editpassword);
+
         browsebtn = (ImageButton) view.findViewById(R.id.browseimg);
         profileimg = (ImageView) view.findViewById(R.id.profile_image);
         Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
+        changepassword=(TextView) view.findViewById(R.id.changepassword);
+
+        //for checking if mail is changed or not in savebuttonclicklitsener
+
+
 
         assert getArguments() != null;
 
@@ -272,14 +221,16 @@ public class Profilescreen extends Fragment {
                         user userdetail = snapshot.getValue(user.class);
                         if (userdetail != null) {
                             editname.setText(userdetail.getUser_name());
-                            editpassword.setText(userdetail.getUser_password());
+
                             editmail.setText(userdetail.getUser_mail());
+                            mail=editmail.getText().toString();
+                            Log.d("TAGkk onviewcreatemail",mail);
                             editmobile.setText(userdetail.getUser_mobile_no());
                             Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
                             progressDialog.dismiss();
                             editname.setEnabled(false);
                             editmail.setEnabled(false);
-                            editpassword.setEnabled(false);
+
                             editmobile.setEnabled(false);
 
                             Handler handler = new Handler();
@@ -306,16 +257,102 @@ public class Profilescreen extends Fragment {
 
 
 
-            savebutton.setOnClickListener(new View.OnClickListener() {
+                re_authcancelbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                changepassword.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        alertDialog.show();
+                    }
+                });
+
+        re_authsendmailbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!reauth_mail.getText().toString().equals("") && !reath_password.getText().toString().equals("")) {
+                    alertDialog.dismiss();
+                    mail = reauth_mail.getText().toString();
+                    String password = reath_password.getText().toString();
+
+
+
+// Get auth credentials from the user for re-authentication. The example below shows
+// email and password credentials but there are multiple possible providers,
+// such as GoogleAuthProvider or FacebookAuthProvider.
+                    AuthCredential credential = EmailAuthProvider
+                            .getCredential(mail, password);
+
+// Prompt the user to re-provide their sign-in credentials
+
+                    Objects.requireNonNull(mAuth.getCurrentUser()).reauthenticate(credential)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful()) {
+
+
+                                        Log.d("TAGkk", "User re-authenticated.");
+                                        mAuth.sendPasswordResetEmail(editmail.getText().toString())
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Log.d("TAGkk", "Email sent.");
+
+                                                            progressDialog.setTitle("please Sign-in again...");
+                                                            progressDialog.setMessage("mail has been sent.. , checkout inbox");
+                                                            progressDialog.show();
+
+                                                            Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                public void run() {
+                                                                    // yourMethod();
+
+                                                                    progressDialog.dismiss();
+                                                                    mAuth.signOut();
+                                                                    startActivity(new Intent(getContext(), Login.class));
+                                                                    getActivity().finish();
+
+                                                                }
+                                                            }, 4000);   //5 seconds
+
+
+                                                        }
+                                                    }
+                                                });
+                                    } else {
+                                        Toast.makeText(getContext(), "Invalid Credentials!!", Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            });
+
+                } else {
+                    Toast.makeText(getContext(), "Enter all Fields!!", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+
+
+        savebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
 
 
                         database.getReference("Users").child(Objects.requireNonNull(mAuth.getCurrentUser().getUid())).child("user_name").setValue(editname.getText().toString());
-                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
+                        //database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
                         database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mobile_no").setValue(editmobile.getText().toString());
-                        database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
+                       // database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_password").setValue(editpassword.getText().toString());
 
 
 
@@ -323,56 +360,70 @@ public class Profilescreen extends Fragment {
 
                     editname.setEnabled(false);
                     editmail.setEnabled(false);
-                    editpassword.setEnabled(false);
+
                     editmobile.setEnabled(false);
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                    if(mail!=editmail.getText().toString()){
+                    if(!mail.equals(editmail.getText().toString())){
 
-                        Log.d("change edittextmail", editmail.getText().toString());
-                        Log.d("change beforeeditmail",mail);
 
-                        user.updateEmail(editmail.getText().toString())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                          //  Log.d(TAG, "User email address updated.");
-//                                            user.sendEmailVerification()
-//                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                        @Override
-//                                                        public void onComplete(@NonNull Task<Void> task) {
-//                                                            if (task.isSuccessful()) {
-//                                                              //  Log.d(TAG, "Email sent.");
-//                                                            }
-//                                                        }
-//                                                    });
+                        if(android.util.Patterns.EMAIL_ADDRESS.matcher(editmail.getText().toString()).matches()) {
 
-                                        }else{
-                                            Toast.makeText(getContext()," Email Updadtion Failed",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+                            assert user != null;
+
+                                Log.d("TAGkk editmail", editmail.getText().toString());
+                                Log.d("TAGkk mail",mail);
+
+
+                                alertDialogbuilder = new AlertDialog.Builder(getContext())
+                                        .setTitle("Reset Email")
+                                        .setMessage("Are you sure you want to Update your E-mail Address ? Press Ok if yes ")
+
+                                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                                        // The dialog is automatically dismissed when a dialog button is clicked.
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Toast.makeText(getContext(),"Profile Updated Successfully :)",Toast.LENGTH_SHORT).show();
+
+                                                user.updateEmail(editmail.getText().toString())
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+
+                                                                    database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("user_mail").setValue(editmail.getText().toString());
+                                                                    mAuth.signOut();
+                                                                    startActivity(new Intent(getContext(), Login.class));
+                                                                    Toast.makeText(getContext(), "Sign-in Again", Toast.LENGTH_LONG).show();
+                                                                    getActivity().finish();
+                                                                }
+                                                            }
+                                                        });
+
+
+                                            }
+                                        })
+
+                                        // A null listener allows the button to dismiss the dialog and take no further action.
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                resetmailbox.dismiss();
+                                                editmail.setText(mail);
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert);
+                                resetmailbox=alertDialogbuilder.create();
+                                resetmailbox.show();
+                        }else {
+                            Toast.makeText(getContext(), " Email Format is Invalid", Toast.LENGTH_SHORT).show();
+                            editmail.setText(mail);
+
+                        }
 
                     }
-                    if(pass!=editpassword.getText().toString()){
 
-                        Log.d("change edittextpass", editpassword.getText().toString());
-                        Log.d("change beforeeditpas",pass);
-                        user.updatePassword(editpassword.getText().toString())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
 
-                                        }else{
-                                            Toast.makeText(getContext()," password Updadtion Failed",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                    }
-
-                    Toast.makeText(getContext(),"Profile Updated Successfully :)",Toast.LENGTH_SHORT).show();
                 }
             });
             editbutton.setOnClickListener(new View.OnClickListener() {
@@ -380,11 +431,11 @@ public class Profilescreen extends Fragment {
                 public void onClick(View view) {
                     editname.setEnabled(true);
                     editmail.setEnabled(true);
-                    editpassword.setEnabled(true);
+
                     editmobile.setEnabled(true);
 
                     mail=editmail.getText().toString();
-                    pass=editpassword.getText().toString();
+
 
                     Toast.makeText(getContext(), "Data is in Edit Mode !!", Toast.LENGTH_SHORT).show();
 
@@ -421,7 +472,7 @@ public class Profilescreen extends Fragment {
               database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                   @Override
                   public void onComplete(@NonNull Task<Void> task) {
-                      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                      FirebaseUser user = mAuth.getCurrentUser();
                       user.delete()
                               .addOnCompleteListener(new OnCompleteListener<Void>() {
                                   @Override
