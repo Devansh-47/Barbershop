@@ -173,9 +173,9 @@ public class Ownerlogin extends AppCompatActivity {
 //                }
             }
         });
-//        if(mAuth.getCurrentUser()!=null){
-//            startActivity(new Intent(Ownerlogin.this, OwnerHomeActivity.class));
-//        }
+        if(mAuth.getCurrentUser()!=null){
+            startActivity(new Intent(Ownerlogin.this, OwnerHomeActivity.class));
+        }
 
 
 

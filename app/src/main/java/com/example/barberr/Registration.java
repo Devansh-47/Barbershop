@@ -201,7 +201,7 @@ public class Registration extends AppCompatActivity {
                                                                         public void run() {
                                                                             Intent i = new Intent(Registration.this, custHomeActivity.class);
                                                                             Log.d("piooo reg uidd mailauth",authwithmail_uid);
-                                                                            i.putExtra("userid",authwithmail_uid);
+                                                                           // i.putExtra("userid",authwithmail_uid);
                                                                             Toast.makeText(Registration.this, "Welcome :)", Toast.LENGTH_SHORT).show();
 
                                                                             startActivity(i);

@@ -32,12 +32,12 @@ public class custHomeActivity extends AppCompatActivity {
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fm,new Apphomescreen()).commit();
-        userid=getIntent().getStringExtra("userid");
+        //userid=getIntent().getStringExtra("userid");
 
 
        // Log.d("piooo cust",userid);
-        Bundle bundle = new Bundle();
-        bundle.putString("userid", userid);
+       // Bundle bundle = new Bundle();
+        //bundle.putString("userid", userid);
 
 
 
@@ -62,7 +62,7 @@ public class custHomeActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.profile) {
                    fragmentTransaction=getSupportFragmentManager().beginTransaction();
                     Profilescreen profilescreen=new Profilescreen();
-                    profilescreen.setArguments(bundle);
+                   // profilescreen.setArguments(bundle);
                     fragmentTransaction.replace(R.id.fm,profilescreen).commit();
                 }
 

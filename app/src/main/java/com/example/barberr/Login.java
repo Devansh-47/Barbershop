@@ -206,7 +206,7 @@ public class Login extends AppCompatActivity {
                                             Log.d("piooo uidinlogin",mAuth.getCurrentUser().getUid());
                                             Intent i = new Intent(Login.this, custHomeActivity.class);
                                             //Log.d("piooo reg uidd mailauth",authwithmail_uid);
-                                            i.putExtra("userid","");
+                                           // i.putExtra("userid","");
                                             startActivity(i);
                                         }
                                         else {
@@ -245,9 +245,9 @@ public class Login extends AppCompatActivity {
                 }
         }});
 
- //        if(mAuth.getCurrentUser()!=null){
-//            startActivity(new Intent(Login.this, custHomeActivity.class));
-//        }
+         if(mAuth.getCurrentUser()!=null){
+            startActivity(new Intent(Login.this, custHomeActivity.class));
+        }
 
         eyeicon=findViewById(R.id.button2);
 

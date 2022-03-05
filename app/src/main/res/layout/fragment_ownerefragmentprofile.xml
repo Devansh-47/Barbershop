@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -69,10 +73,7 @@
     </LinearLayout>
 
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -80,7 +81,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/rectangular_edittext"
         android:orientation="vertical">
 
         <LinearLayout
@@ -233,40 +235,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:id="@+id/passwordtext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=" 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍 :       "
-                android:textColor="#4E2222"
-                android:textSize="22sp"
-                app:drawableLeftCompat="@drawable/ic_baseline_lock_24" />
-
-            <EditText
-                android:id="@+id/editpassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                    android:layout_margin="5dp"
-                android:padding="5dp"
-                android:background="@drawable/rounded_edittext_field"
-                android:ems="10"
-                android:hint="Password here"
-                android:inputType="textPersonName"
-                android:paddingLeft="8dp"
-                android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -308,8 +276,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
@@ -364,12 +334,24 @@
                     />
             </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/changepassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:text="Change password?"
+            android:textColor="#D34E4E"
+            android:textSize="16sp">
+
+        </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             >
 
@@ -399,7 +381,8 @@
     </LinearLayout>
 </LinearLayout>
 
-</ScrollView>
+
 
     </LinearLayout>
 
+    </ScrollView>

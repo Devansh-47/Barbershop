@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/ownerregg" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
@@ -23,17 +23,17 @@
 
         <EditText
             android:id="@+id/shop_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/roundcorners"
-            android:drawableLeft="@drawable/user12"
+            android:drawableLeft="@drawable/ic_baseline_shop_address"
             android:ems="10"
             android:hint="Shopname"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:paddingLeft="15dp"
-            android:textSize="26sp" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/owner_name"
@@ -47,9 +47,9 @@
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:paddingLeft="15dp"
-            android:textSize="26sp" />
+            android:textSize="20sp" />
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -65,7 +65,7 @@
         android:inputType="number"
         android:minHeight="48dp"
         android:paddingLeft="15dp"
-        android:textSize="26sp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/check"
@@ -102,7 +102,7 @@
 
         <EditText
             android:id="@+id/shop_mail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/roundcorners"
@@ -112,35 +112,57 @@
             android:inputType="textEmailSubject"
             android:minHeight="48dp"
             android:paddingLeft="15dp"
-            android:textSize="26sp" />
-
-        <EditText
-            android:id="@+id/shop_password"
-            android:layout_width="wrap_content"
+            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/roundcorners"
-            android:drawableLeft="@drawable/passiconn"
-            android:ems="10"
-            android:hint=" Password"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:paddingLeft="15dp"
-            android:textSize="26sp" />
+            android:orientation="horizontal"
+            >
+            <EditText
+                android:id="@+id/shop_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundcorners"
+                android:drawableLeft="@drawable/passiconn"
+                android:ems="10"
+                android:hint=" Password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:paddingLeft="15dp"
+                android:textSize="20sp" />
+            <ImageButton
+                android:id="@+id/eyebutton"
+                android:layout_width="25dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="-29dp"
+                android:background="@drawable/eyeicon"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/shop_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/roundcorners"
-            android:drawableLeft="@drawable/ic_baseline_shop_address"
+            android:background="@drawable/rectangulercorners"
+            android:drawableLeft="@drawable/ic_baseline_add_location_alt_24"
             android:ems="10"
             android:hint="Shop Address"
-            android:inputType="textPersonName"
+
+            android:inputType="textMultiLine"
+            android:maxLines="5"
             android:minHeight="48dp"
             android:paddingLeft="15dp"
-            android:textSize="26sp" />
+            android:textSize="20sp" />
+
+
     </LinearLayout>
 
     <Button
@@ -148,20 +170,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="139dp"
         android:backgroundTint="#A449091B"
         android:text="REGISTER" />
 
-    <ImageButton
-        android:id="@+id/eyebutton"
-        android:layout_width="25dp"
-        android:layout_height="40dp"
 
-        android:layout_gravity="center_vertical|end"
-        android:layout_marginTop="62dp"
-        android:layout_marginEnd="52dp"
-        android:background="@drawable/eyeicon"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
     <TextView

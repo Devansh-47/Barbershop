@@ -34,6 +34,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -80,6 +81,7 @@ public class Profilescreen extends Fragment {
     View re_authbox;
     AlertDialog.Builder alertDialogbuilder;
     AlertDialog resetmailbox;
+    Boolean google_signin=false;
 
     String userid;
     //this is for changing email and password of user
@@ -128,6 +130,13 @@ public class Profilescreen extends Fragment {
         }
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
+        for (UserInfo user: FirebaseAuth.getInstance().getCurrentUser().getProviderData()) {
+            if (user.getProviderId().equals("google.com")) {
+                Log.d("TAGkk","User is signed in with google");
+                google_signin=true;
+            }
+        }
     }
 
     @Override
@@ -172,7 +181,7 @@ public class Profilescreen extends Fragment {
 
 
 
-        assert getArguments() != null;
+
 
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
             profileimg.setImageURI(result);
@@ -263,6 +272,10 @@ public class Profilescreen extends Fragment {
                         alertDialog.dismiss();
                     }
                 });
+
+                if(google_signin){
+                    changepassword.setVisibility(View.GONE);
+                }
 
                 changepassword.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -430,8 +443,9 @@ public class Profilescreen extends Fragment {
                 @Override
                 public void onClick(View view) {
                     editname.setEnabled(true);
-                    editmail.setEnabled(true);
-
+                    if(!google_signin){
+                        editmail.setEnabled(true);
+                    }
                     editmobile.setEnabled(true);
 
                     mail=editmail.getText().toString();
