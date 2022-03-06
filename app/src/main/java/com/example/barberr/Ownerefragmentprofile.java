@@ -155,6 +155,7 @@ public class Ownerefragmentprofile extends Fragment {
         alertDialogBuilder.setView(re_authbox);
 
         alertDialog = alertDialogBuilder.create();
+
         re_authcancelbtn = (ImageButton) re_authbox.findViewById(R.id.reauth_cancelbtn);
         re_authsendmailbtn = (Button) re_authbox.findViewById(R.id.reauth_sendmailbtn);
         reath_password = (EditText) re_authbox.findViewById(R.id.reauth_password);
