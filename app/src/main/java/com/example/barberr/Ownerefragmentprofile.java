@@ -117,6 +117,7 @@ public class Ownerefragmentprofile extends Fragment {
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setTitle("Getting Info...");
         progressDialog.setMessage("Take a Sip..");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 
@@ -368,6 +369,7 @@ public class Ownerefragmentprofile extends Fragment {
 
                                                             progressDialog.setTitle("please Sign-in again...");
                                                             progressDialog.setMessage("mail has been sent.. , checkout inbox");
+                                                            progressDialog.setCancelable(false);
                                                             progressDialog.show();
 
                                                             Handler handler = new Handler();
@@ -381,7 +383,7 @@ public class Ownerefragmentprofile extends Fragment {
                                                                     getActivity().finish();
 
                                                                 }
-                                                            }, 4000);   //5 seconds
+                                                            }, 3000);   //5 seconds
 
 
                                                         }
@@ -528,6 +530,7 @@ public class Ownerefragmentprofile extends Fragment {
             public void onClick(View view) {
                 progressDialog.setTitle("Deleting Your Account ");
                 progressDialog.setMessage("Thank You for Visit");
+                progressDialog.setCancelable(false);
                 progressDialog.show();
 
                 database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {

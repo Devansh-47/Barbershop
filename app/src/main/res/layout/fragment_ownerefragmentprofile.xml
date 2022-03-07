@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="-12dp">
+
         <ProgressBar
             android:id="@+id/Loadimg"
             style="?android:attr/progressBarStyle"

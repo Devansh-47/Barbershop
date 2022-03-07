@@ -39,7 +39,9 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.getName().setText(list.get(position).getService_name());
+        holder.getName().setText("    "+list.get(position).getService_name()+"    ");
+//        holder.getName().getPaint().setUnderlineText(true);
+
 
 
         Log.d("Fuck onbindname",list.get(position).getService_name());

@@ -116,6 +116,7 @@ public class Profilescreen extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Getting Info...");
         progressDialog.setMessage("Take a Sip..");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 
@@ -294,6 +295,10 @@ public class Profilescreen extends Fragment {
                     String password = reath_password.getText().toString();
 
 
+                    progressDialog.setTitle("please Sign-in again...");
+                    progressDialog.setMessage("mail has been sent.. , checkout inbox");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
 // Get auth credentials from the user for re-authentication. The example below shows
 // email and password credentials but there are multiple possible providers,
@@ -319,9 +324,7 @@ public class Profilescreen extends Fragment {
                                                         if (task.isSuccessful()) {
                                                             Log.d("TAGkk", "Email sent.");
 
-                                                            progressDialog.setTitle("please Sign-in again...");
-                                                            progressDialog.setMessage("mail has been sent.. , checkout inbox");
-                                                            progressDialog.show();
+
 
                                                             Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
@@ -334,7 +337,7 @@ public class Profilescreen extends Fragment {
                                                                     getActivity().finish();
 
                                                                 }
-                                                            }, 4000);   //5 seconds
+                                                            }, 3000);   //5 seconds
 
 
                                                         }
@@ -481,6 +484,7 @@ public class Profilescreen extends Fragment {
             public void onClick(View view) {
                 progressDialog.setTitle("Deleting Your Account ");
                 progressDialog.setMessage("Thank You for Visit");
+                progressDialog.setCancelable(false);
                 progressDialog.show();
 
               database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {

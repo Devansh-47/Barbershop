@@ -1,6 +1,7 @@
 package com.example.barberr;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -66,11 +67,16 @@ public class Ownerfragmentservices extends Fragment {
     FirebaseDatabase database;
    static LinearLayout blurr_background;
 
-   AlertDialog.Builder alertDialogBuilder,alertDialogBuilder1;
-   AlertDialog alertDialog,alertDialog1;
-   View edit_service;
+   ProgressDialog progressDialog;
 
-    TextInputLayout service_name,service_price,service_description,service_duration;
+   AlertDialog.Builder alertDialogBuilder,alertdialogBuilder2,alertDialogBuilder1;
+   AlertDialog alertDialog,alertDialog1,alertDialog2;
+   View edit_service,add_service;
+
+   Button    addServicebtn;
+
+   ImageButton cancelAddservicelayout;
+    TextInputLayout service_name,service_price,service_description,service_duration,add_serviceName,add_servicePrice,add_serviceDescription,add_serviceDuration;
 
     Button Update_sevice;
     ImageButton cancel_updateservicelayout;
@@ -105,6 +111,13 @@ public class Ownerfragmentservices extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+        progressDialog =new ProgressDialog(getContext());
+        progressDialog.setTitle("Loading Services...");
+        progressDialog.setMessage("wait a Moment");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         mAuth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
 
@@ -120,16 +133,71 @@ public class Ownerfragmentservices extends Fragment {
         recyclerView=view.findViewById(R.id.listof_services);
         blurr_background=view.findViewById(R.id.burr_background);
 
+        LayoutInflater li = LayoutInflater.from(getContext());
+        add_service = li.inflate(R.layout.fragment_add_service, null);
+        alertdialogBuilder2 = new AlertDialog.Builder(
+                getContext());
+        alertdialogBuilder2
+                .setCancelable(false);
+        alertdialogBuilder2.setView(add_service);
+        alertDialog2=alertdialogBuilder2.create();
+        cancelAddservicelayout=add_service.findViewById(R.id.cancel_addservicelayout);
+        addServicebtn=add_service.findViewById(R.id.add_servicebtn);
+        add_serviceName=add_service.findViewById(R.id.add_service_name);
+        add_servicePrice=add_service.findViewById(R.id.add_service_price);
+        add_serviceDescription=add_service.findViewById(R.id.add_service_duration);
+        add_serviceDuration=add_service.findViewById(R.id.add_service_description);
+
+
+
+
+        cancelAddservicelayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Ownerfragmentservices.blurr_background.setVisibility(View.GONE);
+               alertDialog2.dismiss();
+            }
+        });
+
+        addServicebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                services service=new services(add_serviceName.getEditText().getText().toString(),add_servicePrice.getEditText().getText().toString(),add_serviceDescription.getEditText().getText().toString(),add_serviceDuration.getEditText().getText().toString());
+              //  Log.d("TAGGG",serviceName.getEditText().getText().toString());
+
+                if(!add_serviceName.getEditText().getText().toString().equals("") && !add_servicePrice.getEditText().getText().toString().equals("") && !add_serviceDescription.getEditText().getText().toString().equals("") && !add_serviceDuration.getEditText().getText().toString().equals("")) {
+                    database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("services").child(add_serviceName.getEditText().getText().toString()).setValue(service);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                    if (Build.VERSION.SDK_INT >= 26) {
+//                        ft.setReorderingAllowed(false);
+//                    }
+//                    ft.detach(new Ownerfragmentservices()).attach(new Ownerfragmentservices()).commit();
+                    Toast.makeText(getContext(), "Service has been added To your Shop :)", Toast.LENGTH_LONG).show();
+                    Ownerfragmentservices.blurr_background.setVisibility(View.GONE);
+                    alertDialog2.dismiss();
+                }else{
+                    Toast.makeText(getContext(), "Enter All Fields", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
         add_servicebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                add_service add_service=new add_service();
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+//                add_service add_service=new add_service();
+//                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+//
+//                transaction.addToBackStack(null);
+//                transaction.replace(R.id.services_container,add_service);
 
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.services_container,add_service);
+
                 blurr_background.setVisibility(View.VISIBLE);
-                transaction.commit();
+                alertDialog2.show();
+
+
+                //transaction.commit();
             }
         });
 
@@ -148,6 +216,7 @@ public class Ownerfragmentservices extends Fragment {
                 services_c_adapter adapter=new services_c_adapter(list,getContext());
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                progressDialog.dismiss();
 
 
 
@@ -171,7 +240,7 @@ public class Ownerfragmentservices extends Fragment {
 
 
 
-        LayoutInflater li = LayoutInflater.from(getContext());
+        li = LayoutInflater.from(getContext());
         edit_service = li.inflate(R.layout.edit_service, null);
         alertDialogBuilder = new AlertDialog.Builder(
                 getContext());
@@ -185,6 +254,7 @@ public class Ownerfragmentservices extends Fragment {
         service_duration=edit_service.findViewById(R.id.service_duration);
         Update_sevice=edit_service.findViewById(R.id.update_servicebtn);
         cancel_updateservicelayout=edit_service.findViewById(R.id.cancel_updateservicelayout);
+
 
         alertDialog = alertDialogBuilder.create();
 

@@ -19,7 +19,7 @@
             android:id="@+id/listof_services"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:background="@drawable/recyclerbackimg" />
 
 
     </LinearLayout>
@@ -28,7 +28,7 @@
         android:id="@+id/burr_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blurimg"
+        android:background="@drawable/blurrimg"
         android:orientation="vertical"
         android:visibility="gone"/>
 

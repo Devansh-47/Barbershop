@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
-    app:strokeColor="#4E2222"
-    app:strokeWidth="1dp"
-    android:translationZ="@dimen/cardview_compat_inset_shadow"
-    app:cardBackgroundColor="#FFFFFF"
-    app:cardElevation="100dp"
+    android:checkable="true"
     android:clickable="true"
     android:focusable="true"
-    android:checkable="true">
+    android:translationZ="@dimen/cardview_compat_inset_shadow"
+    app:cardBackgroundColor="#F8FBFAD3"
+    app:cardCornerRadius="44dp"
+
+
+    app:cardElevation="100dp"
+    app:strokeColor="#4E2222"
+    app:strokeWidth="1dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#75EFDFAF"
         android:orientation="vertical"
+
+        android:padding="11dp"
 
         >
 
@@ -25,13 +30,21 @@
             android:id="@+id/cardview_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="11dp"
             android:gravity="center"
             android:text="dkdkdkn"
             android:textColor="@color/black"
-            android:textSize="26sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="-9dp"
+            android:layout_marginBottom="1dp"
+            android:text="-----------------------------------------------------"
+            android:textSize="22sp" />
 
 
         <LinearLayout
@@ -48,7 +61,7 @@
                 android:layout_weight="0"
                 android:text="Price       : "
                 android:textColor="#040101"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:typeface="monospace" />
 
             <TextView
@@ -61,7 +74,7 @@
                 android:padding="5dp"
                 android:text="dcdcdac acdc"
                 android:textColor="#4E2222"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="italic"
                 android:typeface="serif" />
 
@@ -81,7 +94,7 @@
 
                 android:text="Duration    : "
                 android:textColor="#040101"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:typeface="monospace" />
 
             <TextView
@@ -93,7 +106,7 @@
                 android:padding="5dp"
                 android:text="Duration"
                 android:textColor="#4E2222"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="italic"
                 android:typeface="serif" />
 
@@ -114,7 +127,7 @@
 
                 android:text="Description : "
                 android:textColor="#040101"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:typeface="monospace" />
 
             <TextView
@@ -128,7 +141,7 @@
                 android:padding="5dp"
                 android:text="Description"
                 android:textColor="#4E2222"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="italic"
                 android:typeface="serif" />
 

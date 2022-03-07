@@ -192,10 +192,11 @@ public class Login extends AppCompatActivity {
 //                                        startActivity(i);
                     //saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                     progressDialog.show();
+                    progressDialog.setCancelable(false);
                     mAuth.signInWithEmailAndPassword(user_email.getText().toString(),user_password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
+
                             if(task.isSuccessful()) {
 
                                 database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -207,6 +208,7 @@ public class Login extends AppCompatActivity {
                                             Intent i = new Intent(Login.this, custHomeActivity.class);
                                             //Log.d("piooo reg uidd mailauth",authwithmail_uid);
                                            // i.putExtra("userid","");
+                                            progressDialog.dismiss();
                                             startActivity(i);
                                         }
                                         else {
