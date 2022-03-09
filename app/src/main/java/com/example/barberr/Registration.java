@@ -78,6 +78,7 @@ public class Registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(Registration.this);
         progressDialog.setTitle("Thank You For Sign-up");
         progressDialog.setMessage("We're Creating Your Account");
+        progressDialog.setCancelable(false);
         mAuth = FirebaseAuth.getInstance();
         // mAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
         database = FirebaseDatabase.getInstance();

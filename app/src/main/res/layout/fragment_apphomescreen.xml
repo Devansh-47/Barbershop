@@ -3,14 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CF3434"
     tools:context=".Apphomescreen">
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/shop_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="145dp"
-        android:layout_height="162dp"
-        android:layout_gravity="center"
-        android:text="Home"
-        android:textSize="34sp" />
 </FrameLayout>

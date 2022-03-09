@@ -236,6 +236,7 @@ public class Profilescreen extends Fragment {
                             mail=editmail.getText().toString();
                             Log.d("TAGkk onviewcreatemail",mail);
                             editmobile.setText(userdetail.getUser_mobile_no());
+                                if(userdetail.getUser_profile_pic()!=null)
                             Picasso.get().load(Uri.parse(userdetail.getUser_profile_pic())).into(profileimg);
                             progressDialog.dismiss();
                             editname.setEnabled(false);
@@ -340,6 +341,9 @@ public class Profilescreen extends Fragment {
                                                             }, 3000);   //5 seconds
 
 
+                                                        }else{
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(getContext(),"Password Updation Failed",Toast.LENGTH_LONG).show();
                                                         }
                                                     }
                                                 });
@@ -412,6 +416,9 @@ public class Profilescreen extends Fragment {
                                                                     startActivity(new Intent(getContext(), Login.class));
                                                                     Toast.makeText(getContext(), "Sign-in Again", Toast.LENGTH_LONG).show();
                                                                     getActivity().finish();
+                                                                }
+                                                                else{
+                                                                    Toast.makeText(getContext(), "Email Updation Failed", Toast.LENGTH_LONG).show();
                                                                 }
                                                             }
                                                         });
@@ -499,6 +506,10 @@ public class Profilescreen extends Fragment {
                                           progressDialog.dismiss();
                                           Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
                                           startActivity(new Intent(getActivity(), Login.class));
+                                          getActivity().finish();
+                                      }else{
+                                          progressDialog.dismiss();
+                                          Toast.makeText(getActivity(), "Account Deletion Failed", Toast.LENGTH_SHORT).show();
                                       }
                                   }
                               });

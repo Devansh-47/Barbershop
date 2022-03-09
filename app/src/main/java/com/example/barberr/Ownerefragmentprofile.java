@@ -130,14 +130,6 @@ public class Ownerefragmentprofile extends Fragment {
       mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-//
-//        launcher=registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-//            @Override
-//            public void onActivityResult(Uri result) {
-//                profileimg.setImageURI(result) ;
-//            }
-//        });
-
 
     }
 
@@ -230,11 +222,7 @@ public class Ownerefragmentprofile extends Fragment {
                 editownername.setText(ownerdetail.getOwner_name());
                 editaddress.setText(ownerdetail.getShop_address());
                 editaddress.setMaxLines(5);
-//                editaddress.setVerticalScrollBarEnabled(true);
-//                editaddress.setMovementMethod(new ScrollingMovementMethod());
-//                editaddress.setScroller(new Scroller(getContext()));
 
-               // editpassword.setText(ownerdetail.getShop_password());
                 editmail.setText(ownerdetail.getShop_mail());
                 mail=editmail.getText().toString();
                 Log.d("TAGGGGG",mail);
@@ -266,57 +254,6 @@ public class Ownerefragmentprofile extends Fragment {
 
             }
         });
-
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//
-//                Shop ownerdetail = snapshot.getValue(Shop.class);
-//                Log.d("aayege","111111");
-//                editshopname.setText(ownerdetail.getShop_name());
-//                editownername.setText(ownerdetail.getOwner_name());
-//                editaddress.setText(ownerdetail.getShop_address());
-//                editaddress.setMaxLines(5);
-////                editaddress.setVerticalScrollBarEnabled(true);
-////                editaddress.setMovementMethod(new ScrollingMovementMethod());
-////                editaddress.setScroller(new Scroller(getContext()));
-//
-//                editpassword.setText(ownerdetail.getShop_password());
-//                editmail.setText(ownerdetail.getShop_mail());
-//                editmobile.setText(ownerdetail.getShop_mobile_no());
-//                Picasso.get().load(Uri.parse(ownerdetail.getShop_profile_pic())).into(profileimg);
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // yourMethod();
-//
-//
-//
-//                        progressDialog.dismiss();
-//
-//                        editshopname.setEnabled(false);
-//                        editmail.setEnabled(false);
-//                        editownername.setEnabled(false);
-//                        editaddress.setEnabled(false);
-//                        editpassword.setEnabled(false);
-//                        editmobile.setEnabled(false);
-//                    }
-//                }, 500);   //5 seconds
-//
-//
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
         re_authcancelbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -386,6 +323,9 @@ public class Ownerefragmentprofile extends Fragment {
                                                             }, 3000);   //5 seconds
 
 
+                                                        }else{
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(getContext(),"Password Updation Failed",Toast.LENGTH_LONG).show();
                                                         }
                                                     }
                                                 });
@@ -458,6 +398,8 @@ public class Ownerefragmentprofile extends Fragment {
                                                             startActivity(new Intent(getContext(), Ownerlogin.class));
                                                             Toast.makeText(getContext(), "Sign-in Again", Toast.LENGTH_LONG).show();
                                                             getActivity().finish();
+                                                        }else{
+                                                            Toast.makeText(getContext(), "Email UPdation Failed", Toast.LENGTH_LONG).show();
                                                         }
                                                     }
                                                 });
@@ -536,6 +478,7 @@ public class Ownerefragmentprofile extends Fragment {
                 database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        assert user != null;
                         user.delete()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -544,6 +487,10 @@ public class Ownerefragmentprofile extends Fragment {
                                             progressDialog.dismiss();
                                             Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(getActivity(), Ownerlogin.class));
+                                            getActivity().finish();
+                                        }else{
+                                            progressDialog.dismiss();
+                                            Toast.makeText(getActivity(), "Account Deleted Failed", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });

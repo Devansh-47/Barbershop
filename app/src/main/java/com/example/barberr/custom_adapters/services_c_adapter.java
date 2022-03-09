@@ -23,7 +23,7 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
 
     public services_c_adapter(ArrayList<services> listt, Context context){
         list=listt;
-        Log.d("Fuck sizeinadapterr",""+list.size());
+
         this.context=context;
     }
 

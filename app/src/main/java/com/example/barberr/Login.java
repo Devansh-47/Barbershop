@@ -212,6 +212,7 @@ public class Login extends AppCompatActivity {
                                             startActivity(i);
                                         }
                                         else {
+                                            progressDialog.dismiss();
                                             Toast.makeText(Login.this,"User does not Exist",Toast.LENGTH_SHORT).show();
 
                                         }
@@ -226,6 +227,7 @@ public class Login extends AppCompatActivity {
 
                             }
                             else{
+                                progressDialog.dismiss();
                                 Toast.makeText(Login.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
@@ -248,7 +250,33 @@ public class Login extends AppCompatActivity {
         }});
 
          if(mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(Login.this, custHomeActivity.class));
+
+             database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(DataSnapshot snapshot) {
+                     if (snapshot.exists()) {
+                         Toast.makeText(Login.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
+                       //  Log.d("piooo uidinlogin",mAuth.getCurrentUser().getUid());
+                         Intent i = new Intent(Login.this, custHomeActivity.class);
+                         //Log.d("piooo reg uidd mailauth",authwithmail_uid);
+                         // i.putExtra("userid","");
+                         progressDialog.dismiss();
+                         startActivity(i);
+                     }
+                     else {
+                        // Toast.makeText(Login.this,"User does not Exist",Toast.LENGTH_SHORT).show();
+
+                     }
+                 }
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
+
+                 }
+
+             });
+
+            //startActivity(new Intent(Login.this, custHomeActivity.class));
         }
 
         eyeicon=findViewById(R.id.button2);

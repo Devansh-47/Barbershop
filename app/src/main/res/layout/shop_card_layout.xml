@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_margin="15dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:translationZ="@dimen/cardview_compat_inset_shadow"
+    app:cardBackgroundColor="#F8FBFAD3"
+    app:cardCornerRadius="24dp"
+
+
+    app:cardElevation="100dp"
+    app:strokeColor="#F7FCFF"
+    app:strokeWidth="3dp">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cardview_shop_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+
+        android:scaleType="fitXY"
+        android:src="@drawable/shop" />
+
+    <TextView
+        android:id="@+id/cardview_shop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal"
+
+        android:text="barber shop servie "
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:typeface="monospace" />
+</FrameLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

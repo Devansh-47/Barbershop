@@ -81,6 +81,7 @@ public class Ownerlogin extends AppCompatActivity {
         progressDialog=new ProgressDialog(Ownerlogin.this);
         progressDialog.setTitle("Thank You For Sign-in");
         progressDialog.setMessage("Take a Sip..");
+        progressDialog.setCancelable(false);
 
         mAuth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
@@ -119,27 +120,31 @@ public class Ownerlogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 if (shopmail.getText().toString().equals("") || password.getText().toString().equals("")) {
                     Toast.makeText(Ownerlogin.this, "enterrrr all fields", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     progressDialog.show();
+
                     mAuth.signInWithEmailAndPassword(shopmail.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
+
                             if(task.isSuccessful()) {
 
                                 database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot snapshot) {
                                         if (snapshot.exists()) {
+                                            progressDialog.dismiss();
                                             Toast.makeText(Ownerlogin.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
                                             finish();
 
                                         }
                                         else {
+                                            progressDialog.dismiss();
                                             Toast.makeText(Ownerlogin.this,"Shop does not Exist",Toast.LENGTH_SHORT).show();
 
                                         }
@@ -155,6 +160,7 @@ public class Ownerlogin extends AppCompatActivity {
 
                             }
                             else{
+                                progressDialog.dismiss();
                                 Toast.makeText(Ownerlogin.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
@@ -174,7 +180,33 @@ public class Ownerlogin extends AppCompatActivity {
             }
         });
         if(mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(Ownerlogin.this, OwnerHomeActivity.class));
+
+
+            database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        progressDialog.dismiss();
+                        Toast.makeText(Ownerlogin.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Ownerlogin.this,OwnerHomeActivity.class));
+                        finish();
+
+                    }
+                    else {
+                        //Toast.makeText(Ownerlogin.this,"Shop does not Exist",Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+            });
+
+
+          //  startActivity(new Intent(Ownerlogin.this, OwnerHomeActivity.class));
         }
 
 

@@ -163,12 +163,12 @@ public class Ownerfragmentservices extends Fragment {
             @Override
             public void onClick(View view) {
 
-                services service=new services(add_serviceName.getEditText().getText().toString(),add_servicePrice.getEditText().getText().toString(),add_serviceDescription.getEditText().getText().toString(),add_serviceDuration.getEditText().getText().toString());
+                services service=new services(add_serviceName.getEditText().getText().toString(),add_servicePrice.getEditText().getText().toString(),add_serviceDuration.getEditText().getText().toString(),add_serviceDescription.getEditText().getText().toString());
               //  Log.d("TAGGG",serviceName.getEditText().getText().toString());
 
                 if(!add_serviceName.getEditText().getText().toString().equals("") && !add_servicePrice.getEditText().getText().toString().equals("") && !add_serviceDescription.getEditText().getText().toString().equals("") && !add_serviceDuration.getEditText().getText().toString().equals("")) {
                     database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("services").child(add_serviceName.getEditText().getText().toString()).setValue(service);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                  //  FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                    if (Build.VERSION.SDK_INT >= 26) {
 //                        ft.setReorderingAllowed(false);
 //                    }
