@@ -19,7 +19,7 @@
         android:gravity="center_horizontal"
         android:padding="4dp"
         android:text="𝙿𝚛𝚘𝚏𝚒𝚕𝚎"
-        android:textColor="#775C5C"
+        android:textColor="#3d3d3d"
         android:textSize="40sp" />
 
     <TextView
@@ -34,31 +34,92 @@
         android:textColor="#000000"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-1dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/shopimg"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/profile_image1"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shopimg"
 
-        />
+                />
 
-    <LinearLayout
+            <ImageView
+                android:id="@+id/profile_image2"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shopimg"
+
+                />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="220dp">
+
+                <ImageView
+                    android:id="@+id/profile_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:foreground="#96000000"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shopimg"
+
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                <ImageButton
+                    android:id="@+id/seeall_images_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"
+                    android:src="@drawable/seeallimages_icon"
+                    android:background="@android:color/transparent"
+                    />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="See All"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-12dp">
+        android:layout_marginTop="-18dp">
 
         <ProgressBar
             android:id="@+id/Loadimg"
             style="?android:attr/progressBarStyle"
             android:layout_width="25dp"
-            android:indeterminateTint="#B8520F"
+            android:indeterminateTint="#9A6060"
             android:layout_height="35dp"
-            android:layout_marginEnd="-29dp"
-            android:visibility="gone" />
+            android:layout_marginEnd="0dp"
+            android:visibility="visible" />
 
         <ImageButton
             android:id="@+id/browseimg"
@@ -67,13 +128,11 @@
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
             android:background="@drawable/roundcorners"
-            android:backgroundTint="#D5C6C6"
+            android:backgroundTint="#3d3d3d"
             android:visibility="visible"
             android:src="@drawable/ic_baseline_image_search_24" />
 
-    </LinearLayout>
-
-
+    </FrameLayout>
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -96,12 +155,12 @@
                 android:id="@+id/nametext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_home_24"
+                android:layout_marginLeft="5dp"
 
+                android:drawableLeft="@drawable/ic_baseline_home_24"
                 android:text="Shop Name :"
-                android:textColor="#4E2222"
-                android:textSize="22sp"
-                android:layout_marginLeft="5dp"/>
+                android:textColor="#3d3d3d"
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editname"
@@ -135,12 +194,12 @@
                 android:id="@+id/ownernametext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:layout_marginLeft="5dp"
 
+                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎:"
-                android:textColor="#4E2222"
-                android:textSize="22sp"
-                android:layout_marginLeft="5dp"/>
+                android:textColor="#3d3d3d"
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editownername"
@@ -173,12 +232,12 @@
                 android:id="@+id/emailtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:layout_marginLeft="5dp"
 
+                android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:text="Shop  𝚖𝚊𝚒𝚕:"
-                android:textColor="#4E2222"
-                android:textSize="22sp"
-                android:layout_marginLeft="5dp"/>
+                android:textColor="#3d3d3d"
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/editmail"
@@ -211,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="Contact Number:"
-                android:textColor="#4E2222"
+                android:textColor="#3d3d3d"
                 android:textSize="22sp"
                 app:drawableLeftCompat="@drawable/ic_baseline_mobile_friendly_24" />
 
@@ -244,7 +303,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="𝚂𝚑𝚘𝚙 𝙰𝚍𝚍𝚛𝚎𝚜𝚜:"
-                android:textColor="#4E2222"
+                android:textColor="#3d3d3d"
                 android:textSize="22sp"
                 app:drawableLeftCompat="@drawable/ic_baseline_home_24" />
 
@@ -298,7 +357,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundcorners"
-                android:backgroundTint="#D0EFB16F"
+                android:backgroundTint="#D0F1CDA8"
                 android:src="@drawable/ic_baseline_edit_24"
                 tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -323,7 +382,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="0"
                 android:background="@drawable/roundcorners"
-                android:backgroundTint="#D0EFB16F"
+                android:backgroundTint="#D0F1CDA8"
                 android:src="@drawable/ic_baseline_save_24"
                 tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -349,7 +408,7 @@
         </TextView>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="255dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
@@ -362,7 +421,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_gravity="bottom|center_horizontal"
-                android:backgroundTint="#ABDA7494"
+                android:backgroundTint="#3d3d3d"
                 android:drawableEnd="@drawable/ic_baseline_login_24"
                 android:text="Logout"
                 app:cornerRadius="100dp" />
@@ -373,9 +432,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
 
-                android:backgroundTint="#95F44336"
+                android:backgroundTint="#3d3d3d"
                 android:drawableEnd="@drawable/ic_baseline_delete_24"
                 android:text="Delete  Account"
+                android:textColor="@android:color/holo_red_light"
                 app:cornerRadius="100dp" />
 
         </LinearLayout>

@@ -27,12 +27,10 @@ import java.util.ArrayList;
 public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.ViewHolder> {
 
     private ArrayList<Shop> list;
-
     private Context context;
 
     public shop_list_adapter(ArrayList<Shop> listt, Context context){
         list=listt;
-
         this.context=context;
     }
 
@@ -58,7 +56,7 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
             public void run() {
                 Apphomescreen.Loading_box.dismiss();
             }
-        }, 3000);   //5 seconds
+        }, 1000);   //5 seconds
 
 
         // holder.getShop_image().setImageURI(Uri.parse(list.get(position).getShop_profile_pic()));

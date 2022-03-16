@@ -13,65 +13,64 @@
     android:background="#FBF9F9"
     android:orientation="vertical"
   >
-
-    <TextView
-        android:id="@+id/Profiletext"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profilefragment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="4dp"
-        android:text="𝙿𝚛𝚘𝚏𝚒𝚕𝚎"
-        android:textColor="#775C5C"
-        android:textSize="40sp" />
+        android:background="#3d3d3d"
+        app:menu="@menu/upperrightmenulogout"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-19dp"
-        android:gravity="center_horizontal"
-        android:text="________________________________________"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/Profiletext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="4dp"
+            android:text="𝙿𝚛𝚘𝚏𝚒𝚕𝚎"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </androidx.appcompat.widget.Toolbar>
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="196dp"
-        android:layout_height="203dp"
+        android:layout_width="170dp"
+        android:layout_height="187dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:src="@drawable/profileimage"
-        app:civ_border_color="#372121"
+        app:civ_border_color="#3d3d3d"
         app:civ_border_overlay="false"
         app:civ_border_width="3dp" />
-    <LinearLayout
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-16dp">
+        android:layout_marginTop="-25dp">
         <ProgressBar
             android:id="@+id/Loadimg"
             style="?android:attr/progressBarStyle"
-            android:layout_width="25dp"
+            android:layout_width="20dp"
             android:indeterminateTint="#B8520F"
-            android:layout_height="25dp"
-            android:layout_marginEnd="-25dp"
-
+            android:layout_height="20dp"
+            android:layout_marginEnd="0dp"
+            android:layout_gravity="center"
             android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/browseimg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2.5dp"
             android:layout_gravity="center"
-            android:layout_marginTop="0dp"
             android:background="@drawable/roundcorners"
-            android:backgroundTint="#D5C6C6"
-            android:visibility="visible"
-            android:src="@drawable/ic_baseline_image_search_24" />
+            android:backgroundTint="#3d3d3d"
+            android:src="@drawable/ic_baseline_image_search_24"
+            android:visibility="visible" />
 
-    </LinearLayout>
+    </FrameLayout>
 
 
     <LinearLayout
@@ -95,8 +94,8 @@
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:layout_marginLeft="5dp"
                 android:text=" 𝙽𝚊𝚖𝚎 :"
-                android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textColor="#3d3d3d"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editname"
@@ -112,7 +111,7 @@
                 android:padding="3dp"
                 android:paddingLeft="5dp"
 
-                android:textSize="22dp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,8 +128,8 @@
                 android:layout_marginLeft="5dp"
 
                 android:text=" 𝙴-𝚖𝚊𝚒𝚕 :"
-                android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textColor="#3d3d3d"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editmail"
@@ -146,7 +145,7 @@
                 android:inputType="textPersonName"
                 android:padding="3dp"
                 android:paddingLeft="5dp"
-                android:textSize="22dp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -164,8 +163,8 @@
 
                 android:drawableLeft="@drawable/ic_baseline_mobile_friendly_24"
                 android:text=" 𝙼𝚘𝚋𝚒𝚕𝚎 :"
-                android:textColor="#4E2222"
-                android:textSize="27sp" />
+                android:textColor="#3d3d3d"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editmobile"
@@ -180,7 +179,7 @@
                 android:inputType="numberDecimal"
                 android:padding="3dp"
                 android:paddingLeft="5dp"
-                android:textSize="22dp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
 
@@ -208,12 +207,11 @@
 
                 <ImageButton
                     android:id="@+id/editbutton"
-                    android:layout_width="53dp"
-                    android:layout_height="51dp"
+                    android:layout_width="49dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/roundcorners"
-                    android:backgroundTint="#95EFB16F"
                     android:src="@drawable/ic_baseline_edit_24"
                     tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -232,14 +230,13 @@
 
                 <ImageButton
                     android:id="@+id/savebtn"
-                    android:layout_width="53dp"
-                    android:layout_height="51dp"
+                    android:layout_width="49dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
 
                     android:layout_marginTop="1dp"
                     android:layout_weight="0"
                     android:background="@drawable/roundcorners"
-                    android:backgroundTint="#95EFB16F"
                     android:src="@drawable/ic_baseline_save_24"
                     tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -252,29 +249,21 @@
             </LinearLayout>
         </LinearLayout>
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/logoutbtnn"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:backgroundTint="#A1E85785"-->
-<!--            android:src="@drawable/ic_baseline_login_24"-->
-<!--            tools:ignore="SpeakableTextPresentCheck" />-->
+
+        <TextView
+            android:id="@+id/changepassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:text="Change password?"
+            android:textColor="#D34E4E"
+            android:textSize="16sp"/>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/changepassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="13dp"
-        android:clickable="true"
-        android:gravity="center_horizontal"
-        android:text="Change password?"
-        android:textColor="#D34E4E"
-        android:textSize="16sp">
 
-    </TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -282,25 +271,30 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
         >
-    <Button
-        android:id="@+id/logoutbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:layout_gravity="bottom|center_horizontal"
-        android:backgroundTint="#DA7494"
-        android:drawableEnd="@drawable/ic_baseline_login_24"
-        android:text="Logout"
-        app:cornerRadius="100dp" />
+        <Button
+            android:id="@+id/logoutbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="29dp"
+            android:backgroundTint="#3d3d3d"
+            android:drawableEnd="@drawable/ic_baseline_login_24"
+            android:text="Logout"
+            android:textSize="10sp"
+            app:cornerRadius="100dp" />
 
         <Button
             android:id="@+id/deletebtnn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:backgroundTint="#BFF44336"
+            android:layout_marginHorizontal="29dp"
+            android:backgroundTint="#3d3d3d"
             android:drawableEnd="@drawable/ic_baseline_delete_24"
-            android:text="Delete  Account"
+            android:text="Delete  Account "
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="10sp"
             app:cornerRadius="100dp" />
 
         <Button
@@ -308,13 +302,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:backgroundTint="#BFF44336"
+            android:backgroundTint="#97F44336"
             android:drawableEnd="@drawable/ic_baseline_delete_24"
             android:text="Delete  Account"
+            android:layout_margin="5dp"
             app:cornerRadius="100dp" />
 
 
     </LinearLayout>
+
+
 </LinearLayout>
 
 </ScrollView>

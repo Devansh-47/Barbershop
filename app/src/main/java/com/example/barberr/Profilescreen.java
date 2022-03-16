@@ -11,11 +11,15 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.barberr.userdetails.user;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +42,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -60,7 +66,7 @@ public class Profilescreen extends Fragment {
 
 
     AlertDialog alertDialog;
-    AlertDialog.Builder alertDialogBuilder;
+    AlertDialog.Builder alertDialogBuilder,alertDialogBuilder1;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     FirebaseStorage Storage;
@@ -69,6 +75,7 @@ public class Profilescreen extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Toolbar profilefragment_toolbar;
     Button logoutbtn,deletebtn,re_authsendmailbtn;
     ImageView profileimg;
     private Activity activity;
@@ -86,7 +93,8 @@ public class Profilescreen extends Fragment {
     String userid;
     //this is for changing email and password of user
     String mail;
-
+    private int group1Id = 1;
+    int helpid=Menu.FIRST;
     public Profilescreen() {
 
     }
@@ -107,6 +115,58 @@ public class Profilescreen extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.upperrightmenulogout,menu);
+        menu.add(group1Id,helpid,helpid, "help").setIcon(R.drawable.ic_baseline_help_24);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==R.id.threedots_logout)
+        {
+            Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
+            mAuth.signOut();
+            startActivity(new Intent(getActivity(), Login.class));
+            getActivity().finish();
+        }
+        if(item.getItemId()==R.id.threedots_deleteaccount){
+            progressDialog.setTitle("Deleting Your Account ");
+            progressDialog.setMessage("Thank You for Visit");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    user.delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getActivity(), Login.class));
+                                        getActivity().finish();
+                                    }else{
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getActivity(), "Account Deletion Failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                }
+            });
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -177,6 +237,7 @@ public class Profilescreen extends Fragment {
         profileimg = (ImageView) view.findViewById(R.id.profile_image);
         Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
         changepassword=(TextView) view.findViewById(R.id.changepassword);
+
 
         //for checking if mail is changed or not in savebuttonclicklitsener
 
@@ -489,33 +550,63 @@ public class Profilescreen extends Fragment {
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.setTitle("Deleting Your Account ");
-                progressDialog.setMessage("Thank You for Visit");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
 
-              database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                  @Override
-                  public void onComplete(@NonNull Task<Void> task) {
-                      FirebaseUser user = mAuth.getCurrentUser();
-                      user.delete()
-                              .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                  @Override
-                                  public void onComplete(@NonNull Task<Void> task) {
-                                      if (task.isSuccessful()) {
-                                          progressDialog.dismiss();
-                                          Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
-                                          startActivity(new Intent(getActivity(), Login.class));
-                                          getActivity().finish();
-                                      }else{
-                                          progressDialog.dismiss();
-                                          Toast.makeText(getActivity(), "Account Deletion Failed", Toast.LENGTH_SHORT).show();
-                                      }
-                                  }
-                              });
+//                alertDialog.setTitle("Are you sure you want to delete this account !!");
+//                alertDialog.setMessage("Press ok if yes.");
+//                alertDialog.show();
+                alertDialogBuilder1 = new AlertDialog.Builder(getContext())
+                        .setTitle("Delete Account")
+                        .setMessage("Are you sure you want to Delete this account press ok if yes.")
 
-                  }
-              });
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.dismiss();
+                                progressDialog.setTitle("Deleting Your Account ");
+                                progressDialog.setMessage("Thank You for Visit");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
+
+                                database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        user.delete()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(getActivity(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(getActivity(), Login.class));
+                                                            getActivity().finish();
+                                                        }else{
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(getActivity(), "Account Deletion Failed", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+
+                                    }
+                                });
+
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert);
+                alertDialog=alertDialogBuilder1.create();
+                alertDialog.show();
+
+
+
             }
         });
 

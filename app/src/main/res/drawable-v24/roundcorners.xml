@@ -6,10 +6,10 @@ android:shape="rectangle">
 <corners android:radius="160dp" />
 
 <!-- This is the border color -->
-<stroke android:width="2.5dp" android:color="@color/white" />
+<stroke android:width="2.5dp" android:color="#3d3d3d" />
 
 <!--- This is the background color -->
-<solid android:color="#E1D6AFA0" />
+<!--<solid android:color="#E1D6AFA0" />-->
 
 
 

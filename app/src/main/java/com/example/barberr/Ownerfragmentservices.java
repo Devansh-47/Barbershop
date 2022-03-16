@@ -255,12 +255,7 @@ public class Ownerfragmentservices extends Fragment {
         Update_sevice=edit_service.findViewById(R.id.update_servicebtn);
         cancel_updateservicelayout=edit_service.findViewById(R.id.cancel_updateservicelayout);
 
-
         alertDialog = alertDialogBuilder.create();
-
-
-
-
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -268,7 +263,6 @@ public class Ownerfragmentservices extends Fragment {
                     @Override public void onItemClick(View view, int position) {
                         blurr_background.setVisibility(View.VISIBLE);
                         alertDialog.show();
-
 
                         database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("services").child(list.get(position).getService_name()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

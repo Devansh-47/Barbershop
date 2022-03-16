@@ -1,5 +1,7 @@
 package com.example.barberr;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -13,7 +15,11 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.util.Log;
@@ -28,6 +34,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.barberr.custom_adapters.shop_imgs_adapter;
+import com.example.barberr.custom_adapters.shop_list_adapter;
+import com.example.barberr.for_errorhandling.WrapContentLinearLayoutManager;
 import com.example.barberr.userdetails.Shop;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +54,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -63,27 +73,35 @@ public class Ownerefragmentprofile extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    AlertDialog alertDialog;
+    AlertDialog alertDialog,alertDialog2;
     AlertDialog.Builder alertDialogBuilder;
 
+
+    private static final int pick_image=1;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     FirebaseStorage Storage;
     StorageReference reference;
 
-    Button logoutbtn,deletebtn,re_authsendmailbtn;
-    ImageView profileimg;
+    Button logoutbtn,deletebtn,re_authsendmailbtn,add_shopimage_btn_alertbox;
+    ImageView profileimg,profileimg2,profileimg3;
     private Activity activity;
     EditText editshopname,editownername,editpassword,editaddress,editmobile,editmail,reath_password,reauth_mail;
-    ImageButton browsebtn,editbutton,savebutton,re_authcancelbtn;
+    ImageButton browsebtn,editbutton,savebutton,re_authcancelbtn,cancelbtn_addshopimg_alertbox,seeallimages_imagebtn;
     ActivityResultLauncher<String> launcher;
     ProgressDialog progressDialog;
     ProgressBar Loadimg;
     TextView changepassword;
-    View re_authbox;
-    AlertDialog.Builder alertDialogbuilder;
+    View re_authbox,add_shop_pics_alertbox;
+    AlertDialog.Builder alertDialogbuilder,alertdialogBuilder2;
     AlertDialog resetmailbox;
+    RecyclerView shopimages_list_in_alertbox;
 
+
+    shop_imgs_adapter adapter;
+    static int i;
+    private Uri Image_Uri;
+    ArrayList<Uri> Shopimages_uri;
     //this is for changing shops email and password
 
     String mail;
@@ -131,6 +149,7 @@ public class Ownerefragmentprofile extends Fragment {
         database = FirebaseDatabase.getInstance();
 
 
+
     }
 
     @Override
@@ -158,6 +177,7 @@ public class Ownerefragmentprofile extends Fragment {
         logoutbtn= (Button) view.findViewById(R.id.logoutbtn);
        deletebtn= (Button) view.findViewById(R.id.deletebtnn);
 
+
         editbutton= (ImageButton) view.findViewById(R.id.editbutton);
         savebutton=(ImageButton)view.findViewById(R.id.savebtn);
 
@@ -166,17 +186,135 @@ public class Ownerefragmentprofile extends Fragment {
         editownername=(EditText) view.findViewById(R.id.editownername);
         editmail=(EditText) view.findViewById(R.id.editmail);
 
+        seeallimages_imagebtn=view.findViewById(R.id.seeall_images_btn);
+
         editaddress=(EditText) view.findViewById(R.id.editaddress);
         editmobile=(EditText) view.findViewById(R.id.editmobile);
        // editpassword=(EditText) view.findViewById(R.id.editpassword);
         browsebtn=(ImageButton)view.findViewById(R.id.browseimg);
-        profileimg=(ImageView)view.findViewById(R.id.profile_image);
-        profileimg.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+        profileimg=(ImageView)view.findViewById(R.id.profile_image1);
+        profileimg2=(ImageView)view.findViewById(R.id.profile_image2);
+        profileimg3=(ImageView)view.findViewById(R.id.profile_image3);
+
+       // profileimg.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
         changepassword=(TextView) view.findViewById(R.id.changepassword);
+
+
+Shopimages_uri=new ArrayList<>();
+
+
+
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        add_shop_pics_alertbox = li.inflate(R.layout.add_shopimages_alertbox, null);
+        alertdialogBuilder2 = new AlertDialog.Builder(
+                getContext());
+        alertdialogBuilder2
+                .setCancelable(false);
+        alertdialogBuilder2.setView(add_shop_pics_alertbox);
+        alertDialog2=alertdialogBuilder2.create();
+
+
+
+
+
+
+        seeallimages_imagebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog2.show();
+            }
+        });
+
+
+        shopimages_list_in_alertbox=add_shop_pics_alertbox.findViewById(R.id.shopimagesview_recycler);
+        add_shopimage_btn_alertbox=add_shop_pics_alertbox.findViewById(R.id.add_img_button);
+        cancelbtn_addshopimg_alertbox=add_shop_pics_alertbox.findViewById(R.id.addimg_alertboc_cancelbtn);
+cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
+
+      //  update_shop_image_list();
+
+        add_shopimage_btn_alertbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,false);
+                startActivityForResult(intent,pick_image);
+
+            }
+        });
+
+
+        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Shop_Images").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                int firstshowed3imges=1;
+                Log.d("PPOO","7");
+                Shopimages_uri.clear();
+                i=(int)snapshot.getChildrenCount();
+                Log.d("TRTR","child update fun size="+i);
+                if(i!=0) {
+
+                    Log.d("PPOO","8");
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                        if(i>=3) {
+                            if (firstshowed3imges <= 3) {
+                                if (firstshowed3imges == 1) {
+                                    Picasso.get().load(postSnapshot.getValue(String.class)).into(profileimg);
+                                }
+                                if (firstshowed3imges == 2) {
+                                    Picasso.get().load(postSnapshot.getValue(String.class)).into(profileimg2);
+                                }
+                                if (firstshowed3imges == 3) {
+                                    Picasso.get().load(postSnapshot.getValue(String.class)).into(profileimg3);
+                                }
+                                firstshowed3imges++;
+                            }
+                        }
+                        String img = postSnapshot.getValue(String.class);
+                        Shopimages_uri.add(Uri.parse(img));
+                        Log.d("PPOO","9");
+                    }
+                    Log.d("PPOO","10");
+                    Log.d("TRTR", "imgs size in ondatachange =" + Shopimages_uri.size());
+
+                }else{
+                    Log.d("PPOO","11");
+                    alertDialog2.show();
+
+                }
+
+                Log.d("PPOO","12");
+                adapter = new shop_imgs_adapter(Shopimages_uri, getContext());
+                shopimages_list_in_alertbox.setAdapter(adapter);
+                shopimages_list_in_alertbox.setLayoutManager(new GridLayoutManager(getContext(),2));
+                progressDialog.dismiss();
+                Log.d("PPOO","13");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TRTR", "errrrorrrrrrrrrrrrrrrrrr");
+            }
+        });
+        cancelbtn_addshopimg_alertbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(i<5){
+                    Toast.makeText(getContext(),"Upload minimum 5 images",Toast.LENGTH_LONG).show();
+                }else{
+                    alertDialog2.dismiss();
+                }
+
+            }
+        });
+
 
         Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
@@ -227,7 +365,7 @@ public class Ownerefragmentprofile extends Fragment {
                 mail=editmail.getText().toString();
                 Log.d("TAGGGGG",mail);
                 editmobile.setText(ownerdetail.getShop_mobile_no());
-                Picasso.get().load(Uri.parse(ownerdetail.getShop_profile_pic())).into(profileimg);
+              //  Picasso.get().load(Uri.parse(ownerdetail.getShop_profile_pic())).into(profileimg);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -269,7 +407,6 @@ public class Ownerefragmentprofile extends Fragment {
                 alertDialog.show();
             }
         });
-
         re_authsendmailbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -294,8 +431,6 @@ public class Ownerefragmentprofile extends Fragment {
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
-
-
                                         Log.d("TAGkk", "User re-authenticated.");
                                         mAuth.sendPasswordResetEmail(editmail.getText().toString())
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -342,10 +477,6 @@ public class Ownerefragmentprofile extends Fragment {
                 }
             }
         });
-
-
-
-
         savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -446,7 +577,6 @@ public class Ownerefragmentprofile extends Fragment {
 
             }
         });
-
         browsebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -455,7 +585,6 @@ public class Ownerefragmentprofile extends Fragment {
                 Loadimg.setVisibility(View.VISIBLE);
             }
         });
-
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -466,7 +595,6 @@ public class Ownerefragmentprofile extends Fragment {
                 getActivity().finish();
             }
         });
-
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -499,11 +627,40 @@ public class Ownerefragmentprofile extends Fragment {
                 });
             }
         });
-
-
-
         return view;
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==pick_image){
+            if(resultCode==RESULT_OK){
+
+                progressDialog.setTitle("Uploading Image...");
+                progressDialog.setMessage("Take a Sip..");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                    //Toast.makeText(getActivity(),"Please select minimun 5 Images of your Shop and Services",Toast.LENGTH_LONG).show();
+                        Log.d("TRTR","inactires else body i="+i);
+                        StorageReference Shop_Image_folder=FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid());
+
+                            Shop_Image_folder.child("Image"+i).putFile(data.getData()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Shop_Image_folder.child("Image"+ i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String img_uri=String.valueOf(uri);
+                                            FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Shop_Images").child("Image"+ i).setValue(img_uri);
+                                            i++;
+                                            Toast.makeText(getActivity(),"Image uploaded successfully !!",Toast.LENGTH_LONG).show();
+                                        //    update_shop_image_list();
+                                        }
+                                    });
+                                }
+                            });
 
 
+            }
+        }
+    }
 }

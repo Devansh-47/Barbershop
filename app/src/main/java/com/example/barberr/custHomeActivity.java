@@ -2,6 +2,7 @@ package com.example.barberr;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -23,12 +24,17 @@ public class custHomeActivity extends AppCompatActivity {
         FirebaseAuth mAuth;
         String userid;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
+
         Objects.requireNonNull(getSupportActionBar()).hide();
+
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fm,new Apphomescreen()).commit();
