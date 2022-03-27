@@ -11,7 +11,6 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -42,7 +41,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -236,7 +234,7 @@ public class Profilescreen extends Fragment {
         browsebtn = (ImageButton) view.findViewById(R.id.browseimg);
         profileimg = (ImageView) view.findViewById(R.id.profile_image);
         Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
-        changepassword=(TextView) view.findViewById(R.id.changepassword);
+        changepassword=(TextView) view.findViewById(R.id.changepassword_owner_profile);
 
 
         //for checking if mail is changed or not in savebuttonclicklitsener

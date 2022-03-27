@@ -1,31 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="400dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
-    android:layout_margin="10dp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbars="vertical">
 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="match_parent">
     <ImageButton
         android:id="@+id/addimg_alertboc_cancelbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="1dp"
         android:background="@color/white"
         android:src="@drawable/ic_baseline_cancel_24"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/owner_profile_image"
+        android:layout_width="160dp"
+        android:layout_height="167dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/profileimage"
+        app:civ_border_color="#3d3d3d"
+        app:civ_border_width="2.5dp"
+         />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-25dp">
+        <ProgressBar
+            android:id="@+id/Loadimg_add_images_alertbox"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="29dp"
+            android:indeterminateTint="#B8520F"
+            android:layout_height="29dp"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/browseimg_add_images_alertbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2.5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/roundcorners"
+            android:backgroundTint="#3d3d3d"
+            android:src="@drawable/ic_baseline_image_search_24"
+            android:visibility="visible" />
+
+    </FrameLayout>
     <Button
-        android:id="@+id/add_img_button"
+        android:id="@+id/add_shop_service_img_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#3d3d3d"
-        android:text="Add Image" />
+        android:text="Add Service Image" />
 
     <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/shopimagesview_recycler"
+        android:id="@+id/shopservicesview_recycler"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_height="match_parent"/>
+        android:padding="5dp"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/add_shopimg_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#3d3d3d"
+        android:text="Add Shop Images" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shopimagesview_recycler"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
+
+</ScrollView>

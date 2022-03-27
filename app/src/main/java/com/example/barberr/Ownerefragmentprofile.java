@@ -7,21 +7,19 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.barberr.custom_adapters.RecyclerItemClickListener;
 import com.example.barberr.custom_adapters.shop_imgs_adapter;
-import com.example.barberr.custom_adapters.shop_list_adapter;
-import com.example.barberr.for_errorhandling.WrapContentLinearLayoutManager;
 import com.example.barberr.userdetails.Shop;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +53,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,7 +82,7 @@ public class Ownerefragmentprofile extends Fragment {
     FirebaseStorage Storage;
     StorageReference reference;
 
-    Button logoutbtn,deletebtn,re_authsendmailbtn,add_shopimage_btn_alertbox;
+    Button logoutbtn,deletebtn,re_authsendmailbtn,add_shop_service_image_btn_alertbox,add_shop_images_btn;
     ImageView profileimg,profileimg2,profileimg3;
     private Activity activity;
     EditText editshopname,editownername,editpassword,editaddress,editmobile,editmail,reath_password,reauth_mail;
@@ -95,13 +94,15 @@ public class Ownerefragmentprofile extends Fragment {
     View re_authbox,add_shop_pics_alertbox;
     AlertDialog.Builder alertDialogbuilder,alertdialogBuilder2;
     AlertDialog resetmailbox;
-    RecyclerView shopimages_list_in_alertbox;
+    RecyclerView shop_services_list_in_alertbox,shop_images_list_in_alertbox;
+    CircleImageView owner_profile_pic;
+    String selected_btn_in_alertbox;
+    String ref;
 
-
-    shop_imgs_adapter adapter;
-    static int i;
+    shop_imgs_adapter adapter,adapter2;
+    static int i,j;
     private Uri Image_Uri;
-    ArrayList<Uri> Shopimages_uri;
+    ArrayList<Uri> Shop_images_uri,Shop_services_uri;
     //this is for changing shops email and password
 
     String mail;
@@ -191,7 +192,6 @@ public class Ownerefragmentprofile extends Fragment {
         editaddress=(EditText) view.findViewById(R.id.editaddress);
         editmobile=(EditText) view.findViewById(R.id.editmobile);
        // editpassword=(EditText) view.findViewById(R.id.editpassword);
-        browsebtn=(ImageButton)view.findViewById(R.id.browseimg);
         profileimg=(ImageView)view.findViewById(R.id.profile_image1);
         profileimg2=(ImageView)view.findViewById(R.id.profile_image2);
         profileimg3=(ImageView)view.findViewById(R.id.profile_image3);
@@ -201,10 +201,11 @@ public class Ownerefragmentprofile extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        changepassword=(TextView) view.findViewById(R.id.changepassword);
+        changepassword=(TextView) view.findViewById(R.id.changepassword_owner_profile);
 
 
-Shopimages_uri=new ArrayList<>();
+Shop_images_uri=new ArrayList<>();
+Shop_services_uri=new ArrayList<>();
 
 
 
@@ -230,34 +231,71 @@ Shopimages_uri=new ArrayList<>();
         });
 
 
-        shopimages_list_in_alertbox=add_shop_pics_alertbox.findViewById(R.id.shopimagesview_recycler);
-        add_shopimage_btn_alertbox=add_shop_pics_alertbox.findViewById(R.id.add_img_button);
+        shop_services_list_in_alertbox=add_shop_pics_alertbox.findViewById(R.id.shopservicesview_recycler);
+        shop_images_list_in_alertbox=add_shop_pics_alertbox.findViewById(R.id.shopimagesview_recycler);
+        add_shop_service_image_btn_alertbox=add_shop_pics_alertbox.findViewById(R.id.add_shop_service_img_button);
+        add_shop_images_btn=add_shop_pics_alertbox.findViewById(R.id.add_shopimg_button);
         cancelbtn_addshopimg_alertbox=add_shop_pics_alertbox.findViewById(R.id.addimg_alertboc_cancelbtn);
+        browsebtn=add_shop_pics_alertbox.findViewById(R.id.browseimg_add_images_alertbox);
+        Loadimg = (ProgressBar) add_shop_pics_alertbox.findViewById(R.id.Loadimg_add_images_alertbox);
+        owner_profile_pic=add_shop_pics_alertbox.findViewById(R.id.owner_profile_image);
+
+
 cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
 
       //  update_shop_image_list();
 
-        add_shopimage_btn_alertbox.setOnClickListener(new View.OnClickListener() {
+        browsebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,false);
                 startActivityForResult(intent,pick_image);
-
+                selected_btn_in_alertbox="browse_owner_pic";
+            }
+        });
+        add_shop_images_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,false);
+                startActivityForResult(intent,pick_image);
+                selected_btn_in_alertbox="add_shop_images_btn";
+            }
+        });
+        add_shop_service_image_btn_alertbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,false);
+                startActivityForResult(intent,pick_image);
+                selected_btn_in_alertbox="add_shop_service_image_btn_alertbox";
             }
         });
 
 
-        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Shop_Images").addValueEventListener(new ValueEventListener() {
+        Task<DataSnapshot> ds= database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_profile_pic").get();
+       ds.addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+           @Override
+           public void onSuccess(DataSnapshot dataSnapshot) {
+               String owner_pic=dataSnapshot.getValue(String.class);
+               Picasso.get().load(owner_pic).into(owner_profile_pic);
+           }
+       });
+
+
+        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_Servces_Images").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 int firstshowed3imges=1;
                 Log.d("PPOO","7");
-                Shopimages_uri.clear();
+                Shop_services_uri.clear();
                 i=(int)snapshot.getChildrenCount();
-                Log.d("TRTR","child update fun size="+i);
+                Log.d("TPPP in data change","i="+i);
                 if(i!=0) {
 
                     Log.d("PPOO","8");
@@ -278,11 +316,11 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                             }
                         }
                         String img = postSnapshot.getValue(String.class);
-                        Shopimages_uri.add(Uri.parse(img));
-                        Log.d("PPOO","9");
+                        Shop_services_uri.add(Uri.parse(img));
+                        Log.d("PPOO","chedk="+Uri.parse(img));
                     }
                     Log.d("PPOO","10");
-                    Log.d("TRTR", "imgs size in ondatachange =" + Shopimages_uri.size());
+                    Log.d("TRTR", "imgs size in ondatachange =" + Shop_services_uri.size());
 
                 }else{
                     Log.d("PPOO","11");
@@ -291,11 +329,45 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                 }
 
                 Log.d("PPOO","12");
-                adapter = new shop_imgs_adapter(Shopimages_uri, getContext());
-                shopimages_list_in_alertbox.setAdapter(adapter);
-                shopimages_list_in_alertbox.setLayoutManager(new GridLayoutManager(getContext(),2));
+                adapter = new shop_imgs_adapter(Shop_services_uri, getContext());
+                shop_services_list_in_alertbox.setAdapter(adapter);
+                shop_services_list_in_alertbox.setLayoutManager(new GridLayoutManager(getContext(),2));
                 progressDialog.dismiss();
                 Log.d("PPOO","13");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TRTR", "errrrorrrrrrrrrrrrrrrrrr");
+            }
+        });
+        database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_images").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Shop_images_uri.clear();
+                j=(int)snapshot.getChildrenCount();
+                if(j!=0) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        String img = postSnapshot.getValue(String.class);
+                        Shop_images_uri.add(Uri.parse(img));
+                        Log.d("PPpp","9");
+                    }
+                    Log.d("PPpp","10");
+                    Log.d("PPpp", "imgs size of shopimg in ondatachange =" + Shop_images_uri.size());
+
+                }else{
+                    Log.d("PPpp","11");
+                    alertDialog2.show();
+
+                }
+
+                Log.d("PPpp","12");
+                adapter2 = new shop_imgs_adapter(Shop_images_uri, getContext());
+                shop_images_list_in_alertbox.setAdapter(adapter2);
+                shop_images_list_in_alertbox.setLayoutManager(new GridLayoutManager(getContext(),2));
+                progressDialog.dismiss();
+                Log.d("PPpp","13");
             }
 
             @Override
@@ -306,8 +378,8 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
         cancelbtn_addshopimg_alertbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(i<5){
-                    Toast.makeText(getContext(),"Upload minimum 5 images",Toast.LENGTH_LONG).show();
+                if(i<5||j<3){
+                    Toast.makeText(getContext(),"Upload minimum 5 services images and 3 shop images",Toast.LENGTH_LONG).show();
                 }else{
                     alertDialog2.dismiss();
                 }
@@ -315,40 +387,127 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
             }
         });
 
+        shop_services_list_in_alertbox.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), shop_services_list_in_alertbox, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(),"Image selected i= "+position,Toast.LENGTH_LONG).show();
+            }
 
-        Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
-        launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
-            profileimg.setImageURI(result);
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+                alertDialogBuilder=new AlertDialog.Builder(getContext()).setTitle("Delete Image")
+                        .setMessage("Are You sure you want to delete this Image ? ")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Log.d("TPPP","i="+position);
 
 
-            Storage=FirebaseStorage.getInstance();
+                                FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_Servces_Images").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                            Log.d("PPpp","childsnapforservices="+childSnapshot.getValue(String.class));
+                                            if(childSnapshot.getValue(String.class).equals(Shop_services_uri.get(position).toString())){
+                                                ref=childSnapshot.getRef().toString().replace("https://barberr-bb08f-default-rtdb.firebaseio.com/Shops/"+mAuth.getCurrentUser().getUid()+"/Images/Shop_Servces_Images/","");
+                                               ref=ref.replace("25","");
+                                                Log.d("PPpp","ref==="+ref+"\nlistval[pos]=");
+                                            }
+                                        }
+                                        Log.d("TPPP","REFFF=="+ref);
+                           FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid()).child(ref).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                               @Override
+                               public void onSuccess(Void unused) {
+                                   FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_Servces_Images").child(ref).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                       @Override
+                                       public void onSuccess(Void unused) {
+                                           Toast.makeText(getContext(),"Image deleted successfully",Toast.LENGTH_LONG).show();
+                                       }
+                                   });
+                               }
+                           })     ;
+                                    }
 
-            reference=Storage.getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid());
-            reference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.dismiss();
+                            }
+                        }).setIcon(android.R.drawable.ic_dialog_alert);
+                alertDialog=alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        }));
+        shop_images_list_in_alertbox.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), shop_images_list_in_alertbox, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(),"Image selected i= "+position,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+                alertDialogBuilder=new AlertDialog.Builder(getContext()).setTitle("Delete Image")
+                        .setMessage("Are You sure you want to delete this Image ? ")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Log.d("TPPP","i="+position);
 
 
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_profile_pic").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    // progressDialog2.dismiss();
-                                    Loadimg.setVisibility(View.GONE);
-                                    browsebtn.setVisibility(View.VISIBLE);
-                                    Toast.makeText(getContext(),"Image Uploaded Successfully",Toast.LENGTH_SHORT).show();
+                                FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_images").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                            Log.d("PPpp","childsnapforservices="+childSnapshot.getValue(String.class));
+                                            if(childSnapshot.getValue(String.class).equals(Shop_images_uri.get(position).toString())){
+                                                ref=childSnapshot.getRef().toString().replace("https://barberr-bb08f-default-rtdb.firebaseio.com/Shops/"+mAuth.getCurrentUser().getUid()+"/Images/Shop_images/","");
+                                                ref=ref.replace("25","");
+                                                Log.d("PPpp","ref==="+ref+"\nlistvalofshopimag[pos]=");
+                                            }
+                                        }
+                                        Log.d("TPPP","REFFF=="+ref);
+                                        FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid()).child(ref).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_images").child(ref).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(getContext(),"Image deleted successfully",Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                            }
+                                        })     ;
+                                    }
 
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-//        Log.d("aayege","1111114"+mAuth.getCurrentUser().getUid());
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialog.dismiss();
+                            }
+                        }).setIcon(android.R.drawable.ic_dialog_alert);
+                alertDialog=alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        }));
+
 
         database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -403,7 +562,6 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
         changepassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 alertDialog.show();
             }
         });
@@ -416,14 +574,8 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                     String password = reath_password.getText().toString();
                     mAuth=FirebaseAuth.getInstance();
 
-
-// Get auth credentials from the user for re-authentication. The example below shows
-// email and password credentials but there are multiple possible providers,
-// such as GoogleAuthProvider or FacebookAuthProvider.
                     AuthCredential credential = EmailAuthProvider
                             .getCredential(mail, password);
-
-// Prompt the user to re-provide their sign-in credentials
 
                     Objects.requireNonNull(mAuth.getCurrentUser()).reauthenticate(credential)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -577,14 +729,7 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
 
             }
         });
-        browsebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launcher.launch("image/*");
-                browsebtn.setVisibility(View.INVISIBLE);
-                Loadimg.setVisibility(View.VISIBLE);
-            }
-        });
+
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -633,33 +778,100 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==pick_image){
-            if(resultCode==RESULT_OK){
-
-                progressDialog.setTitle("Uploading Image...");
-                progressDialog.setMessage("Take a Sip..");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-                    //Toast.makeText(getActivity(),"Please select minimun 5 Images of your Shop and Services",Toast.LENGTH_LONG).show();
-                        Log.d("TRTR","inactires else body i="+i);
-                        StorageReference Shop_Image_folder=FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid());
-
-                            Shop_Image_folder.child("Image"+i).putFile(data.getData()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            if(resultCode==RESULT_OK) {
+                Cursor returnCursor = getActivity().getContentResolver().query(data.getData(), null, null, null, null);
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                returnCursor.moveToFirst();
+                Long Image_size = (returnCursor.getLong(sizeIndex) / 1000);
+                Log.d("TAGp", "Name:" + returnCursor.getString(nameIndex));
+                Log.d("TAGp", "Size: " + Image_size);
+                if(Image_size<=500){
+                if(selected_btn_in_alertbox.equals("browse_owner_pic")){
+                        Loadimg.setVisibility(View.VISIBLE);
+                        browsebtn.setVisibility(View.GONE);
+                    FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid()).child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).putFile(data.getData()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid()).child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Shop_Image_folder.child("Image"+ i).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            String img_uri=String.valueOf(uri);
-                                            FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Shop_Images").child("Image"+ i).setValue(img_uri);
-                                            i++;
-                                            Toast.makeText(getActivity(),"Image uploaded successfully !!",Toast.LENGTH_LONG).show();
-                                        //    update_shop_image_list();
-                                        }
-                                    });
+                                public void onSuccess(Uri uri) {
+                                    String img_uri = String.valueOf(uri);
+                                    FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_profile_pic").setValue(img_uri);
+                                    Toast.makeText(getActivity(), "Image uploaded successfully !!", Toast.LENGTH_LONG).show();
+                                    Picasso.get().load(img_uri).into(owner_profile_pic);
+                                    Loadimg.setVisibility(View.GONE);
+                                    browsebtn.setVisibility(View.VISIBLE);
+
                                 }
                             });
+                        }
+                    });
+                }
+                if(selected_btn_in_alertbox.equals("add_shop_service_image_btn_alertbox")){
+                    progressDialog.setTitle("Uploading Image...");
+                    progressDialog.setMessage("Take a Sip..");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                //Toast.makeText(getActivity(),"Please select minimun 5 Images of your Shop and Services",Toast.LENGTH_LONG).show();
+                Log.d("TRTR", "inactires else body i=" + i);
+
+                Log.d("TRTRRRR", data.getData().toString());
+                StorageReference Shop_Image_folder = FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid());
+
+                Shop_Image_folder.child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).putFile(data.getData()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Shop_Image_folder.child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String img_uri = String.valueOf(uri);
+                                FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_Servces_Images").child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).setValue(img_uri);
+                                i++;
+                                Toast.makeText(getActivity(), "Image uploaded successfully !!", Toast.LENGTH_LONG).show();
+                                progressDialog.dismiss();
+                                //    update_shop_image_list();
+                            }
+                        });
+                    }
+                });
 
 
+            }
+                if(selected_btn_in_alertbox.equals("add_shop_images_btn")){
+                    progressDialog.setTitle("Uploading Image...");
+                    progressDialog.setMessage("Take a Sip..");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    //Toast.makeText(getActivity(),"Please select minimun 5 Images of your Shop and Services",Toast.LENGTH_LONG).show();
+                    Log.d("TRTR", "inactires else body i=" + i);
+
+                    Log.d("TRTRRRR", data.getData().toString());
+                    StorageReference Shop_Image_folder = FirebaseStorage.getInstance().getReference().child("Shopimages").child(mAuth.getCurrentUser().getUid());
+
+                    Shop_Image_folder.child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).putFile(data.getData()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Shop_Image_folder.child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String img_uri = String.valueOf(uri);
+                                    FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("Images").child("Shop_images").child(data.getData().toString().replace("content://com.android.providers.media.documents/document/", "")).setValue(img_uri);
+                                    i++;
+                                    Toast.makeText(getActivity(), "Image uploaded successfully !!", Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
+                                    //    update_shop_image_list();
+                                }
+                            });
+                        }
+                    });
+
+                }
+
+                }
+                else {
+                    Toast.makeText(getContext(),"Image Size Must be Less than 500Kb!!",Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

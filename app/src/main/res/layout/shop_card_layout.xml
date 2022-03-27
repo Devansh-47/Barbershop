@@ -17,17 +17,6 @@ app:strokeColor="@color/black"
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/cardview_shop_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitXY"
-
-        android:scrollbarStyle="outsideInset"
-       />
-
     <TextView
         android:id="@+id/cardview_shop_name"
         android:layout_width="wrap_content"
@@ -38,6 +27,14 @@ app:strokeColor="@color/black"
         android:textSize="30sp"
         android:background="#3d3d3d"
         android:typeface="monospace" />
+    <ImageView
+        android:id="@+id/cardview_shop_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:scaleType="fitXY"
+        android:scrollbarStyle="outsideInset"
+        />
 </FrameLayout>
 
 

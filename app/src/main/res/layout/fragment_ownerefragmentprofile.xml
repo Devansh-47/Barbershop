@@ -41,8 +41,9 @@
             <ImageView
                 android:id="@+id/profile_image1"
                 android:layout_width="0dp"
-                android:layout_height="220dp"
+                android:layout_height="150dp"
                 android:layout_weight="1"
+                android:layout_marginHorizontal="3dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-1dp"
                 android:scaleType="fitXY"
@@ -53,8 +54,9 @@
             <ImageView
                 android:id="@+id/profile_image2"
                 android:layout_width="0dp"
-                android:layout_height="220dp"
+                android:layout_height="150dp"
                 android:layout_weight="1"
+                android:layout_marginHorizontal="3dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-1dp"
                 android:scaleType="fitXY"
@@ -65,12 +67,12 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="220dp">
+                android:layout_height="150dp">
 
                 <ImageView
                     android:id="@+id/profile_image3"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="match_parent"
                     android:foreground="#96000000"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="-1dp"
@@ -81,6 +83,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="3dp"
                     android:gravity="center"
                     android:orientation="vertical">
                 <ImageButton
@@ -106,37 +109,13 @@
         </LinearLayout>
 
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-18dp">
 
-        <ProgressBar
-            android:id="@+id/Loadimg"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="25dp"
-            android:indeterminateTint="#9A6060"
-            android:layout_height="35dp"
-            android:layout_marginEnd="0dp"
-            android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/browseimg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/roundcorners"
-            android:backgroundTint="#3d3d3d"
-            android:visibility="visible"
-            android:src="@drawable/ic_baseline_image_search_24" />
-
-    </FrameLayout>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="11dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -357,7 +336,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundcorners"
-                android:backgroundTint="#D0F1CDA8"
+                android:backgroundTint="#3d3d3d"
                 android:src="@drawable/ic_baseline_edit_24"
                 tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -378,11 +357,11 @@
                 android:layout_width="53dp"
                 android:layout_height="51dp"
                 android:layout_gravity="center_horizontal"
-
+                android:background="@drawable/roundcorners"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0"
-                android:background="@drawable/roundcorners"
-                android:backgroundTint="#D0F1CDA8"
+
+                android:backgroundTint="#3d3d3d"
                 android:src="@drawable/ic_baseline_save_24"
                 tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -395,7 +374,7 @@
             </LinearLayout>
         </LinearLayout>
         <TextView
-            android:id="@+id/changepassword"
+            android:id="@+id/changepassword_owner_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"

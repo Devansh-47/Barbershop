@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.barberr.Apphomescreen;
+import com.example.barberr.custHomeActivity;
 import com.example.barberr.custom_adapters.shop_list_adapter;
 
 import androidx.annotation.NonNull;
@@ -46,11 +47,12 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("ppl",list.get(position).getShop_name()+" pic="+list.get(position).getShop_profile_pic());
         holder.getShop_name().setText(""+list.get(position).getShop_name()+"");
-        Log.d("Fuckshubham",list.get(position).getShop_profile_pic());
-//        holder.getName().getPaint().setUnderlineText(true);
-        Picasso.get().load(Uri.parse(list.get(position).getShop_profile_pic())).into(holder.getShop_image());
 
+//        holder.getName().getPaint().setUnderlineText(true);
+        Picasso.get().load(list.get(position).getShop_profile_pic()).into(holder.getShop_image());
+       // Picasso.get().load(postSnapshot.getValue(String.class)).into(profileimg);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
         android:orientation="horizontal">
 
         <TextView
@@ -17,6 +18,7 @@
             android:layout_height="match_parent"
             android:text="Reset Password"
             android:textSize="27sp"
+            android:paddingLeft="15sp"
             android:layout_weight="10"
             android:textColor="@color/black"/>
     <ImageButton
@@ -24,9 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0"
+        android:background="@android:color/transparent"
         android:src="@drawable/ic_baseline_cancel_24"
 
-        android:layout_marginBottom="10dp"/></LinearLayout>
+        /></LinearLayout>
 
 
     <EditText
