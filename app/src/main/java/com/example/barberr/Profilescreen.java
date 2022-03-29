@@ -234,7 +234,7 @@ public class Profilescreen extends Fragment {
         browsebtn = (ImageButton) view.findViewById(R.id.browseimg);
         profileimg = (ImageView) view.findViewById(R.id.profile_image);
         Loadimg = (ProgressBar) view.findViewById(R.id.Loadimg);
-        changepassword=(TextView) view.findViewById(R.id.changepassword_owner_profile);
+        changepassword=(TextView) view.findViewById(R.id.changepassword_customer_profile);
 
 
         //for checking if mail is changed or not in savebuttonclicklitsener

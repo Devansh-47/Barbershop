@@ -18,36 +18,45 @@ import java.util.ArrayList;
 public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.ViewHolder> {
 
     private ArrayList<services> list;
-
     private Context context;
 
     public services_c_adapter(ArrayList<services> listt, Context context){
         list=listt;
-
         this.context=context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.cardview_service, parent, false);
+        View view;
+        if(true){
+     view= LayoutInflater.from(context)
+            .inflate(R.layout.serviceview_in_shop_cardview, parent, false);
+}else {
+     view = LayoutInflater.from(context)
+            .inflate(R.layout.cardview_service, parent, false);
+}
 
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.getName().setText("    "+list.get(position).getService_name()+"    ");
+
+        if (true) {
+            Log.d("ASDAA", "sizeinserv_adap ="+list.size());
+          holder.getServiceinfo_for_shopcardview().setText(list.get(position).getService_name()+" . "+list.get(position).getService_duration()+"mins . "+list.get(position).getService_price()+"$ ");
+
+        } else {
+            holder.getName().setText("    " + list.get(position).getService_name() + "    ");
 //        holder.getName().getPaint().setUnderlineText(true);
 
 
-
-        Log.d("Fuck onbindname",list.get(position).getService_name());
-        holder.getPrice().setText(list.get(position).getService_price()+" Rs");
-        holder.getDuration().setText(list.get(position).getService_duration()+" Minutes");
-        holder.getDescription().setText(list.get(position).getService_description());
+            Log.d("Fuck onbindname", list.get(position).getService_name());
+            holder.getPrice().setText(list.get(position).getService_price() + " Rs");
+            holder.getDuration().setText(list.get(position).getService_duration() + " Minutes");
+            holder.getDescription().setText(list.get(position).getService_description());
+        }
     }
 
     @Override
@@ -63,18 +72,27 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name,price,duration,description;
+        private TextView serviceinfo_for_shopcardview;
 
         public ViewHolder(View view) {
             super(view);
 
-            name=view.findViewById(R.id.cardview_name);
-            price=view.findViewById(R.id.cardview_price);
-            duration=view.findViewById(R.id.cardview_duration);
-            description=view.findViewById(R.id.cardview_description);
+            if(true){
+              serviceinfo_for_shopcardview=view.findViewById(R.id.service_info_inshopcard);
 
+                }else {
+                name = view.findViewById(R.id.cardview_name);
+                price = view.findViewById(R.id.cardview_price);
+                duration = view.findViewById(R.id.cardview_duration);
+                description = view.findViewById(R.id.cardview_description);
+            }
             // Define click listener for the ViewHolder's View
 
             // textView = (TextView) view.findViewById(R.id.textView);
+        }
+
+        public TextView getServiceinfo_for_shopcardview() {
+            return serviceinfo_for_shopcardview;
         }
 
         public TextView getName(){return name;}

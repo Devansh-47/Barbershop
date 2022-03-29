@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.barberr.Apphomescreen;
@@ -16,19 +17,29 @@ import com.example.barberr.custHomeActivity;
 import com.example.barberr.custom_adapters.shop_list_adapter;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barberr.R;
 import com.example.barberr.userdetails.Shop;
 import com.example.barberr.userdetails.services;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.security.Provider;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.ViewHolder> {
 
     private ArrayList<Shop> list;
     private Context context;
+    public static int For_Choosing_Service_adapter_view=0;
 
     public shop_list_adapter(ArrayList<Shop> listt, Context context){
         list=listt;
@@ -49,9 +60,70 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d("ppl",list.get(position).getShop_name()+" pic="+list.get(position).getShop_profile_pic());
         holder.getShop_name().setText(""+list.get(position).getShop_name()+"");
+        holder.getOwner_name().setText(""+list.get(position).getOwner_name());
+        Picasso.get().load(list.get(position).getShop_profile_pic()).into(holder.owner_pic);
+        //child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Images").child("Shop_Servces_Images").
+        FirebaseDatabase.getInstance().getReference("Shops").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-//        holder.getName().getPaint().setUnderlineText(true);
-        Picasso.get().load(list.get(position).getShop_profile_pic()).into(holder.getShop_image());
+                for (DataSnapshot datasnapshot: snapshot.getChildren()) {
+                    int stop=0;
+                    for (DataSnapshot datasnapshot1 :datasnapshot.child("Images/Shop_Servces_Images").getChildren()) {
+                        String service_img_uri = datasnapshot1.getValue(String.class);
+                        stop++;
+                        if (stop == 1)
+                            Picasso.get().load(service_img_uri).into(holder.getService_img1());
+                        if (stop == 2)
+                            Picasso.get().load(service_img_uri).into(holder.getService_img2());
+                        if (stop == 3)
+                            Picasso.get().load(service_img_uri).into(holder.getService_img3());
+                        if (stop == 4)
+                            Picasso.get().load(service_img_uri).into(holder.getService_img4());
+                        if (stop > 4)
+                            break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ArrayList<services> arrayList=new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference("Shops").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot: snapshot.getChildren()) {
+                    for (DataSnapshot datasnapshot1 : datasnapshot.child("services").getChildren()) {
+
+                                //services services getValue(com.example.barberr.userdetails.services.class);
+                        services s=datasnapshot1.getValue(services.class);
+                        arrayList.add(s);
+                    }
+                    For_Choosing_Service_adapter_view=1;
+                    Log.d("ASDAA","sizz="+arrayList.get(0).getService_name());
+                    services_c_adapter services_c_adapter=new services_c_adapter(arrayList,Apphomescreen.Loading_box.getContext());
+                    holder.getRv().setAdapter(services_c_adapter);
+                    holder.getRv().setLayoutManager(new LinearLayoutManager(Apphomescreen.Loading_box.getContext(),LinearLayoutManager.HORIZONTAL,false));
+                    For_Choosing_Service_adapter_view=0;
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
        // Picasso.get().load(postSnapshot.getValue(String.class)).into(profileimg);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -75,23 +147,69 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView shop_name;
-        private ImageView shop_image;
+        private TextView shop_name,owner_name,ratings;
+        private RatingBar r;
+        private ImageView service_img1,service_img2,service_img3,service_img4;
+        private CircleImageView owner_pic;
+        private RecyclerView rv;
 
         public ViewHolder(View view) {
             super(view);
 
-            shop_name=view.findViewById(R.id.cardview_shop_name);
-            shop_image=view.findViewById(R.id.cardview_shop_image);
+            shop_name=view.findViewById(R.id.Shop_Name);
+            owner_name=view.findViewById(R.id.Shop_Owner_Name);
+            ratings=view.findViewById(R.id.Shop_Ratings);
+            r=view.findViewById(R.id.ratingBar);
+            service_img1=view.findViewById(R.id.service_img1);
+            service_img2=view.findViewById(R.id.service_img2);
+            service_img3=view.findViewById(R.id.service_img3);
+            service_img4=view.findViewById(R.id.service_img4);
+            rv=view.findViewById(R.id.rv_for_serviceslist_in_shopcard_view);
+            owner_pic=view.findViewById(R.id.owner_image);
 
             // Define click listener for the ViewHolder's View
 
             // textView = (TextView) view.findViewById(R.id.textView);
         }
 
-        public TextView getShop_name(){return shop_name;}
-        public ImageView getShop_image(){return shop_image;}
+        public TextView getShop_name() {
+            return shop_name;
+        }
 
+        public TextView getOwner_name() {
+            return owner_name;
+        }
 
+        public TextView getRatings() {
+            return ratings;
+        }
+
+        public RatingBar getR() {
+            return r;
+        }
+
+        public RecyclerView getRv() {
+            return rv;
+        }
+
+        public ImageView getService_img1() {
+            return service_img1;
+        }
+
+        public ImageView getService_img2() {
+            return service_img2;
+        }
+
+        public ImageView getService_img3() {
+            return service_img3;
+        }
+
+        public ImageView getService_img4() {
+            return service_img4;
+        }
+
+        public CircleImageView getOwner_pic() {
+            return owner_pic;
+        }
     }
 }
