@@ -9,19 +9,20 @@
     android:clickable="true"
     android:layout_gravity="center_horizontal"
     android:focusable="true"
+    android:outlineAmbientShadowColor="@android:color/holo_red_dark"
     android:translationZ="@dimen/cardview_compat_inset_shadow"
-    app:cardBackgroundColor="@android:color/white"
+    app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="11dp"
-app:strokeColor="@color/black"
-    app:cardElevation="132dp"
-    app:strokeWidth="0.4dp">
+    app:strokeColor="@color/black"
+    app:cardElevation="10dp"
+    app:strokeWidth="0.2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:gravity="center"
-android:orientation="vertical">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -33,7 +34,7 @@ android:orientation="vertical">
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:scaleType="centerCrop"
-               android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/profileimage"
                 app:civ_border_color="#3d3d3d"
@@ -77,6 +78,8 @@ android:orientation="vertical">
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:rating="3"
+                        android:progressTint="#E423605A"
+                        android:progressBackgroundTint="@color/black"
                         android:numStars="5"
                         android:scaleX="1.2"
                         android:scaleY="1.2"
@@ -145,7 +148,8 @@ android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/rv_for_serviceslist_in_shopcard_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="start"
             android:layout_height="wrap_content"
             />
 

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profilefragment_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="#3d3d3d"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_marginBottom="7dp"
+            android:theme="?attr/actionBarTheme">
+
+            <TextView
+                android:id="@+id/Profiletext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="4dp"
+                android:text="Shop Name"
+                android:typeface="monospace"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/profile_image1"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shopimg"
+
+                />
+
+            <ImageView
+                android:id="@+id/profile_image2"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="1dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shopimg"
+
+                />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="130dp">
+
+                <ImageView
+                    android:id="@+id/profile_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:foreground="#96000000"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shopimg"
+
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <ImageButton
+                        android:id="@+id/seeall_images_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center"
+                        android:src="@drawable/seeallimages_icon"
+                        android:background="@android:color/transparent"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="See All"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal">
+            <com.google.android.material.card.MaterialCardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:checkable="true"
+                android:clickable="false"
+                android:layout_gravity="center_horizontal"
+                android:focusable="true"
+                android:translationZ="@dimen/cardview_compat_inset_shadow"
+
+                app:cardCornerRadius="11dp"
+                app:strokeColor="@color/black"
+                app:cardElevation="8dp"
+                app:strokeWidth="5.2dp">
+
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="107dp"
+                android:layout_height="107dp"
+                android:src="@mipmap/logo_barber"
+                android:scaleType="fitXY"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:orientation="horizontal">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text=" Samoria Ra'Chel"
+                    android:typeface="serif"
+                    android:textSize="20dp"/>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_height="match_parent">
+                    <ImageButton
+                        android:id="@+id/empty_heart"
+                        android:layout_width="24dp"
+                        android:layout_height="27dp"
+                        android:layout_marginStart="33dp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:background="@color/white"
+                        android:src="@drawable/heart_logo"/>
+                    <ImageButton
+                        android:id="@+id/fill_heart"
+                        android:layout_width="28dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="31.2dp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        android:src="@drawable/heart_filled"/>
+                    </FrameLayout>
+
+                    <ImageButton
+                        android:layout_width="24dp"
+                        android:layout_height="28dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:background="@color/white"
+                        android:src="@drawable/sharee"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="  Stylist"
+                    android:typeface="serif"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text=" @samoriaracheal"
+                    android:layout_marginBottom="2dp"
+                    android:typeface="serif"
+                    android:textSize="16dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:rating="3"
+                        android:progressTint="#E423605A"
+                        android:progressBackgroundTint="@color/black"
+                        android:numStars="5"
+                        android:scaleX="1.2"
+                        android:scaleY="1.2"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_marginStart="9sp"
+                        android:layout_marginBottom="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/Shop_Ratings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="-3dp"
+                        android:text="5.0 (1233)"
+                        android:typeface="serif" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+    </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10sp"
+            app:cardElevation="10dp"
+            android:backgroundTint="#FFF5F5">
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:paddingStart="9dp"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:scaleType="fitXY"
+                android:background="#FFF5F5"
+                android:src="@drawable/sharee"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:text="Give and Get Upto 50% discount.."
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10sp"
+            app:cardElevation="10dp"
+            android:backgroundTint="#FFF5F5">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:paddingStart="9dp"
+                android:background="#FFF5F5"
+
+                android:orientation="horizontal">
+                <ImageButton
+                    android:layout_width="23sp"
+                    android:layout_height="22sp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_vertical"
+                    android:background="#A4F1E2E2"
+                    android:src="@drawable/limited_availability_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:text="Limited Availability!\nSamoria's Calender is filling-up -Secure your spot Now."
+                    android:textSize="14sp"
+                    android:background="#FFF5F5"
+                    />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <include layout="@layout/custom_tab_layout" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container_for_service_review_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </FrameLayout>
+    </LinearLayout>
+
+
+</ScrollView>

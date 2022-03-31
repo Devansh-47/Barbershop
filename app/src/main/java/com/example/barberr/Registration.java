@@ -204,7 +204,6 @@ public class Registration extends AppCompatActivity {
                                                                             Log.d("piooo reg uidd mailauth",authwithmail_uid);
                                                                            // i.putExtra("userid",authwithmail_uid);
                                                                             Toast.makeText(Registration.this, "Welcome :)", Toast.LENGTH_SHORT).show();
-
                                                                             startActivity(i);
                                                                             finish();
 
@@ -412,6 +411,23 @@ public class Registration extends AppCompatActivity {
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     otp6.requestFocus();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+            otp6.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    otp1.requestFocus();
                 }
 
                 @Override

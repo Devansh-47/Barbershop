@@ -12,27 +12,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/Profiletext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="4dp"
-        android:text="𝙿𝚛𝚘𝚏𝚒𝚕𝚎"
-        android:textColor="#3d3d3d"
-        android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-21dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal"
-        android:text="________________________________________"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profilefragment_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="#3d3d3d"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_marginBottom="7dp"
+            android:theme="?attr/actionBarTheme">
+
+            <TextView
+                android:id="@+id/Profiletext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="4dp"
+                android:text="Owner Profile"
+                android:typeface="monospace"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                />
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"

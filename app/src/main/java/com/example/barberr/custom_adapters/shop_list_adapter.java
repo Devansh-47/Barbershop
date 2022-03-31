@@ -39,7 +39,6 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
 
     private ArrayList<Shop> list;
     private Context context;
-    public static int For_Choosing_Service_adapter_view=0;
 
     public shop_list_adapter(ArrayList<Shop> listt, Context context){
         list=listt;
@@ -68,21 +67,24 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot datasnapshot: snapshot.getChildren()) {
-                    int stop=0;
-                    for (DataSnapshot datasnapshot1 :datasnapshot.child("Images/Shop_Servces_Images").getChildren()) {
-                        String service_img_uri = datasnapshot1.getValue(String.class);
-                        stop++;
-                        if (stop == 1)
-                            Picasso.get().load(service_img_uri).into(holder.getService_img1());
-                        if (stop == 2)
-                            Picasso.get().load(service_img_uri).into(holder.getService_img2());
-                        if (stop == 3)
-                            Picasso.get().load(service_img_uri).into(holder.getService_img3());
-                        if (stop == 4)
-                            Picasso.get().load(service_img_uri).into(holder.getService_img4());
-                        if (stop > 4)
-                            break;
+                    if(datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(list.get(position).getShop_mail())){
+                        int stop=0;
+                        for (DataSnapshot datasnapshot1 :datasnapshot.child("Images/Shop_Servces_Images").getChildren()) {
+                            String service_img_uri = datasnapshot1.getValue(String.class);
+                            stop++;
+                            if (stop == 1)
+                                Picasso.get().load(service_img_uri).into(holder.getService_img1());
+                            if (stop == 2)
+                                Picasso.get().load(service_img_uri).into(holder.getService_img2());
+                            if (stop == 3)
+                                Picasso.get().load(service_img_uri).into(holder.getService_img3());
+                            if (stop == 4)
+                                Picasso.get().load(service_img_uri).into(holder.getService_img4());
+                            if (stop > 4)
+                                break;
+                        }
                     }
+
                 }
 
             }
@@ -98,20 +100,21 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot datasnapshot: snapshot.getChildren()) {
-                    for (DataSnapshot datasnapshot1 : datasnapshot.child("services").getChildren()) {
+                    if (datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(list.get(position).getShop_mail())) {
+                        for (DataSnapshot datasnapshot1 : datasnapshot.child("services").getChildren()) {
 
-                                //services services getValue(com.example.barberr.userdetails.services.class);
-                        services s=datasnapshot1.getValue(services.class);
-                        arrayList.add(s);
+                            //services services getValue(com.example.barberr.userdetails.services.class);
+                            services s = datasnapshot1.getValue(services.class);
+                            Log.d("ASDAA", "name=" + s.getService_name());
+                            arrayList.add(s);
+                        }
+                        Log.d("ASDAA",arrayList.size()+"===size");
+                        servicelist_adapter_inshopcard_view servicelist_adapter_inshopcard_view = new servicelist_adapter_inshopcard_view(arrayList, Apphomescreen.Loading_box.getContext());
+                        holder.getRv().setAdapter(servicelist_adapter_inshopcard_view);
+                        holder.getRv().setLayoutManager(new LinearLayoutManager(Apphomescreen.Loading_box.getContext(),LinearLayoutManager.HORIZONTAL,false));
+
                     }
-                    For_Choosing_Service_adapter_view=1;
-                    Log.d("ASDAA","sizz="+arrayList.get(0).getService_name());
-                    services_c_adapter services_c_adapter=new services_c_adapter(arrayList,Apphomescreen.Loading_box.getContext());
-                    holder.getRv().setAdapter(services_c_adapter);
-                    holder.getRv().setLayoutManager(new LinearLayoutManager(Apphomescreen.Loading_box.getContext(),LinearLayoutManager.HORIZONTAL,false));
-                    For_Choosing_Service_adapter_view=0;
                 }
-
 
             }
 

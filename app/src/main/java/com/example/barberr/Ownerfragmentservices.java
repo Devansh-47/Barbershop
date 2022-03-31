@@ -154,7 +154,6 @@ public class Ownerfragmentservices extends Fragment {
         cancelAddservicelayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Ownerfragmentservices.blurr_background.setVisibility(View.GONE);
                alertDialog2.dismiss();
             }
         });
@@ -174,7 +173,7 @@ public class Ownerfragmentservices extends Fragment {
 //                    }
 //                    ft.detach(new Ownerfragmentservices()).attach(new Ownerfragmentservices()).commit();
                     Toast.makeText(getContext(), "Service has been added To your Shop :)", Toast.LENGTH_LONG).show();
-                    Ownerfragmentservices.blurr_background.setVisibility(View.GONE);
+
                     alertDialog2.dismiss();
                 }else{
                     Toast.makeText(getContext(), "Enter All Fields", Toast.LENGTH_LONG).show();
@@ -193,7 +192,7 @@ public class Ownerfragmentservices extends Fragment {
 //                transaction.replace(R.id.services_container,add_service);
 
 
-                blurr_background.setVisibility(View.VISIBLE);
+
                 alertDialog2.show();
 
 
@@ -219,8 +218,6 @@ public class Ownerfragmentservices extends Fragment {
                 progressDialog.dismiss();
 
 
-
-
 //                Handler handler = new Handler();
 //                handler.postDelayed(new Runnable() {
 //                    public void run() {
@@ -228,8 +225,6 @@ public class Ownerfragmentservices extends Fragment {
 //
 //                    }
 //                }, 0);   //5 seconds
-
-
             }
 
             @Override
@@ -261,7 +256,7 @@ public class Ownerfragmentservices extends Fragment {
                 new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
 
                     @Override public void onItemClick(View view, int position) {
-                        blurr_background.setVisibility(View.VISIBLE);
+
                         alertDialog.show();
 
                         database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("services").child(list.get(position).getService_name()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -326,7 +321,7 @@ public class Ownerfragmentservices extends Fragment {
                 database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("services").child(service_name.getEditText().getText().toString()).child("service_duration").setValue(service_duration.getEditText().getText().toString());
 
                 alertDialog.dismiss();
-                blurr_background.setVisibility(View.GONE);
+
             }
         });
 
@@ -335,13 +330,9 @@ public class Ownerfragmentservices extends Fragment {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
-                blurr_background.setVisibility(View.GONE);
+
             }
         });
-
-        Log.d("Fuck sizeinfrag",""+list.size());
-
-
 
 
 

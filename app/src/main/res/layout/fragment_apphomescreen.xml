@@ -3,13 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFBF9F9"
+    android:background="#FFFFFF"
     tools:context=".Apphomescreen">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/child_frag_showinglist_of_services"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profilefragment_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#3d3d3d"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <TextView
+            android:id="@+id/Profiletext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="4dp"
+            android:typeface="monospace"
+            android:text="Explore BarberShops ..."
+            android:textColor="@color/white"
+            android:textSize="19sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shop_list"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F0F0F0" />
+        </FrameLayout>
 
-        android:layout_height="match_parent" />
-
+    </LinearLayout>
 </FrameLayout>

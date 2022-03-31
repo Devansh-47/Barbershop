@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="629dp"
     android:layout_gravity="center"
     android:background="#D5A0E8A7"
-
+    android:layout_marginHorizontal="10dp"
     android:orientation="vertical"
     tools:context=".Ownerfragmentservices">
 
@@ -15,16 +15,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="5dp"
+        android:layout_margin="9dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_baseline_cancel_24" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
         android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -107,7 +109,7 @@
         <com.google.android.material.textfield.TextInputEditText
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -117,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:backgroundTint="#270909"
         android:text="Update service" />
     </LinearLayout>

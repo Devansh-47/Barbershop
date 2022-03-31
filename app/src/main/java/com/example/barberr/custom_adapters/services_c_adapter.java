@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barberr.R;
 import com.example.barberr.userdetails.services;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -19,23 +24,24 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
 
     private ArrayList<services> list;
     private Context context;
+    View view;
+    int flag=0;
 
     public services_c_adapter(ArrayList<services> listt, Context context){
+
         list=listt;
+        Log.d("ASDAA", "sizeinserv_adap ="+list.size());
         this.context=context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if(true){
-     view= LayoutInflater.from(context)
-            .inflate(R.layout.serviceview_in_shop_cardview, parent, false);
-}else {
-     view = LayoutInflater.from(context)
-            .inflate(R.layout.cardview_service, parent, false);
-}
+
+
+                        view= LayoutInflater.from(context)
+                                .inflate(R.layout.cardview_service, parent, false);
+
 
         return new ViewHolder(view);
     }
@@ -43,20 +49,23 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if (true) {
-            Log.d("ASDAA", "sizeinserv_adap ="+list.size());
-          holder.getServiceinfo_for_shopcardview().setText(list.get(position).getService_name()+" . "+list.get(position).getService_duration()+"mins . "+list.get(position).getService_price()+"$ ");
 
-        } else {
-            holder.getName().setText("    " + list.get(position).getService_name() + "    ");
+                    holder.getName().setText("    " + list.get(position).getService_name() + "    ");
 //        holder.getName().getPaint().setUnderlineText(true);
 
 
-            Log.d("Fuck onbindname", list.get(position).getService_name());
-            holder.getPrice().setText(list.get(position).getService_price() + " Rs");
-            holder.getDuration().setText(list.get(position).getService_duration() + " Minutes");
-            holder.getDescription().setText(list.get(position).getService_description());
-        }
+                    Log.d("Fuck onbindname", list.get(position).getService_name());
+                    holder.getPrice().setText(list.get(position).getService_price() + " Rs");
+                    holder.getDuration().setText(list.get(position).getService_duration() + " Minutes");
+                    holder.getDescription().setText(list.get(position).getService_description());
+
+
+
+
+
+
+
+
     }
 
     @Override
@@ -72,28 +81,21 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name,price,duration,description;
-        private TextView serviceinfo_for_shopcardview;
 
         public ViewHolder(View view) {
             super(view);
 
-            if(true){
-              serviceinfo_for_shopcardview=view.findViewById(R.id.service_info_inshopcard);
 
-                }else {
-                name = view.findViewById(R.id.cardview_name);
-                price = view.findViewById(R.id.cardview_price);
-                duration = view.findViewById(R.id.cardview_duration);
-                description = view.findViewById(R.id.cardview_description);
-            }
+                        name = view.findViewById(R.id.cardview_name);
+                        price = view.findViewById(R.id.cardview_price);
+                        duration = view.findViewById(R.id.cardview_duration);
+                        description = view.findViewById(R.id.cardview_description);
+
             // Define click listener for the ViewHolder's View
 
             // textView = (TextView) view.findViewById(R.id.textView);
         }
 
-        public TextView getServiceinfo_for_shopcardview() {
-            return serviceinfo_for_shopcardview;
-        }
 
         public TextView getName(){return name;}
         public TextView getPrice(){return price;}

@@ -2,10 +2,12 @@ package com.example.barberr;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.barberr.custom_adapters.RecyclerItemClickListener;
 import com.example.barberr.custom_adapters.shop_list_adapter;
 import com.example.barberr.userdetails.Shop;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +44,7 @@ public class Apphomescreen extends Fragment {
     FirebaseAuth mAuth;
     RecyclerView shop_list_recyclerview;
     public static ProgressDialog Loading_box;
+    ArrayList<Shop> list=new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -96,7 +100,7 @@ public class Apphomescreen extends Fragment {
         Loading_box.setMessage("Wait A Moment");
         Loading_box.show();
 
-        ArrayList<Shop> list=new ArrayList<>();
+
 
         database.getReference("Shops").addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,18 +108,12 @@ public class Apphomescreen extends Fragment {
                 list.clear();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     Shop shop = postSnapshot.child("shop_details").getValue(Shop.class);
-                    Log.d("Fuckshubham",shop.getShop_name());
+                    Log.d("shubham",shop.getShop_name());
                     list.add(shop);
-//
                 }
                 shop_list_adapter adapter=new shop_list_adapter(list,getContext());
                 shop_list_recyclerview.setAdapter(adapter);
                 shop_list_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
-
-
 //                Handler handler = new Handler();
 //                handler.postDelayed(new Runnable() {
 //                    public void run() {
@@ -132,6 +130,45 @@ public class Apphomescreen extends Fragment {
 
             }
         });
+
+        shop_list_recyclerview.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), shop_list_recyclerview, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        String mailid_shop=list.get(position).getShop_mail();
+
+                        FirebaseDatabase.getInstance().getReference("Shops").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot datasnapshot: snapshot.getChildren()
+                                     ) {
+                                        if(datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(mailid_shop)){
+                                            FragmentTransaction fragmentTransaction=getParentFragmentManager().beginTransaction();
+                                            showing_listofservices_for_shop f1=new showing_listofservices_for_shop();
+                                            Bundle b=new Bundle();
+                                            Log.d("ASAAa",datasnapshot.getKey());
+                                            b.putString("ID",""+datasnapshot.getKey());
+                                            f1.setArguments(b);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.replace(R.id.child_frag_showinglist_of_services,f1).commit();
+                                            break;
+                                        }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
 
 
         return  view;

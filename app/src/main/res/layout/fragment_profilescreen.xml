@@ -16,9 +16,8 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profilefragment_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:background="#3d3d3d"
-        app:menu="@menu/upperrightmenulogout"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
 
@@ -30,20 +29,20 @@
             android:padding="4dp"
             android:text="𝙿𝚛𝚘𝚏𝚒𝚕𝚎"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="19sp" />
     </androidx.appcompat.widget.Toolbar>
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="170dp"
-        android:layout_height="187dp"
+        android:layout_width="140dp"
+        android:layout_height="157dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:src="@drawable/profileimage"
         app:civ_border_color="#3d3d3d"
         app:civ_border_overlay="false"
-        app:civ_border_width="3dp" />
+        app:civ_border_width="1.9dp" />
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,7 +94,7 @@
                 android:layout_marginLeft="5dp"
                 android:text=" 𝙽𝚊𝚖𝚎 :"
                 android:textColor="#3d3d3d"
-                android:textSize="20sp" />
+                android:textSize="19sp" />
 
             <EditText
                 android:id="@+id/editname"
@@ -111,7 +110,7 @@
                 android:padding="3dp"
                 android:paddingLeft="5dp"
 
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,7 +128,7 @@
 
                 android:text=" 𝙴-𝚖𝚊𝚒𝚕 :"
                 android:textColor="#3d3d3d"
-                android:textSize="20sp" />
+                android:textSize="19sp" />
 
             <EditText
                 android:id="@+id/editmail"
@@ -145,7 +144,7 @@
                 android:inputType="textPersonName"
                 android:padding="3dp"
                 android:paddingLeft="5dp"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -164,7 +163,7 @@
                 android:drawableLeft="@drawable/ic_baseline_mobile_friendly_24"
                 android:text=" 𝙼𝚘𝚋𝚒𝚕𝚎 :"
                 android:textColor="#3d3d3d"
-                android:textSize="20sp" />
+                android:textSize="19sp" />
 
             <EditText
                 android:id="@+id/editmobile"
@@ -179,7 +178,7 @@
                 android:inputType="numberDecimal"
                 android:padding="3dp"
                 android:paddingLeft="5dp"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
 
@@ -212,6 +211,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/roundcorners"
+                    android:backgroundTint="#3d3d3d"
                     android:src="@drawable/ic_baseline_edit_24"
                     tools:ignore="SpeakableTextPresentCheck" />
                 <TextView
@@ -233,7 +233,7 @@
                     android:layout_width="49dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
-
+                    android:backgroundTint="#3d3d3d"
                     android:layout_marginTop="1dp"
                     android:layout_weight="0"
                     android:background="@drawable/roundcorners"
@@ -247,19 +247,11 @@
                     android:gravity="center"
                     />
             </LinearLayout>
+
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/changepassword_customer_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="13dp"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="Change password?"
-            android:textColor="#D34E4E"
-            android:textSize="16sp"/>
+
 
     </LinearLayout>
 
@@ -271,13 +263,24 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
         >
+        <TextView
+            android:id="@+id/changepassword_customer_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:text="Change password?"
+            android:textColor="#D34E4E"
+            android:textSize="16sp"/>
+
 
         <Button
             android:id="@+id/logoutbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginHorizontal="29dp"
+            android:layout_marginHorizontal="20dp"
             android:backgroundTint="#3d3d3d"
             android:drawableEnd="@drawable/ic_baseline_login_24"
             android:text="Logout"
@@ -289,7 +292,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginHorizontal="29dp"
+            android:layout_marginHorizontal="20dp"
             android:backgroundTint="#3d3d3d"
             android:drawableEnd="@drawable/ic_baseline_delete_24"
             android:text="Delete  Account "
@@ -297,16 +300,7 @@
             android:textSize="10sp"
             app:cornerRadius="100dp" />
 
-        <Button
-            android:id="@+id/deletebtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:backgroundTint="#97F44336"
-            android:drawableEnd="@drawable/ic_baseline_delete_24"
-            android:text="Delete  Account"
-            android:layout_margin="5dp"
-            app:cornerRadius="100dp" />
+
 
 
     </LinearLayout>
