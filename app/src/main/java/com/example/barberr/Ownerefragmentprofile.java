@@ -210,7 +210,7 @@ Shop_services_uri=new ArrayList<>();
 
 
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        add_shop_pics_alertbox = li.inflate(R.layout.add_shopimages_alertbox, null);
+        add_shop_pics_alertbox = layoutInflater.inflate(R.layout.add_shopimages_alertbox, null);
         alertdialogBuilder2 = new AlertDialog.Builder(
                 getContext());
         alertdialogBuilder2
@@ -239,8 +239,6 @@ Shop_services_uri=new ArrayList<>();
         browsebtn=add_shop_pics_alertbox.findViewById(R.id.browseimg_add_images_alertbox);
         Loadimg = (ProgressBar) add_shop_pics_alertbox.findViewById(R.id.Loadimg_add_images_alertbox);
         owner_profile_pic=add_shop_pics_alertbox.findViewById(R.id.owner_profile_image);
-
-
 cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
 
       //  update_shop_image_list();
