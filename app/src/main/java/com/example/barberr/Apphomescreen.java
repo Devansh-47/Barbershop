@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.barberr.custom_adapters.RecyclerItemClickListener;
 import com.example.barberr.custom_adapters.shop_list_adapter;
@@ -92,6 +94,17 @@ public class Apphomescreen extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_apphomescreen, container, false);
+
+        ImageButton g_map_search=view.findViewById(R.id.searchby_location);
+
+        g_map_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i1=new Intent(getContext(),MapsActivity.class);
+                i1.putExtra("UserOrOwner","User");
+                startActivity(i1);
+            }
+        });
 
         shop_list_recyclerview=view.findViewById(R.id.shop_list);
 

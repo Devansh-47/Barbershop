@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,9 @@ import android.widget.Toast;
 import com.example.barberr.custom_adapters.RecyclerItemClickListener;
 import com.example.barberr.custom_adapters.shop_imgs_adapter;
 import com.example.barberr.userdetails.Shop;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.ErrorDialogFragment;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -90,7 +94,7 @@ public class Ownerefragmentprofile extends Fragment {
     ActivityResultLauncher<String> launcher;
     ProgressDialog progressDialog;
     ProgressBar Loadimg;
-    TextView changepassword;
+    TextView changepassword,add_location;
     View re_authbox,add_shop_pics_alertbox;
     AlertDialog.Builder alertDialogbuilder,alertdialogBuilder2;
     AlertDialog resetmailbox;
@@ -178,7 +182,27 @@ public class Ownerefragmentprofile extends Fragment {
         logoutbtn= (Button) view.findViewById(R.id.logoutbtn);
        deletebtn= (Button) view.findViewById(R.id.deletebtnn);
 
+       add_location=view.findViewById(R.id.add_loc_to_map);
 
+       add_location.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               int available= GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getContext());
+               if(available== ConnectionResult.SUCCESS){
+                   Log.d("map::","is ok working");
+                   Intent i1=new Intent(getContext(),MapsActivity.class);
+                   i1.putExtra("UserOrOwner","Owner");
+                   startActivity(i1);
+               }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+                   Log.d("map","error occured but fixable");
+                   Dialog dialog=GoogleApiAvailability.getInstance().getErrorDialog(getActivity(),available, 9001);
+                dialog.show();
+               }else {
+                   Toast.makeText(getContext(),"You cant make map req",Toast.LENGTH_LONG).show();
+
+               }
+           }
+       });
         editbutton= (ImageButton) view.findViewById(R.id.editbutton);
         savebutton=(ImageButton)view.findViewById(R.id.savebtn);
 
