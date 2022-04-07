@@ -5,8 +5,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,6 +39,7 @@ import java.util.Objects;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private ActivityMapsBinding binding;
       String name;
+      Location current_Location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ import java.util.Objects;
         String whoisthere=getIntent().getStringExtra("UserOrOwner");
 
 
-            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CALL_PHONE};
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
             if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MapsActivity.this, permissions, 1234);
@@ -77,23 +82,44 @@ import java.util.Objects;
                 assert mapFragment != null;
                 mapFragment.getMapAsync(this);
             }
-        if(whoisthere.equals("Owner")) {
+
 
             try {
                 Task<Location> location = fusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         try {
-                            Location current_Location = (Location) task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_Location.getLatitude(), current_Location.getLongitude()), 25f));
+                             current_Location = (Location) task.getResult();
+                            LocationManager locationManager = (LocationManager)  this.getSystemService(Context.LOCATION_SERVICE);
+                            Criteria criteria = new Criteria();
+                           String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
 
+                            //You can still do this if you like, you might get lucky:
+//                            current_Location = locationManager.getLastKnownLocation(bestProvider);
+//                            if (current_Location != null) {
+//
+//                              }
+//                            else{
+//                                //This is what you need:
+//                                locationManager.requestLocationUpdates(bestProvider, 1000, 0, new LocationListener() {
+//                                    @Override
+//                                    public void onLocationChanged(@NonNull Location location) {
+//                                        locationManager.removeUpdates(this);
+//                                    }
+//                                });
+//                            }
+
+                            Log.d("MAPPP","le=="+current_Location.getLatitude()+"");
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_Location.getLatitude(), current_Location.getLongitude()), 15f));
+                            mMap.setMyLocationEnabled(true);
+                            if(whoisthere.equals("Owner")) {
                             FirebaseDatabase.getInstance().getReference("Shops").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("shop_details").child("shop_name").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     name = snapshot.getValue(String.class);
                                     Log.d("MMM", "name" + name + "lat" + current_Location.getLatitude() + "log" + current_Location.getLongitude());
                                     mMap.addMarker(new MarkerOptions().position(new LatLng(current_Location.getLatitude(), current_Location.getLongitude())).title(name));
-                                    mMap.setMyLocationEnabled(true);
+
                                 }
 
                                 @Override
@@ -106,45 +132,26 @@ import java.util.Objects;
                             FirebaseDatabase.getInstance().getReference("Shops").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("shop_details").child("location").child("latitude").setValue(current_Location.getLatitude() + "");
                             Toast.makeText(MapsActivity.this, "Your Current Location is saved As Shop Location", Toast.LENGTH_LONG).show();
 
-                        } catch (Throwable throwable) {
-                            Log.d("MAPPP", "getdevice loca exception " + throwable.getMessage());
-                            throwable.printStackTrace();
-                        }
-                    } else {
-                        Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } catch (SecurityException e) {
-                Log.d("MAPPP", "getdevice location security exception " + e.getMessage());
-            }
+                        }else {
+                                FirebaseDatabase.getInstance().getReference("Shops").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot datasnap:snapshot.getChildren()
+                                        ) {
+                                            Double latitude=Double.parseDouble(Objects.requireNonNull(datasnap.child("shop_details").child("location").child("latitude").getValue(String.class)));
+                                            Double longitude=Double.parseDouble(Objects.requireNonNull(datasnap.child("shop_details").child("location").child("longitude").getValue(String.class)));
+                                            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(datasnap.child("shop_details").child("shop_name").getValue(String.class)));
+                                        }
 
-        }else {
-            try {
-                Task<Location> location = fusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        try {
-                            Location current_Location = (Location) task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_Location.getLatitude(), current_Location.getLongitude()), 25f));
-                            mMap.setMyLocationEnabled(true);
-                            FirebaseDatabase.getInstance().getReference("Shops").addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for (DataSnapshot datasnap:snapshot.getChildren()
-                                         ) {
-                                        Double latitude=Double.parseDouble(Objects.requireNonNull(datasnap.child("shop_details").child("location").child("latitude").getValue(String.class)));
-                                        Double longitude=Double.parseDouble(Objects.requireNonNull(datasnap.child("shop_details").child("location").child("longitude").getValue(String.class)));
-                                        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(datasnap.child("shop_details").child("shop_name").getValue(String.class)));
+
                                     }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                                    }
+                                });
+                            }
                         } catch (Throwable throwable) {
                             Log.d("MAPPP", "getdevice loca exception " + throwable.getMessage());
                             throwable.printStackTrace();
@@ -158,5 +165,5 @@ import java.util.Objects;
             }
 
         }
+
     }
-}

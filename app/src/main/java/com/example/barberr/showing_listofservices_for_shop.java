@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ public class showing_listofservices_for_shop extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -93,7 +96,7 @@ public class showing_listofservices_for_shop extends Fragment {
         View show_shop_nd_services_pics;
         AlertDialog showImagesbox;
         RecyclerView shop_images_list_in_alertbox,shop_services_list_in_alertbox;
-        Button add_shop_service_image_btn_alertbox,add_shop_images_btn;
+        Button add_shop_service_image_btn_alertbox,add_shop_images_btn,book_appointment_btn;
         ImageView owner_profile_pic;
         View view;
         view=inflater.inflate(R.layout.fragment_showing_listofservices_for_shop, container, false);
@@ -111,6 +114,17 @@ public class showing_listofservices_for_shop extends Fragment {
         owner_img=view.findViewById(R.id.owner_image_selectedshop);
         shopname=view.findViewById(R.id.shop_name_of_selected_shop);
         seeall_images_btn_selectedshop=view.findViewById(R.id.seeall_images_btn_selectedshop);
+
+
+
+        //getParentFragmentManager().beginTransaction().addToBackStack(null);
+        ImageButton backbtn=view.findViewById(R.id.back_btn_mainscreen_for_selected_shop);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         //creating alertbox for showing all images to customer
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
@@ -196,6 +210,18 @@ public class showing_listofservices_for_shop extends Fragment {
                 fill_heart.setVisibility(View.GONE);
             }
         });
+        filltab.animate().x(0).setDuration(100);
+        filltab.setText("Services");
+        filltab.setTextColor(Color.parseColor("#FFFFFF"));
+
+        FragmentTransaction fragmentTransaction=getParentFragmentManager().beginTransaction();
+        Serviceslist_of_selected_shop f1=new Serviceslist_of_selected_shop();
+        Bundle b=new Bundle();
+        b.putString("ID",""+shop_id);
+        f1.setArguments(b);
+        // fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).addToBackStack(null).commit();
+
         service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,8 +237,8 @@ public class showing_listofservices_for_shop extends Fragment {
                 Bundle b=new Bundle();
                 b.putString("ID",""+shop_id);
                 f1.setArguments(b);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).commit();
+               // fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).addToBackStack(null).commit();
 
             }
         });
@@ -234,8 +260,25 @@ public class showing_listofservices_for_shop extends Fragment {
                 filltab.setHeight(view.getHeight());
                 filltab.animate().x(view.getWidth()*2).setDuration(100);
                 filltab.setVisibility(View.VISIBLE);
-                filltab.setText("About");
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        filltab.setText("About");
+                    }
+                }, 90);
+
                 filltab.setTextColor(Color.parseColor("#FFFFFF"));
+
+
+                FragmentTransaction fragmentTransaction=getParentFragmentManager().beginTransaction();
+               // fragmentTransaction.addToBackStack(null);
+                aboutfragment ab1=new aboutfragment();
+                Bundle b=new Bundle();
+                b.putString("Shop_id",shop_id);
+                ab1.setArguments(b);
+                fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,ab1);
+                fragmentTransaction.addToBackStack(null).commit();
             }
         });
 
@@ -279,6 +322,8 @@ public class showing_listofservices_for_shop extends Fragment {
 
             }
         });
+
+
 
         // Inflate the layout for this fragment
         return view;

@@ -7,6 +7,7 @@
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable-v24/roundcorners.xml" value="0.1825" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/bordercolor_text.xml" value="0.116" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/down_arrow.xml" value="0.1" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.1645" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.2225" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_add_location_alt_24.xml" value="0.1825" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1825" />
@@ -20,33 +21,37 @@
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2225" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.2225" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_shop_address.xml" value="0.1825" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/drawable/ic_baseline_text_snippet_24.xml" value="0.1645" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/rectangular_edittext.xml" value="0.1825" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/rounded_edittext_field.xml" value="0.1825" />
         <entry key="..\:/Barbershop-master/app/src/main/res/drawable/roundededittext_light.xml" value="0.2225" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout-v23/fragment_ownerefragmentprofile.xml" value="0.22083333333333333" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_firstscreen.xml" value="0.23645833333333333" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_login.xml" value="0.23645833333333333" />
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_main.xml" value="0.11200000000000002" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_maps.xml" value="0.23645833333333333" />
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_owener_registration.xml" value="0.176" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_owener_registration.xml" value="0.2" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_owner_home.xml" value="0.152" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_ownerlogin.xml" value="0.2" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_registration.xml" value="0.264" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/activity_select_date_and_time.xml" value="0.264" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/add_shopimages_alertbox.xml" value="0.2" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/bottom_nav_item_color.xml" value="0.153125" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/cardview_service.xml" value="0.4" />
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/custom_tab_layout.xml" value="0.4" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/custom_tab_layout.xml" value="0.8" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/edit_service.xml" value="0.2" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_aboutfragment.xml" value="0.2" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_add_service.xml" value="0.2" />
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_apphomescreen.xml" value="0.2" />
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerefragmentprofile.xml" value="0.2" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_apphomescreen.xml" value="0.264" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_maps.xml" value="0.21354166666666666" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerefragmentprofile.xml" value="0.13878562577447337" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerfragmentappointments.xml" value="0.18229166666666666" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerfragmentpayment.xml" value="0.23645833333333333" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerfragmentreviews.xml" value="0.18229166666666666" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_ownerfragmentservices.xml" value="0.2" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_profilescreen.xml" value="0.25766871165644173" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_serviceslist_of_selected_shop.xml" value="0.165625" />
-        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_showing_listofservices_for_shop.xml" value="0.176" />
+        <entry key="..\:/Barbershop-master/app/src/main/res/layout/fragment_showing_listofservices_for_shop.xml" value="0.264" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/otp_input.xml" value="0.23645833333333333" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/progress_bar.xml" value="0.16197916666666667" />
         <entry key="..\:/Barbershop-master/app/src/main/res/layout/re_authbox.xml" value="0.264" />

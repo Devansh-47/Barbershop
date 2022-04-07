@@ -37,6 +37,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.acl.Owner;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -200,12 +201,14 @@ public class OwenerRegistration extends AppCompatActivity {
 
                                                 Log.d("piooo mauthinshubhm",mAuth.getCurrentUser().getUid());
                                                 database.getReference().child("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").setValue(shop);
+                                                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("joining_year").setValue(Calendar.getInstance().get(Calendar.YEAR)+"");
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     public void run() {
                                                         Intent i = new Intent(OwenerRegistration.this, OwnerHomeActivity.class);
                                                         Log.d("piooo reg uidd mailauth",authwithmail_uid);
                                                         //i.putExtra("userid",authwithmail_uid);
+
                                                         startActivity(i);
                                                         finish();
 

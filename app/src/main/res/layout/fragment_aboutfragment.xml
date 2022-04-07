@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:layout_height="match_parent"
+    tools:context=".aboutfragment"
+    app:cardElevation="33dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/owner_name_about_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Hi there,\nI'm Kay"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:id="@+id/joining_year_about_frag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="joined in 2022"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"
+            />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardElevation="12sp"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#88FFDBDB"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="12dp"
+                android:paddingStart="1dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"
+               android:src="@drawable/thunderimg"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="3dp"
+                android:text="1k+ Clients Booked"
+                android:textSize="14sp"
+                android:textColor="#3d3d3d"
+                />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardElevation="12sp"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#88FFDBDB"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/verifiedlogo"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Verified Shop"
+                android:paddingStart="3dp"
+                android:textSize="14sp"
+                android:textColor="#3d3d3d"
+                />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:textSize="16sp"
+        android:textColor="#3d3d3d"
+        android:text="About Me"
+        android:layout_marginTop="9dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/about_owner_about_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:paddingStart="5dp"
+        android:text="About kjadnva ajviaiulr bdafvbariur kvalrihuaer kjviuaiulrhu baiureivkj adrviularbiulkbjladvkblaireibuvbkjldfvklbj laknl  ann nrkllkrlkrlerjlnjr djvjfj adfv adfrrgerg rgedavvfadvfrerg Me"
+        android:textColor="#3d3d3d"
+        android:textSize="14sp" />
+
+    <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="199dp"
+       android:layout_margin="5dp"
+       android:id="@+id/map_fragment_container_aboutfrag"/>
+
+    <TextView
+        android:id="@+id/shop_name_about_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="Evans Saloon"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textColor="#3d3d3d"
+        />
+
+    <TextView
+        android:id="@+id/shop_address_about_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="32,godean Street ,Behind Kotiyark Society,Aero drum vistar,North Noida,New Delhi,India."
+        android:layout_marginTop="1dp"
+        android:textSize="14sp"
+        android:textColor="#3d3d3d"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="Contact us"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#3d3d3d"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/mail_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="MAIL"
+            android:layout_marginEnd="13dp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:padding="5dp"
+            android:textSize="13sp"
+            android:textColor="#3d3d3d"
+            android:background="@drawable/rectangular_edittext"/>
+        <TextView
+            android:id="@+id/call_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="CALL"
+            android:clickable="true"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:textSize="13sp"
+            android:textColor="#3d3d3d"
+            android:background="@drawable/rectangular_edittext"/>
+    </LinearLayout>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="5dp"
+    android:text="Business Hours"
+    android:textStyle="bold"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="2dp"
+    android:textSize="16sp"
+    android:textColor="#3d3d3d"
+    />
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Sunday:"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/sunday_time_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="10:30 AM - 5:00 PM"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Monday"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/monday_timing_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="Closed"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Tuesday:"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/tuesday_timing_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="10:30 AM - 5:00 PM"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Wednesday:"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/wednesday_timing_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="10:30 AM - 5:00 PM"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Thursday:"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/thursday_timing_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="10:30 AM - 5:00 PM"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Friday:"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/friday_timing_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="10:30 AM - 5:00 PM"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="Saturday:"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+        <TextView
+            android:id="@+id/saturday_timing_about_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:layout_weight="1"
+            android:text="Closed"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/shopname_cancellation_policy_about_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="Evans Saloon's Cancellation Policy"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textColor="#3d3d3d"/>
+
+
+    <TextView
+        android:id="@+id/cancellation_policy_info_about_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:paddingStart="5dp"
+        android:text="You will not be charged if you cancel at east 24 hours before your appointment starts.Otherwise,you will be charged 50% of service price for late cancellation and 100% for no shows."
+        android:layout_marginTop="1dp"
+        android:textSize="14sp"
+        android:textColor="#3d3d3d"/>
+
+
+
+</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_barber"
@@ -13,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Barberr">
-
+        <activity
+            android:name=".select_date_and_time_activity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -27,7 +31,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAhQkD-09lS99CyCMCOyi2zMPxrbUJal8E" />
+            android:value="AIzaSyBxBoHX10544TzpO3VewTVMAZFJr7BR4Mk" />
 
         <activity
             android:name=".MapsActivity"

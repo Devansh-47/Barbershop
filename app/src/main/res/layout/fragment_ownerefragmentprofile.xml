@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:padding="4dp"
-                android:text="Owner Profile"
                 android:typeface="monospace"
+                android:text="Owner Profile"
                 android:textColor="@color/white"
                 android:textSize="19sp"
                 />
@@ -99,6 +99,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:typeface="monospace"
                         android:text="See All"
                         android:textColor="@color/white"
                         android:gravity="center_horizontal"/>
@@ -110,330 +111,988 @@
         </LinearLayout>
 
 
-
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="11dp"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/rectangular_edittext"
-        android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="11dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/nametext"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
 
-                android:drawableLeft="@drawable/ic_baseline_home_24"
-                android:text="Shop Name :"
-                android:textColor="#3d3d3d"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/editname"
-                android:layout_marginLeft="5dp"
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_edittext_field"
-                android:ems="10"
-                android:hint="name here  "
-
-                android:inputType="textPersonName"
-                android:paddingLeft="8dp"
-                android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck"
-                />
-        </LinearLayout>
-
-
-        <LinearLayout
-
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-
-            android:layout_width="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/ownernametext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-
-                android:drawableLeft="@drawable/ic_baseline_person_24"
-                android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎:"
-                android:textColor="#3d3d3d"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/editownername"
-
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_edittext_field"
-
-                android:ems="10"
-                android:hint="name here"
-                android:inputType="textPersonName"
-                android:paddingLeft="8dp"
-                android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck"
-                android:layout_width="match_parent"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-
-
-            android:layout_width="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/emailtext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-
-                android:drawableLeft="@drawable/ic_baseline_email_24"
-                android:text="Shop  𝚖𝚊𝚒𝚕:"
-                android:textColor="#3d3d3d"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/editmail"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_edittext_field"
-                android:ems="10"
-                android:hint="mail here"
-                android:inputType="textPersonName"
-                android:paddingLeft="8dp"
-                android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck"
-                android:layout_width="match_parent"
-                android:padding="5dp"
-                android:layout_margin="5dp"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-
-
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/mobilenotext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Contact Number:"
-                android:textColor="#3d3d3d"
-                android:textSize="22sp"
-                app:drawableLeftCompat="@drawable/ic_baseline_mobile_friendly_24" />
-
-            <EditText
-                android:id="@+id/editmobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_edittext_field"
-                android:ems="10"
-                android:padding="5dp"
-
-                android:hint="mobile here"
-                android:inputType="textPersonName"
-                android:paddingLeft="8dp"
-                android:textSize="18dp"
-                tools:ignore="TouchTargetSizeCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/addresstext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="𝚂𝚑𝚘𝚙 𝙰𝚍𝚍𝚛𝚎𝚜𝚜:"
-                android:textColor="#3d3d3d"
-                android:textSize="22sp"
-                app:drawableLeftCompat="@drawable/ic_baseline_home_24" />
-
-            <EditText
-                android:id="@+id/editaddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/rectangular_edittext"
-                android:ems="10"
-                android:hint="𝙰𝚍𝚍𝚛𝚎𝚜𝚜 here"
-                android:inputType="textMultiLine"
-                android:maxLines="5"
-                android:isScrollContainer="true"
-                android:overScrollMode="never"
-                android:padding="5dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:textSize="18sp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <ImageButton
-                android:id="@+id/editbutton"
-                android:layout_width="53dp"
-                android:layout_height="51dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/roundcorners"
-                android:backgroundTint="#3d3d3d"
-                android:src="@drawable/ic_baseline_edit_24"
-                tools:ignore="SpeakableTextPresentCheck" />
-                <TextView
+                app:cardElevation="42sp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:textColor="#4E2222"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:orientation="vertical">
-            <ImageButton
-                android:id="@+id/savebtn"
-                android:layout_width="53dp"
-                android:layout_height="51dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/roundcorners"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0"
+                    android:background="#514E4E"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="5dp">
 
-                android:backgroundTint="#3d3d3d"
-                android:src="@drawable/ic_baseline_save_24"
-                tools:ignore="SpeakableTextPresentCheck" />
-                <TextView
+                    <TextView
+                        android:id="@+id/add_loc_to_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16sp"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:typeface="monospace"
+                        android:text="ADD YOUR SHOP'S LOCATION TO GOOGLE MAP"
+                        android:textColor="@color/white"
+                        android:textSize="14sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/gmap_icon" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/businesshours_card_view"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="11dp"
+                android:layout_marginHorizontal="11dp"
+                app:cardElevation="15dp"
+                app:strokeColor="#3d3d3d"
+                app:strokeWidth="0.9dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Save"
-                    android:textColor="#4E2222"
-                    android:gravity="center"
-                    />
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:gravity="end"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+
+                            android:text="Update Business Hours "
+                            android:layout_marginStart="4dp"
+                            android:typeface="monospace"
+                            android:gravity="center_horizontal"
+                            android:textColor="#3d3d3d"
+                            android:textSize="18sp" />
+
+                        <ImageButton
+                            android:id="@+id/down_arrow_businesshours_ownerprofile_frag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/down_arrow" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/visibility_for_businesshours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/select_open_timeing_businessHours_proffrag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:layout_gravity="center_vertical"
+                                android:backgroundTint="#3d3d3d"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Select Open Timing "
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/opentime_textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:layout_marginStart="11dp"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="10.30AM"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/select_close_timeing_businessHours_proffrag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:layout_gravity="center_vertical"
+                                android:backgroundTint="#3d3d3d"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Select Close Timing"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/closetime_textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:layout_marginStart="11dp"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="10.30AM"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Sunday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/sunday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Open" />
+
+                                <RadioButton
+                                    android:id="@+id/sunday_closed_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Monday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+
+                                <RadioButton
+                                    android:id="@+id/monday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Open"
+
+                                    />
+
+                                <RadioButton
+                                    android:id="@+id/monday_clodes_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Tuesday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+
+                                <RadioButton
+                                    android:id="@+id/tuesday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+
+                                    android:buttonTint="#3d3d3d"
+
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Open" />
+
+                                <RadioButton
+                                    android:id="@+id/tuesday_closed_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Wednesday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+
+                                <RadioButton
+                                    android:id="@+id/wednesday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Open" />
+
+                                <RadioButton
+                                    android:id="@+id/wednesday_closed_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Thursday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+
+                                <RadioButton
+                                    android:id="@+id/thursday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+
+                                    android:buttonTint="#3d3d3d"
+
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Open" />
+
+                                <RadioButton
+                                    android:id="@+id/thursday_closed_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Friday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/friday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+
+                                    android:buttonTint="#3d3d3d"
+
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Open" />
+
+                                <RadioButton
+                                    android:id="@+id/friday_closed_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+                            </RadioGroup>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginBottom="11dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:typeface="monospace"
+                                android:text="Saturday:"
+                                android:textColor="#3d3d3d"
+                                android:textSize="18sp" />
+
+                            <RadioGroup
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+
+                                <RadioButton
+                                    android:id="@+id/saturday_open_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+                                    android:buttonTint="#3d3d3d"
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+
+                                    android:typeface="monospace"
+                                    android:text="Open" />
+
+                                <RadioButton
+                                    android:id="@+id/saturday_closed_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_height="22dp"
+
+                                    android:buttonTint="#3d3d3d"
+
+                                    android:scaleX="0.9"
+                                    android:scaleY="0.9"
+                                    android:typeface="monospace"
+                                    android:text="Closed"
+                                    android:checked="true"/>
+
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:typeface="monospace"
+                        android:text="UPDATE"
+                        android:scaleY="0.9"
+                        android:id="@+id/update_businesshours_btn"
+                        android:textSize="12sp"
+                        android:backgroundTint="#3d3d3d"
+                        />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardElevation="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/rectangular_edittext"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nametext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+
+                            android:drawableLeft="@drawable/ic_baseline_home_24"
+                            android:typeface="monospace"
+                            android:text="Shop Name :"
+                            android:textColor="#3d3d3d"
+                            android:textSize="22sp" />
+
+                        <EditText
+                            android:id="@+id/editname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_edittext_field"
+                            android:ems="10"
+                            android:hint="name here  "
+                            android:inputType="textPersonName"
+
+                            android:padding="5dp"
+                            android:paddingLeft="8dp"
+                            android:textSize="18dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ownernametext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+
+                            android:drawableLeft="@drawable/ic_baseline_person_24"
+                            android:typeface="monospace"
+                            android:text="𝙾𝚠𝚗𝚎𝚛 𝙽𝚊𝚖𝚎:"
+                            android:textColor="#3d3d3d"
+                            android:textSize="22sp" />
+
+                        <EditText
+                            android:id="@+id/editownername"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_edittext_field"
+                            android:ems="10"
+                            android:hint="name here"
+                            android:inputType="textPersonName"
+                            android:padding="5dp"
+                            android:paddingLeft="8dp"
+                            android:textSize="18dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/emailtext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+
+                            android:drawableLeft="@drawable/ic_baseline_email_24"
+                            android:typeface="monospace"
+                            android:text="Shop  𝚖𝚊𝚒𝚕:"
+                            android:textColor="#3d3d3d"
+                            android:textSize="22sp" />
+
+                        <EditText
+                            android:id="@+id/editmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_edittext_field"
+                            android:ems="10"
+                            android:hint="mail here"
+                            android:inputType="textPersonName"
+                            android:padding="5dp"
+                            android:paddingLeft="8dp"
+                            android:textSize="18dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/mobilenotext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:typeface="monospace"
+                            android:text="Contact Number:"
+                            android:textColor="#3d3d3d"
+                            android:textSize="22sp"
+                            app:drawableLeftCompat="@drawable/ic_baseline_mobile_friendly_24" />
+
+                        <EditText
+                            android:id="@+id/editmobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_edittext_field"
+                            android:ems="10"
+                            android:hint="mobile here"
+
+                            android:inputType="textPersonName"
+                            android:padding="5dp"
+                            android:paddingLeft="8dp"
+                            android:textSize="18dp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/addresstext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:typeface="monospace"
+                            android:text="𝚂𝚑𝚘𝚙 𝙰𝚍𝚍𝚛𝚎𝚜𝚜:"
+                            android:textColor="#3d3d3d"
+                            android:textSize="22sp"
+                            app:drawableLeftCompat="@drawable/ic_baseline_home_24" />
+
+                        <EditText
+                            android:id="@+id/editaddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangular_edittext"
+                            android:ems="10"
+                            android:hint="𝙰𝚍𝚍𝚛𝚎𝚜𝚜 here"
+                            android:inputType="textMultiLine"
+                            android:isScrollContainer="true"
+                            android:maxLines="5"
+                            android:overScrollMode="never"
+                            android:padding="4dp"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:textSize="18sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/abouttext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:typeface="monospace"
+                            android:text="About Owner:"
+                            android:textColor="#3d3d3d"
+                            android:textSize="20sp"
+                            app:drawableLeftCompat="@drawable/ic_baseline_text_snippet_24" />
+
+                        <EditText
+                            android:id="@+id/about_owner_inprofilefrag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangular_edittext"
+                            android:hint="Write Something About Owner here"
+                            android:inputType="textMultiLine"
+                            android:isScrollContainer="true"
+                            android:maxLines="9"
+                            android:overScrollMode="never"
+                            android:padding="4dp"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:textSize="16sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/editbutton"
+                            android:layout_width="53dp"
+                            android:layout_height="51dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/roundcorners"
+                            android:backgroundTint="#3d3d3d"
+                            android:src="@drawable/ic_baseline_edit_24"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:typeface="monospace"
+                            android:text="Edit"
+                            android:textColor="#4E2222" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/savebtn"
+                            android:layout_width="53dp"
+                            android:layout_height="51dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="0"
+                            android:background="@drawable/roundcorners"
+
+                            android:backgroundTint="#3d3d3d"
+                            android:src="@drawable/ic_baseline_save_24"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:typeface="monospace"
+                            android:text="Save"
+                            android:textColor="#4E2222" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/changepassword_owner_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:typeface="monospace"
+                    android:text="Change password?"
+                    android:textColor="#D34E4E"
+                    android:textSize="16sp">
+
+                </TextView>
+
+
+                <LinearLayout
+                    android:layout_width="211dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="22dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/logoutbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:backgroundTint="#3d3d3d"
+                        android:drawableEnd="@drawable/ic_baseline_login_24"
+                        android:typeface="monospace"
+                        android:text="Logout"
+                        app:cornerRadius="100dp" />
+
+                    <Button
+                        android:id="@+id/deletebtnn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+
+                        android:backgroundTint="#3d3d3d"
+                        android:drawableEnd="@drawable/ic_baseline_delete_24"
+                        android:typeface="monospace"
+                        android:text="Delete  Account"
+                        android:textColor="@android:color/holo_red_light"
+                        app:cornerRadius="100dp" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/changepassword_owner_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="Change password?"
-            android:textColor="#D34E4E"
-            android:textSize="16sp">
 
-        </TextView>
-        <TextView
-            android:id="@+id/add_loc_to_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="add Location"
-            android:textColor="#D34E4E"
-            android:textSize="16sp">
-
-        </TextView>
 
         <LinearLayout
-            android:layout_width="255dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/logoutbtn"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_height="wrap_content"
+                android:background="#3d3d3d"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/add_cancellation_policy"
+                    android:typeface="monospace"
+                    android:text="Add Cancellation Policy"
+                    android:layout_weight="1"
+                    android:layout_marginVertical="4dp"
+                    android:textColor="@color/white"
+                    android:clickable="true"
+                    android:gravity="end"
+                    android:background="#3d3d3d"
+                    />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                   android:paddingStart="-59dp"
+                    android:background="#3d3d3d"
+                    android:src="@drawable/cancel_policy"/>
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:strokeColor="@color/white"
+                app:strokeWidth="0.9dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/cancellation_policy_visibility"
+                    android:layout_height="match_parent"
+                    android:background="#3d3d3d"
+                    android:visibility="visible"
+                    android:orientation="vertical">
 
-                android:layout_gravity="bottom|center_horizontal"
-                android:backgroundTint="#3d3d3d"
-                android:drawableEnd="@drawable/ic_baseline_login_24"
-                android:text="Logout"
-                app:cornerRadius="100dp" />
 
-            <Button
-                android:id="@+id/deletebtnn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-
-                android:backgroundTint="#3d3d3d"
-                android:drawableEnd="@drawable/ic_baseline_delete_24"
-                android:text="Delete  Account"
-                android:textColor="@android:color/holo_red_light"
-                app:cornerRadius="100dp" />
-
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                       android:background="@drawable/rectangular_edittext"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginVertical="22dp"
+                        android:padding="5dp"
+                        android:minLines="3"
+                        android:id="@+id/cancellation_policy_text"
+                        android:textSize="16sp"
+                        android:typeface="monospace"
+                        android:text="vjsndvnsdjlnvsjdvnsdjnvkwjvkjacjadvkjbjk"
+                        android:inputType="textMultiLine"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="9sp"
+                        android:id="@+id/update_cancellation_policy_btn"
+                        android:layout_gravity="center_horizontal"
+                        android:typeface="monospace"
+                        android:text="Update Cancellation Policy"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
-
 
 
     </LinearLayout>

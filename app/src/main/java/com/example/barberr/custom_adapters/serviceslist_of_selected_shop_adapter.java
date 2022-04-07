@@ -17,6 +17,7 @@ package com.example.barberr.custom_adapters;
         import androidx.recyclerview.widget.RecyclerView;
 
         import com.example.barberr.R;
+        import com.example.barberr.Serviceslist_of_selected_shop;
         import com.example.barberr.userdetails.services;
         import com.ms.square.android.expandabletextview.ExpandableTextView;
 
@@ -25,7 +26,7 @@ package com.example.barberr.custom_adapters;
 public class serviceslist_of_selected_shop_adapter extends RecyclerView.Adapter<serviceslist_of_selected_shop_adapter.ViewHolder> {
 
     public static ArrayList<services> list;
-    ArrayList<String> a2=new ArrayList<>();
+    public static ArrayList<String> a2=new ArrayList<>();
     public static Context context;
     public static int pos;
 
@@ -50,7 +51,7 @@ public class serviceslist_of_selected_shop_adapter extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-    pos=position;
+    pos=holder.getAdapterPosition();
        holder.getShopname().setText(list.get(position).getService_name());
        holder.getPrice_and_duration().setText(list.get(position).getService_price()+"$ and up to "+list.get(position).getService_duration()+"mins ");
        holder.getExpandable_description().setText(list.get(position).getService_description());
@@ -60,9 +61,11 @@ public class serviceslist_of_selected_shop_adapter extends RecyclerView.Adapter<
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (holder.getService_checkbox().isChecked()){
                     a2.add(holder.getShopname().getText().toString());
-                } else {
+                }
+                else {
                     a2.remove(holder.getShopname().getText().toString());
                 }
+
                 Log.d("CGHE","sizeee="+a2.size()+"added="+holder.getShopname().getText().toString());
             }
 

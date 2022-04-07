@@ -93,7 +93,7 @@ public class firstscreen extends AppCompatActivity {
                                // progressDialog.dismiss();
                                 Toast.makeText(firstscreen.this,"Log-in Successfully",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(firstscreen.this,OwnerHomeActivity.class));
-                                finish();
+
 
                             }
                             else {

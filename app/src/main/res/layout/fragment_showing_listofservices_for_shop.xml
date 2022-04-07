@@ -19,6 +19,13 @@
             android:minHeight="?attr/actionBarSize"
             android:layout_marginBottom="7dp"
             android:theme="?attr/actionBarTheme">
+            <ImageButton
+                android:id="@+id/back_btn_mainscreen_for_selected_shop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:src="@drawable/down_arrow"
+                android:background="@android:color/white"/>
 
             <TextView
                 android:id="@+id/shop_name_of_selected_shop"
@@ -314,6 +321,7 @@
 
         <include layout="@layout/custom_tab_layout" />
 
+
         <FrameLayout
             android:id="@+id/fragment_container_for_service_review_about"
             android:layout_width="match_parent"
@@ -321,6 +329,9 @@
 
 
         </FrameLayout>
+
+
+
     </LinearLayout>
 
 

@@ -14,9 +14,16 @@
             android:id="@+id/profilefragment_toolbar"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="#3d3d3d"
+            android:background="#3D3D3D"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme">
+            <ImageButton
+                android:id="@+id/back_btn_apphomescreen"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/down_arrow"
+                android:visibility="gone"
+                android:background="@android:color/white"/>
 
             <TextView
                 android:id="@+id/Profiletext"
@@ -40,12 +47,15 @@
 
     <ImageButton
         android:id="@+id/searchby_location"
-        android:layout_width="53dp"
-        android:layout_height="53dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:scaleType="fitXY"
         android:layout_margin="9dp"
         android:src="@drawable/googlemapicon"
-        android:background="@android:color/transparent"
+        android:background="@drawable/rounded_edittext_field"
         android:layout_gravity="bottom|end"
+        android:backgroundTint="#C93D3D3D"
+        android:padding="5dp"
+        android:elevation="40dp"
         />
 </FrameLayout>

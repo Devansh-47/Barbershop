@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="MMM" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="CGHE" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="AutoImportSettings">
@@ -14,28 +14,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3af06bba-d279-4aef-ac58-1d2610c7d908" name="Default Changelist" comment="eleventh commit with change of email &amp; password for usersiede">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/MapsActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/googlemapicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/MapsFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/aboutfragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/select_date_and_time_activity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/cancel_policy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/cancellationpolicy_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/gmap_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/thunderimg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/verifiedlogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_text_snippet_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_select_date_and_time.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_aboutfragment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_maps.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/Apphomescreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/Apphomescreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/MapsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/MapsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/OwenerRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/OwenerRegistration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/Ownerefragmentprofile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/Ownerefragmentprofile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/Serviceslist_of_selected_shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/Serviceslist_of_selected_shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/custHomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/custHomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/custom_adapters/serviceslist_of_selected_shop_adapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/custom_adapters/serviceslist_of_selected_shop_adapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/firstscreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/firstscreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/showing_listofservices_for_shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/barberr/showing_listofservices_for_shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_access_time_24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_access_time_24.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rectangular_edittext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rectangular_edittext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/custom_tab_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_tab_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_apphomescreen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_apphomescreen.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ownerefragmentprofile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ownerefragmentprofile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_serviceslist_of_selected_shop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_serviceslist_of_selected_shop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_showing_listofservices_for_shop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_showing_listofservices_for_shop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/service_view_of_selectedshop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/service_view_of_selectedshop.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +59,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[v4bakn8ddi8pzpfi]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -91,9 +107,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
-        <option value="valueResourceFile" />
         <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -146,6 +162,12 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Barbershop-master\app\src\main\res\mipmap-xhdpi" />
+    </key>
+    <key name="android.template.-1472608963">
+      <recent name="com.example.barberr" />
+    </key>
+    <key name="android.template.112223068">
+      <recent name="com.example.barberr" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.barberr" />

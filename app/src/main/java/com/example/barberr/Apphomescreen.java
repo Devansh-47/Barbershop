@@ -1,11 +1,14 @@
 package com.example.barberr;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +24,7 @@ import android.widget.ImageButton;
 import com.example.barberr.custom_adapters.RecyclerItemClickListener;
 import com.example.barberr.custom_adapters.shop_list_adapter;
 import com.example.barberr.userdetails.Shop;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +44,7 @@ public class Apphomescreen extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
 
 
     FirebaseDatabase database;
@@ -87,6 +92,7 @@ public class Apphomescreen extends Fragment {
 
 
 
+
     }
 
     @Override
@@ -96,6 +102,15 @@ public class Apphomescreen extends Fragment {
         View view=inflater.inflate(R.layout.fragment_apphomescreen, container, false);
 
         ImageButton g_map_search=view.findViewById(R.id.searchby_location);
+        ImageButton backbtn=view.findViewById(R.id.back_btn_apphomescreen);
+
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         g_map_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,13 +142,7 @@ public class Apphomescreen extends Fragment {
                 shop_list_adapter adapter=new shop_list_adapter(list,getContext());
                 shop_list_recyclerview.setAdapter(adapter);
                 shop_list_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // yourMethod();
-//
-//                    }
-//                }, 0);   //5 seconds
+
 
 
             }
@@ -156,14 +165,15 @@ public class Apphomescreen extends Fragment {
                                 for (DataSnapshot datasnapshot: snapshot.getChildren()
                                      ) {
                                         if(datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(mailid_shop)){
-                                            FragmentTransaction fragmentTransaction=getParentFragmentManager().beginTransaction();
+                                            FragmentTransaction fragmentTransaction=getChildFragmentManager().beginTransaction();
                                             showing_listofservices_for_shop f1=new showing_listofservices_for_shop();
                                             Bundle b=new Bundle();
                                             Log.d("ASAAa",datasnapshot.getKey());
                                             b.putString("ID",""+datasnapshot.getKey());
                                             f1.setArguments(b);
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.replace(R.id.child_frag_showinglist_of_services,f1).commit();
+
+                                            g_map_search.setVisibility(View.GONE);
+                                            fragmentTransaction.replace(R.id.child_frag_showinglist_of_services,f1).addToBackStack(null).commit();
                                             break;
                                         }
                                 }

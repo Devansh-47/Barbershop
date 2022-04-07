@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Serviceslist_of_selected_shop">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/serviceslist_of_selected_shop"/>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="55dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black"
+        android:layout_marginTop="11dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF5F5"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/showing_selected_servicescount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="3 Services Selected worth 550$"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:textColor="#3d3d3d"
+                />
+            <Button
+                android:id="@+id/Book_appointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:backgroundTint="@color/black"
+                android:scaleY="0.9"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-</FrameLayout>
+
+
+</LinearLayout>

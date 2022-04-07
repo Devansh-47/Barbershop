@@ -4,8 +4,10 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.provider.OpenableColumns;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +33,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.barberr.custom_adapters.RecyclerItemClickListener;
@@ -42,6 +50,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,6 +65,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -86,22 +97,27 @@ public class Ownerefragmentprofile extends Fragment {
     FirebaseStorage Storage;
     StorageReference reference;
 
-    Button logoutbtn,deletebtn,re_authsendmailbtn,add_shop_service_image_btn_alertbox,add_shop_images_btn;
+    Button logoutbtn,deletebtn,re_authsendmailbtn,add_shop_service_image_btn_alertbox
+            ,select_open_timing_btn,select_closed_timing_btn,add_shop_images_btn
+            ,update_business_ours_btn,update_cancellation_policy;
     ImageView profileimg,profileimg2,profileimg3;
     private Activity activity;
-    EditText editshopname,editownername,editpassword,editaddress,editmobile,editmail,reath_password,reauth_mail;
-    ImageButton browsebtn,editbutton,savebutton,re_authcancelbtn,cancelbtn_addshopimg_alertbox,seeallimages_imagebtn;
+    EditText editshopname,editownername,editabout,editaddress,editmobile,editmail,reath_password,reauth_mail,cancellation_policy_text;
+    ImageButton browsebtn,editbutton,savebutton,re_authcancelbtn,cancelbtn_addshopimg_alertbox,seeallimages_imagebtn
+            ,down_arrow_for_updatebusiness_Hours;
     ActivityResultLauncher<String> launcher;
     ProgressDialog progressDialog;
     ProgressBar Loadimg;
-    TextView changepassword,add_location;
+    TextView changepassword,add_location,opentiming_textview,closedtiming_textview,add_cancellation_policy_textview;
     View re_authbox,add_shop_pics_alertbox;
     AlertDialog.Builder alertDialogbuilder,alertdialogBuilder2;
     AlertDialog resetmailbox;
+    RadioButton monday_open,monday_close,sunday_open,sunday_close,tuesday_open,tuesday_close,wednesday_open,wednesday_close,thursday_open,thursday_close,friday_open,friday_close,saturday_open,saturday_close;
     RecyclerView shop_services_list_in_alertbox,shop_images_list_in_alertbox;
     CircleImageView owner_profile_pic;
     String selected_btn_in_alertbox;
     String ref;
+
 
     shop_imgs_adapter adapter,adapter2;
     static int i,j;
@@ -210,6 +226,7 @@ public class Ownerefragmentprofile extends Fragment {
 
         editownername=(EditText) view.findViewById(R.id.editownername);
         editmail=(EditText) view.findViewById(R.id.editmail);
+        editabout=(EditText)view.findViewById(R.id.about_owner_inprofilefrag);
 
         seeallimages_imagebtn=view.findViewById(R.id.seeall_images_btn);
 
@@ -220,12 +237,200 @@ public class Ownerefragmentprofile extends Fragment {
         profileimg2=(ImageView)view.findViewById(R.id.profile_image2);
         profileimg3=(ImageView)view.findViewById(R.id.profile_image3);
 
-       // profileimg.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+        LinearLayout businesshours_visible;
+        //businesshours views
+        businesshours_visible=view.findViewById(R.id.visibility_for_businesshours);
+            down_arrow_for_updatebusiness_Hours=view.findViewById(R.id.down_arrow_businesshours_ownerprofile_frag);
+            select_open_timing_btn=view.findViewById(R.id.select_open_timeing_businessHours_proffrag);
+            select_closed_timing_btn=view.findViewById(R.id.select_close_timeing_businessHours_proffrag);
+            opentiming_textview=view.findViewById(R.id.opentime_textview);
+            closedtiming_textview=view.findViewById(R.id.closetime_textview);
+            monday_open=view.findViewById(R.id.monday_open_radio_btn);
+            monday_close=view.findViewById(R.id.monday_clodes_radio_btn);
+            sunday_open=view.findViewById(R.id.sunday_open_radio_btn);
+            sunday_close=view.findViewById(R.id.sunday_closed_radio_btn);
+        tuesday_open=view.findViewById(R.id.tuesday_open_radio_btn);
+        tuesday_close=view.findViewById(R.id.tuesday_closed_radio_btn);
+        wednesday_open=view.findViewById(R.id.wednesday_open_radio_btn);
+        wednesday_close=view.findViewById(R.id.wednesday_closed_radio_btn);
+        thursday_open=view.findViewById(R.id.thursday_open_radio_btn);
+        thursday_close=view.findViewById(R.id.thursday_closed_radio_btn);
+        friday_open=view.findViewById(R.id.friday_open_radio_btn);
+        friday_close=view.findViewById(R.id.friday_closed_radio_btn);
+        saturday_open=view.findViewById(R.id.saturday_open_radio_btn);
+        saturday_close=view.findViewById(R.id.saturday_closed_radio_btn);
+        update_business_ours_btn=view.findViewById(R.id.update_businesshours_btn);
+        MaterialCardView businesshours_cardview=view.findViewById(R.id.businesshours_card_view);
+
+
+        select_open_timing_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c=Calendar.getInstance();
+                int y=c.get(Calendar.HOUR_OF_DAY);
+                int d=c.get(Calendar.MINUTE);
+                TimePickerDialog td=new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        String am_pm = (i < 12) ? "AM" : "PM";
+                       FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("opening_time").setValue(""+i+":"+i1+" "+am_pm);
+                        opentiming_textview.setText(i+":"+i1+am_pm);
+                    }
+                },y,d,false);
+                  td.show();
+            }
+        });
+        select_closed_timing_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c=Calendar.getInstance();
+                int y=c.get(Calendar.HOUR_OF_DAY);
+                int d=c.get(Calendar.MINUTE);
+                TimePickerDialog td=new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        String am_pm = (i < 12) ? "AM" : "PM";
+                        FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("closing_time").setValue(""+i+":"+i1+" "+am_pm);
+                        closedtiming_textview.setText(i+":"+i1+am_pm);
+                    }
+                },y,d,false);
+                td.show();
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("schedule").exists()){
+                    for (DataSnapshot datasnapshot:snapshot.child("schedule").getChildren()
+                         ) {
+                        if(!datasnapshot.getKey().equals("opening_time") && !datasnapshot.getKey().equals("closing_time")){
+
+                            if(datasnapshot.getKey().equals("sunday")){
+                               if(datasnapshot.getValue(String.class).equals("Open"))
+                                sunday_open.setChecked(true);
+                            }
+                            if(datasnapshot.getKey().equals("monday")){
+                                if(datasnapshot.getValue(String.class).equals("Open"))
+                                monday_open.setChecked(true);
+                            }
+                            if(datasnapshot.getKey().equals("tuesday")){
+                                if(datasnapshot.getValue(String.class).equals("Open"))
+                                tuesday_open.setChecked(true);
+                            }
+                            if(datasnapshot.getKey().equals("wednesday")){
+                                if(datasnapshot.getValue(String.class).equals("Open"))
+                                wednesday_open.setChecked(true);
+                            }
+                            if(datasnapshot.getKey().equals("thursday")){
+                                if(datasnapshot.getValue(String.class).equals("Open"))
+                                    thursday_open.setChecked(true);
+                            }
+                            if(datasnapshot.getKey().equals("friday")){
+                                if(datasnapshot.getValue(String.class).equals("Open"))
+                                friday_open.setChecked(true);
+                            }
+                            if(datasnapshot.getKey().equals("saturday")){
+                                if(datasnapshot.getValue(String.class).equals("Open"))
+                                saturday_open.setChecked(true);
+                            }
+                        }else {
+                            Log.d("RRRR",datasnapshot.getKey());
+                            if(datasnapshot.getKey().equals("opening_time")){
+                                opentiming_textview.setText(datasnapshot.getValue(String.class));
+                            }else {
+
+                                closedtiming_textview.setText(datasnapshot.getValue(String.class));
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+       update_business_ours_btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("sunday").setValue(sunday_open.isChecked()?"Open":"Closed");
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("monday").setValue(monday_open.isChecked()?"Open":"Closed");
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("tuesday").setValue(tuesday_open.isChecked()?"Open":"Closed");
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("thursday").setValue(thursday_open.isChecked()?"Open":"Closed");
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("wednesday").setValue(wednesday_open.isChecked()?"Open":"Closed");
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("friday").setValue(friday_open.isChecked()?"Open":"Closed");
+               FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("schedule").child("saturday").setValue(saturday_open.isChecked()?"Open":"Closed");
+               Toast.makeText(getContext(), "Data Updated Successfully!!", Toast.LENGTH_SHORT).show();
+           }
+       });
+
+        down_arrow_for_updatebusiness_Hours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(businesshours_visible.getVisibility()==View.VISIBLE){
+
+                    businesshours_visible.setVisibility(View.GONE);
+
+                    down_arrow_for_updatebusiness_Hours.setImageResource(R.drawable.down_arrow);
+
+
+                }else {
+                    TransitionManager.beginDelayedTransition(businesshours_cardview,new AutoTransition());
+                    businesshours_visible.setVisibility(View.VISIBLE);
+                    down_arrow_for_updatebusiness_Hours.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                }
+            }
+        });
+        //businesshours views
+
+
+        // profileimg.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
         changepassword=(TextView) view.findViewById(R.id.changepassword_owner_profile);
+        add_cancellation_policy_textview=view.findViewById(R.id.add_cancellation_policy);
+        LinearLayout cancellation_policy_visibility=view.findViewById(R.id.cancellation_policy_visibility);
+        cancellation_policy_visibility.setVisibility(View.GONE);
+        cancellation_policy_text=view.findViewById(R.id.cancellation_policy_text);
+        update_cancellation_policy=view.findViewById(R.id.update_cancellation_policy_btn);
+        FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("cancellation_Policy").exists()){
+                    cancellation_policy_text.setText(snapshot.child("cancellation_Policy").getValue(String.class));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        update_cancellation_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("cancellation_Policy").setValue(cancellation_policy_text.getText().toString()+"");
+                cancellation_policy_visibility.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Cancellation Policy Has been Successfully Updated!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        add_cancellation_policy_textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancellation_policy_visibility.setVisibility(View.VISIBLE);
+                cancellation_policy_text.requestFocus();
+
+            }
+        });
+
 
 
 Shop_images_uri=new ArrayList<>();
@@ -264,8 +469,6 @@ Shop_services_uri=new ArrayList<>();
         Loadimg = (ProgressBar) add_shop_pics_alertbox.findViewById(R.id.Loadimg_add_images_alertbox);
         owner_profile_pic=add_shop_pics_alertbox.findViewById(R.id.owner_profile_image);
 cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
-
-      //  update_shop_image_list();
 
         browsebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -540,7 +743,9 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                 editshopname.setText(ownerdetail.getShop_name());
                 editownername.setText(ownerdetail.getOwner_name());
                 editaddress.setText(ownerdetail.getShop_address());
+                editabout.setText(snapshot.child("about_owner").getValue(String.class));
                 editaddress.setMaxLines(5);
+
 
                 editmail.setText(ownerdetail.getShop_mail());
                 mail=editmail.getText().toString();
@@ -562,6 +767,7 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                         editaddress.setEnabled(false);
                        // editpassword.setEnabled(false);
                         editmobile.setEnabled(false);
+                        editabout.setEnabled(false);
                     }
                 }, 0);   //5 seconds
 
@@ -660,7 +866,7 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                // database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_password").setValue(editpassword.getText().toString());
                 database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("owner_name").setValue(editownername.getText().toString());
                 database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("shop_address").setValue(editaddress.getText().toString());
-
+                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("about_owner").setValue(editabout.getText().toString());
 
                 editshopname.setEnabled(false);
                 editmail.setEnabled(false);
@@ -668,6 +874,7 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                 editmobile.setEnabled(false);
                 editownername.setEnabled(false);
                 editaddress.setEnabled(false);
+                editabout.setEnabled(false);
 
                 FirebaseUser user = mAuth.getCurrentUser();
 
@@ -739,6 +946,7 @@ cancelbtn_addshopimg_alertbox.setVisibility(View.VISIBLE);
                 editshopname.setEnabled(true);
                 editmail.setEnabled(true);
                // editpassword.setEnabled(true);
+                editabout.setEnabled(true);
                 editmobile.setEnabled(true);
                 editownername.setEnabled(true);
                 editaddress.setEnabled(true);

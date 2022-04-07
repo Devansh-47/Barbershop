@@ -1,5 +1,6 @@
 package com.example.barberr;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,9 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,9 +82,31 @@ public class Serviceslist_of_selected_shop extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_serviceslist_of_selected_shop, container, false);
         services_list_selected_shop = view.findViewById(R.id.serviceslist_of_selected_shop);
-
-        ArrayList<services> al = new ArrayList<>();
+        Button book;
+        TextView showing_selected_services_info;
+        book=view.findViewById(R.id.Book_appointment);
+        showing_selected_services_info=view.findViewById(R.id.showing_selected_servicescount);
         String shop_id = getArguments().getString("ID");
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showing_selected_services_info.setText(serviceslist_of_selected_shop_adapter.a2.size()+" services selected worth 666$");
+                    }
+                },  0);
+
+                Intent i=new Intent(getContext(),select_date_and_time_activity.class);
+                 i.putStringArrayListExtra("selected_services",serviceslist_of_selected_shop_adapter.a2);
+                 i.putExtra("shop_id",shop_id);
+                startActivity(i);
+
+            }
+        });
+        ArrayList<services> al = new ArrayList<>();
+
         FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("services").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -105,9 +131,10 @@ public class Serviceslist_of_selected_shop extends Fragment {
                 new RecyclerItemClickListener(getContext(), services_list_selected_shop, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                            if(view.getId()==R.id.expand_description_selected_shop){
-                                Toast.makeText(getContext(), "idname=wxpandeble", Toast.LENGTH_SHORT).show();
-                            }
+
+
+                            //    Toast.makeText(getContext(), "name ="+al.get(position).getService_name(), Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
