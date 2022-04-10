@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:strokeWidth="0.1dp"
+    app:strokeColor="#3d3d3d"
+    app:cardElevation="33dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginVertical="13dp"
+    android:layout_marginHorizontal="6dp"
+    android:backgroundTint="#E8E7E7"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="9dp"
+        android:paddingVertical="10dp"
+        android:orientation="vertical"
+        android:background="#E8E7E7"
+        >
+
+
+        <TextView
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_home_24"
+            android:gravity="center_vertical"
+            android:text="Shop Name"
+            android:textColor="#3d3d3d"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/shopname_apmt_userside"
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="evans saloon"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:textColor="#3d3d3d"
+            />
+
+
+        <TextView
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Date"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/ic_baseline_date_range_24"
+            android:textStyle="bold"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:id="@+id/apmt_date_userside"
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="28-09-2022"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Services"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/ic_baseline_room_service_24"
+            android:textStyle="bold"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:id="@+id/services_apmt_userside"
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hair cut.40min.60$\nhair cut.40min.60$\nhair cut.40min.60$"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slot"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/ic_baseline_access_time_24"
+            android:textStyle="bold"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:id="@+id/slot_apmt_userside"
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12PM-2PM"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount"
+            android:gravity="start"
+            android:drawableStart="@drawable/ic_baseline_attach_money_24"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#3d3d3d"
+            />
+        <TextView
+            android:id="@+id/amount_apmt_userside"
+            android:typeface="monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300$"
+            android:gravity="start"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            android:textColor="#3d3d3d"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Cancel Appointment"
+            android:layout_gravity="bottom"
+            android:id="@+id/cancel_appointment_btn"
+            android:textSize="12dp"
+            android:backgroundTint="@color/black"
+            android:scaleY="0.8"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+

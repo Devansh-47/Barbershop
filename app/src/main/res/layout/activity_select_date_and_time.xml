@@ -26,8 +26,8 @@
             android:id="@+id/shop_name_of_selected_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:padding="4dp"
+            android:layout_gravity="center_horizontal"
             android:text="Select Date And Slot"
             android:typeface="monospace"
             android:textColor="@color/white"
@@ -35,19 +35,196 @@
             />
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:layout_width="555dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#3d3d3d"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:id="@+id/shop_name_in_selectdate_activity"
+        android:text="Your Appointment With Evans Saloon"/>
+
+
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
+        android:layout_marginBottom="-22dp"
         android:layout_height="wrap_content"
         />
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="info"
-        android:textSize="12dp"
-        android:gravity="center"
-        android:textColor="#3d3d3d"
-        android:id="@+id/service_info_dateactivity"/>
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+            <CheckBox
+                android:gravity="center"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="10:55AM:12:88PM"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:buttonTint="@color/black"
+                android:visibility="gone"
+                android:textColor="#3d3d3d"
+                android:id="@+id/slot_1"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangular_edittext" />
+            <CheckBox
+                android:gravity="center"
+                android:buttonTint="#3d3d3d"
 
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="10AM:12PM"
+                android:layout_weight="1"
+                android:textSize="12sp"
+
+                android:visibility="gone"
+                android:textColor="#3d3d3d"
+                android:id="@+id/slot_2"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangular_edittext" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+            <CheckBox
+                android:gravity="center"
+                android:buttonTint="#3d3d3d"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="10AM:12PM"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#3d3d3d"
+                android:visibility="gone"
+                android:id="@+id/slot_4"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangular_edittext" />
+            <CheckBox
+                android:gravity="center"
+                android:buttonTint="#3d3d3d"
+
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="10AM:12PM"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:textSize="12sp"
+
+                android:id="@+id/slot_5"
+                android:textColor="#3d3d3d"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangular_edittext" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+            <CheckBox
+                android:gravity="center"
+                android:buttonTint="#3d3d3d"
+
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="10AM:12PM"
+                android:layout_weight="1"
+                android:id="@+id/slot_3"
+                android:textSize="12sp"
+
+                android:textColor="#3d3d3d"
+                android:visibility="gone"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangular_edittext" />
+            <CheckBox
+                android:gravity="center"
+                android:buttonTint="#3d3d3d"
+
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:text="10AM:12PM"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:textSize="12sp"
+
+                android:id="@+id/slot_6"
+                android:textColor="#3d3d3d"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangular_edittext" />
+        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="55dp"
+            app:strokeWidth="1dp"
+            android:visibility="gone"
+            app:strokeColor="#3d3d3d"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/set_reminder"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:textSize="15sp"
+                android:text="  Set Reminder"
+                app:drawableStartCompat="@drawable/ic_baseline_notifications_active_24"
+                android:focusable="true" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Services"
+        android:textColor="#3d3d3d"
+        android:layout_marginBottom="-7dp"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:padding="5dp"
+        android:background="#F4EFEF"
+        android:layout_gravity="center_horizontal"/>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#F4EFEF"
+        android:layout_marginHorizontal="15dp"
+        android:id="@+id/showing_selected_services_listview"/>
+
+
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make Payment"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/make_payment_btn"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/black"
+
+        />
 
 </LinearLayout>

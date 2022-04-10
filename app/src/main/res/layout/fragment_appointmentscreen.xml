@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CA8B2C"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".Apphomescreen">
+   <androidx.appcompat.widget.Toolbar
+       android:id="@+id/profilefragment_toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:background="#3d3d3d"
+       android:minHeight="?attr/actionBarSize"
+       android:theme="?attr/actionBarTheme">
+      <ImageButton
+          android:id="@+id/back_btn_mainscreen_for_selected_shop"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:visibility="gone"
+          android:src="@drawable/down_arrow"
+          android:background="@android:color/white"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="202dp"
-        android:layout_height="148dp"
-        android:layout_gravity="center"
-        android:text="appointment"
-        android:textSize="34sp" />
-</FrameLayout>
+      <TextView
+          android:id="@+id/shop_name_of_selected_shop"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:padding="4dp"
+          android:text="My Appointments"
+          android:typeface="monospace"
+          android:textColor="@color/white"
+          android:textSize="19sp"
+          />
+   </androidx.appcompat.widget.Toolbar>
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/appointment_taken_byuser_recyclerview"
+       android:background="@color/white"/>
+</LinearLayout>

@@ -105,12 +105,7 @@ public class Apphomescreen extends Fragment {
         ImageButton backbtn=view.findViewById(R.id.back_btn_apphomescreen);
 
 
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+
 
         g_map_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,11 +134,10 @@ public class Apphomescreen extends Fragment {
                     Log.d("shubham",shop.getShop_name());
                     list.add(shop);
                 }
+
                 shop_list_adapter adapter=new shop_list_adapter(list,getContext());
                 shop_list_recyclerview.setAdapter(adapter);
                 shop_list_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
 
             }
 
@@ -159,21 +153,22 @@ public class Apphomescreen extends Fragment {
                     public void onItemClick(View view, int position) {
                         String mailid_shop=list.get(position).getShop_mail();
 
-                        FirebaseDatabase.getInstance().getReference("Shops").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference("Shops").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot datasnapshot: snapshot.getChildren()
                                      ) {
                                         if(datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(mailid_shop)){
-                                            FragmentTransaction fragmentTransaction=getChildFragmentManager().beginTransaction();
+                                            if (!isAdded()) return;
+                                            FragmentTransaction fragmentTransaction=getParentFragmentManager().beginTransaction();
                                             showing_listofservices_for_shop f1=new showing_listofservices_for_shop();
                                             Bundle b=new Bundle();
                                             Log.d("ASAAa",datasnapshot.getKey());
                                             b.putString("ID",""+datasnapshot.getKey());
                                             f1.setArguments(b);
-
                                             g_map_search.setVisibility(View.GONE);
-                                            fragmentTransaction.replace(R.id.child_frag_showinglist_of_services,f1).addToBackStack(null).commit();
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.replace(R.id.fm,f1).commit();
                                             break;
                                         }
                                 }

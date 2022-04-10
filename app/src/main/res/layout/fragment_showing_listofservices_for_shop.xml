@@ -222,7 +222,7 @@
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
                     <RatingBar
-                        android:id="@+id/ratingBar"
+                        android:id="@+id/ratingBarr"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:rating="3"
@@ -237,7 +237,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/Shop_Ratings"
+                        android:id="@+id/Shop_Ratingss"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"

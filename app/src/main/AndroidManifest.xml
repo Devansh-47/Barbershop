@@ -33,6 +33,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBxBoHX10544TzpO3VewTVMAZFJr7BR4Mk" />
 
+
         <activity
             android:name=".MapsActivity"
             android:exported="false"
@@ -65,5 +66,7 @@
             android:name=".custHomeActivity"
             android:exported="true" />
     </application>
+
+
 
 </manifest>

@@ -69,7 +69,6 @@ public class custHomeActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.home) {
                     fragmentTransaction=getSupportFragmentManager().beginTransaction();
                     Apphomescreen apphomescreen=new Apphomescreen();
-//                    apphomescreen.setArguments(bundle);
 
                     fragmentTransaction.replace(R.id.fm,apphomescreen).commit();
                 }

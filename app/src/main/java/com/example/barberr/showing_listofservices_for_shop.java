@@ -20,7 +20,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.barberr.custom_adapters.shop_imgs_adapter;
 import com.google.firebase.database.DataSnapshot;
@@ -81,6 +83,7 @@ public class showing_listofservices_for_shop extends Fragment {
 
         shop_id=getArguments().getString("ID");
 
+
     }
 
     @Override
@@ -103,6 +106,8 @@ public class showing_listofservices_for_shop extends Fragment {
         service=view.findViewById(R.id.service_tab);
         reviews=view.findViewById(R.id.reviews_tab);
         about=view.findViewById(R.id.about_tab);
+        RatingBar r=view.findViewById(R.id.ratingBarr);
+        TextView ratings=view.findViewById(R.id.Shop_Ratingss);
         filltab=view.findViewById(R.id.filltab);
         empty_heart=view.findViewById(R.id.empty_heart);
         fill_heart=view.findViewById(R.id.fill_heart);
@@ -116,8 +121,6 @@ public class showing_listofservices_for_shop extends Fragment {
         seeall_images_btn_selectedshop=view.findViewById(R.id.seeall_images_btn_selectedshop);
 
 
-
-        //getParentFragmentManager().beginTransaction().addToBackStack(null);
         ImageButton backbtn=view.findViewById(R.id.back_btn_mainscreen_for_selected_shop);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +129,7 @@ public class showing_listofservices_for_shop extends Fragment {
             }
         });
 
-        //creating alertbox for showing all images to customer
+
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         show_shop_nd_services_pics = layoutInflater.inflate(R.layout.add_shopimages_alertbox, null);
         alertdialogBuilder2 = new AlertDialog.Builder(
@@ -195,7 +198,6 @@ public class showing_listofservices_for_shop extends Fragment {
             }
         });
 
-
         empty_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,8 +221,15 @@ public class showing_listofservices_for_shop extends Fragment {
         Bundle b=new Bundle();
         b.putString("ID",""+shop_id);
         f1.setArguments(b);
-        // fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).addToBackStack(null).commit();
+
+
+        fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).commit();
+
+
+
+
+
+
 
         service.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,8 +246,7 @@ public class showing_listofservices_for_shop extends Fragment {
                 Bundle b=new Bundle();
                 b.putString("ID",""+shop_id);
                 f1.setArguments(b);
-               // fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).commit();
 
             }
         });
@@ -251,6 +259,15 @@ public class showing_listofservices_for_shop extends Fragment {
                 filltab.setVisibility(View.VISIBLE);
                 filltab.setText("Reviews");
                 filltab.setTextColor(Color.parseColor("#FFFFFF"));
+
+                FragmentTransaction fragmentTransaction=getParentFragmentManager().beginTransaction();
+                reviews_of_selected_shop_userside f1=new reviews_of_selected_shop_userside();
+                Bundle b=new Bundle();
+                b.putString("shop_id",""+shop_id);
+                f1.setArguments(b);
+                // fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).commit();
+                Toast.makeText(getContext(),"view changedd",Toast.LENGTH_SHORT).show();
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
@@ -278,7 +295,7 @@ public class showing_listofservices_for_shop extends Fragment {
                 b.putString("Shop_id",shop_id);
                 ab1.setArguments(b);
                 fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,ab1);
-                fragmentTransaction.addToBackStack(null).commit();
+                fragmentTransaction.commit();
             }
         });
 
@@ -311,10 +328,22 @@ public class showing_listofservices_for_shop extends Fragment {
                 String s_mail=snapshot2.child("shop_mail").getValue(String.class);
                 String o_img=snapshot2.child("shop_profile_pic").getValue(String.class);
 
+                Long no_of_ratings = 0l;
+                Float rating_sum = 0f;
+                for (DataSnapshot datasnapshot2:snapshot.child("Reviews").getChildren()
+                     ) {
+                    no_of_ratings=snapshot.child("Reviews").getChildrenCount();
+                    if(datasnapshot2.child("ratings").getValue(Float.class)!=null)
+                    rating_sum=rating_sum+datasnapshot2.child("ratings").getValue(Float.class);
+                }
+                Float rating_avg=rating_sum/no_of_ratings;
+                r.setRating(rating_avg);
+                ratings.setText(rating_avg+"("+no_of_ratings+")");
                 shopname.setText(s_name);
                 owner_name.setText(o_name);
                 shop_mail.setText(s_mail);
                 Picasso.get().load(o_img).into(owner_img);
+
             }
 
             @Override

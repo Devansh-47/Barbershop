@@ -27,13 +27,17 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -57,6 +61,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -87,6 +92,8 @@ public class Ownerefragmentprofile extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    int opening_time_hour_as_int,opening_time_min_as_int,closing_time_hour_as_int,closing_time_min_as_int,no_of_slots;
+
     AlertDialog alertDialog,alertDialog2;
     AlertDialog.Builder alertDialogBuilder;
 
@@ -110,13 +117,14 @@ public class Ownerefragmentprofile extends Fragment {
     ProgressBar Loadimg;
     TextView changepassword,add_location,opentiming_textview,closedtiming_textview,add_cancellation_policy_textview;
     View re_authbox,add_shop_pics_alertbox;
-    AlertDialog.Builder alertDialogbuilder,alertdialogBuilder2;
-    AlertDialog resetmailbox;
+    AlertDialog.Builder alertDialogbuilder,alertdialogBuilder2,  alertDialogBuilder1;;
+    AlertDialog resetmailbox,delete_slot_warning;
     RadioButton monday_open,monday_close,sunday_open,sunday_close,tuesday_open,tuesday_close,wednesday_open,wednesday_close,thursday_open,thursday_close,friday_open,friday_close,saturday_open,saturday_close;
     RecyclerView shop_services_list_in_alertbox,shop_images_list_in_alertbox;
     CircleImageView owner_profile_pic;
     String selected_btn_in_alertbox;
     String ref;
+    String slot_time="zzz";
 
 
     shop_imgs_adapter adapter,adapter2;
@@ -260,8 +268,236 @@ public class Ownerefragmentprofile extends Fragment {
         saturday_open=view.findViewById(R.id.saturday_open_radio_btn);
         saturday_close=view.findViewById(R.id.saturday_closed_radio_btn);
         update_business_ours_btn=view.findViewById(R.id.update_businesshours_btn);
+
         MaterialCardView businesshours_cardview=view.findViewById(R.id.businesshours_card_view);
 
+       Button add_slot=view.findViewById(R.id.add_slots_btn);
+        ListView slots_list=view.findViewById(R.id.slots_list);
+        Button open_time_slot=view.findViewById(R.id.open_time_slot_btn);
+        Button close_time_slot=view.findViewById(R.id.close_time_slot_btn);
+        TextView open_time_slottextview=view.findViewById(R.id.show_slot_opentime);
+        TextView close_time_slottextview=view.findViewById(R.id.show_slot_closetime);
+        ArrayList<String> slots_list_for_adapter=new ArrayList<>();
+
+        slots_list.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                slots_list.requestDisallowInterceptTouchEvent(true);
+                int action = event.getActionMasked();
+                switch (action) {
+                    case MotionEvent.ACTION_UP:
+                        slots_list.requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+                return false;
+            }
+        });
+        slots_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                alertDialogBuilder1 = new AlertDialog.Builder(getContext())
+                        .setTitle("Delete Slot")
+                        .setMessage("Are you sure you want to Delete "+slots_list_for_adapter.get(i)+" Slot? Press Ok if yes ")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                database.getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("slots_for_booking").child(slots_list_for_adapter.get(i)).removeValue(new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                        Toast.makeText(getContext(),"Slot Deleted :(",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                delete_slot_warning.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert);
+                delete_slot_warning=alertDialogBuilder1.create();
+                delete_slot_warning.show();
+            }
+
+        });
+        FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String ot=snapshot.child("schedule").child("opening_time").getValue(String.class).replace("AM","");
+                ot=ot.replace("PM","");
+               String ot1=ot.substring(0,ot.indexOf(':'));
+               String ot2=ot.substring(ot.indexOf(':')+1,ot.length()-1);
+               Log.d("OTTT","ot=hour="+ot1+"min="+ot2);
+               opening_time_hour_as_int=Integer.parseInt(ot1);
+                opening_time_min_as_int=Integer.parseInt(ot2);
+
+                String ct=snapshot.child("schedule").child("closing_time").getValue(String.class).replace("AM","");
+                ct=ct.replace("PM","");
+                String ct1=ct.substring(0,ct.indexOf(':'));
+                String ct2=ct.substring(ct.indexOf(':')+1,ct.length()-1);
+                Log.d("OTTT","ct=hour="+ct1+"min="+ct2);
+                closing_time_hour_as_int=Integer.parseInt(ct1);
+                closing_time_min_as_int=Integer.parseInt(ct2);
+
+
+                //opening_time_as_int=Integer.parseInt();
+                //closing_time_as_int=Integer.parseInt(snapshot.child("schedule").child("closing_time").getValue(String.class));
+
+                if(snapshot.child("slots_for_booking").exists()){
+                    Log.d("slotlist","database size="+snapshot.child("slots_for_booking").getChildrenCount());
+                    no_of_slots= (int) snapshot.child("slots_for_booking").getChildrenCount();
+
+                    slots_list_for_adapter.clear();
+
+                    for (DataSnapshot datasnapshot:snapshot.child("slots_for_booking").getChildren()
+                         ) {
+                        slots_list_for_adapter.add(datasnapshot.getValue(String.class));
+                    }
+                    ArrayAdapter<String> ad3=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,slots_list_for_adapter);
+                    slots_list.setAdapter(ad3);
+                }else {
+                    slots_list_for_adapter.clear();
+                    ArrayAdapter<String> ad3=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,slots_list_for_adapter);
+                    slots_list.setAdapter(ad3);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        add_slot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // if(!slots_list_for_adapter.contains(slot_time))
+               // {
+                   // slots_list_for_adapter.add(slot_time);
+                open_time_slottextview.setText("00:00");
+                close_time_slottextview.setText("00:00");
+                    Log.d("slotlist","size="+slots_list_for_adapter.size());
+                    if(!slot_time.equals("") && slot_time.contains("-") && slot_time.length()>9) {
+                        if(no_of_slots<6){
+                            FirebaseDatabase.getInstance().getReference("Shops").child(mAuth.getCurrentUser().getUid()).child("shop_details").child("slots_for_booking").child(slot_time).setValue(slot_time);
+                        }else {
+                            Toast.makeText(getContext(), "you can Make maximum Upto 6 slots", Toast.LENGTH_LONG).show();
+                        }
+
+                    }//}
+//                ArrayAdapter<String> ad3=new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,slots_list_for_adapter);
+//                slots_list.setAdapter(ad3);
+                 slot_time="";
+
+            }
+        });
+
+        open_time_slot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar start_range=Calendar.getInstance();
+                start_range.set(Calendar.HOUR_OF_DAY,opening_time_hour_as_int);
+                start_range.set(Calendar.MINUTE,opening_time_min_as_int);
+                int y1=start_range.get(Calendar.HOUR_OF_DAY);
+                Log.d("Y!!!!","="+y1);
+                int d1=start_range.get(Calendar.MINUTE);
+
+                final Calendar end_range=Calendar.getInstance();
+                end_range.set(Calendar.HOUR_OF_DAY,closing_time_hour_as_int);
+                end_range.set(Calendar.MINUTE,closing_time_min_as_int);
+                int y2=end_range.get(Calendar.HOUR_OF_DAY);
+                Log.d("Y!!!!ee","="+y2);
+                int d2=end_range.get(Calendar.MINUTE);
+
+                final Calendar c=Calendar.getInstance();
+                int y=c.get(Calendar.HOUR_OF_DAY);
+                int d=c.get(Calendar.MINUTE);
+
+                TimePickerDialog td=new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+                        final Calendar c3=Calendar.getInstance();
+                        c3.set(Calendar.MINUTE,i1);
+                        c3.set(Calendar.HOUR_OF_DAY,i);
+
+
+                        if(c3.getTimeInMillis()>start_range.getTimeInMillis() && c3.getTimeInMillis()< end_range.getTimeInMillis()){
+                        String am_pm = (i < 12) ? "AM" : "PM";
+
+                        if(slot_time.equals("zzz")){
+                            slot_time="";
+                        }
+
+                        if(slot_time.contains("-")){
+                            slot_time=i+":"+i1+am_pm+slot_time;
+                        }else {
+                            slot_time=i+":"+i1+am_pm+slot_time;
+                        }
+                        open_time_slottextview.setText( i+":"+i1+am_pm);}
+                        else {
+                            Toast.makeText(getContext(),"enter slot range by considering your shop opening time!!",Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                },y,d,false);
+
+
+
+                td.show();
+            }
+        });
+        close_time_slot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar start_range=Calendar.getInstance();
+                start_range.set(Calendar.HOUR_OF_DAY,opening_time_hour_as_int);
+                start_range.set(Calendar.MINUTE,opening_time_min_as_int);
+                int y1=start_range.get(Calendar.HOUR_OF_DAY);
+                Log.d("Y!!!!","="+y1);
+                int d1=start_range.get(Calendar.MINUTE);
+
+                final Calendar end_range=Calendar.getInstance();
+                end_range.set(Calendar.HOUR_OF_DAY,closing_time_hour_as_int);
+                end_range.set(Calendar.MINUTE,closing_time_min_as_int);
+                int y2=end_range.get(Calendar.HOUR_OF_DAY);
+                Log.d("Y!!!!ee","="+y2);
+                int d2=end_range.get(Calendar.MINUTE);
+
+                final Calendar c=Calendar.getInstance();
+                int y=c.get(Calendar.HOUR_OF_DAY);
+                int d=c.get(Calendar.MINUTE);
+
+                TimePickerDialog td=new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+                        final Calendar c3=Calendar.getInstance();
+                        c3.set(Calendar.MINUTE,i1);
+                        c3.set(Calendar.HOUR_OF_DAY,i);
+
+
+                        if(c3.getTimeInMillis()>start_range.getTimeInMillis() && c3.getTimeInMillis()< end_range.getTimeInMillis()){
+                        String am_pm = (i < 12) ? "AM" : "PM";
+                        if(slot_time.equals("zzz")){
+                            slot_time="";
+                        }
+                        slot_time=slot_time+"-"+ i+":"+i1+am_pm;
+                        close_time_slottextview.setText( i+":"+i1+am_pm);}else {
+                            Toast.makeText(getContext(),"enter slot range by considering your shop opening time!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },y,d,false);
+                td.show();
+            }
+        });
 
         select_open_timing_btn.setOnClickListener(new View.OnClickListener() {
             @Override

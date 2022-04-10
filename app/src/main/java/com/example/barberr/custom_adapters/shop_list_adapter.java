@@ -65,9 +65,29 @@ public class shop_list_adapter extends RecyclerView.Adapter<shop_list_adapter.Vi
         FirebaseDatabase.getInstance().getReference("Shops").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for (DataSnapshot datasnapshot: snapshot.getChildren()) {
-                    if(datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(list.get(position).getShop_mail())){
+
+                    if(datasnapshot.child("shop_details").child("shop_mail").getValue(String.class).equals(list.get(holder.getAdapterPosition()).getShop_mail())){
+
+
+                        Log.d("OOOID","="+datasnapshot.getKey());
+                        Long no_of_ratings = 0l;
+                        Float rating_sum = 0f;
+                        no_of_ratings=datasnapshot.child("Reviews").getChildrenCount();
+                        for (DataSnapshot datasnapshot2:datasnapshot.child("Reviews").getChildren()
+                        ) {
+                            if(datasnapshot2.child("ratings").getValue(Float.class)!=null)
+                                rating_sum=rating_sum+datasnapshot2.child("ratings").getValue(Float.class);
+                        }
+                        Float rating_avg=rating_sum/no_of_ratings;
+                        holder.getR().setRating(rating_avg);
+                        holder.getRatings().setText(rating_avg+"("+no_of_ratings+")");
+
+
+
+
+
+
                         int stop=0;
                         for (DataSnapshot datasnapshot1 :datasnapshot.child("Images/Shop_Servces_Images").getChildren()) {
                             String service_img_uri = datasnapshot1.getValue(String.class);

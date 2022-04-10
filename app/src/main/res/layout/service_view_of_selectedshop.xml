@@ -10,7 +10,8 @@
     app:strokeColor="#E423605A"
     android:clickable="true"
     app:strokeWidth="0.5dp"
-    android:layout_margin="10dp">
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -26,7 +27,7 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/shopname_of_selected_shop"
+        android:id="@+id/servicename_of_selected_shop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Haircut"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".reviews_of_selected_shop_userside">
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Give Feedback"
+    android:id="@+id/give_feedback_btn"
+    android:backgroundTint="#3d3d3d"
+    android:layout_gravity="center_horizontal"
+    android:scaleY="0.8"
+    />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviews_list_of_selected_shop"
+        />
+
+</LinearLayout>

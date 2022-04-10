@@ -62,10 +62,6 @@ public class services_c_adapter extends RecyclerView.Adapter<services_c_adapter.
 
 
 
-
-
-
-
     }
 
     @Override

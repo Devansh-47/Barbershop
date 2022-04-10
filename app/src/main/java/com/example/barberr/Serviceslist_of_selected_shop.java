@@ -42,6 +42,7 @@ public class Serviceslist_of_selected_shop extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    serviceslist_of_selected_shop_adapter ad;
     private RecyclerView services_list_selected_shop;
 
     public Serviceslist_of_selected_shop() {
@@ -85,38 +86,37 @@ public class Serviceslist_of_selected_shop extends Fragment {
         Button book;
         TextView showing_selected_services_info;
         book=view.findViewById(R.id.Book_appointment);
-        showing_selected_services_info=view.findViewById(R.id.showing_selected_servicescount);
+
         String shop_id = getArguments().getString("ID");
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Handler handler = new Handler(Looper.getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showing_selected_services_info.setText(serviceslist_of_selected_shop_adapter.a2.size()+" services selected worth 666$");
-                    }
-                },  0);
-
                 Intent i=new Intent(getContext(),select_date_and_time_activity.class);
-                 i.putStringArrayListExtra("selected_services",serviceslist_of_selected_shop_adapter.a2);
+                 i.putStringArrayListExtra("selected_services",ad.a2);
                  i.putExtra("shop_id",shop_id);
-                startActivity(i);
+                 if(ad.a2.size()==0){
+                     Toast.makeText(getContext(),"Please Select one Service Atleast",Toast.LENGTH_SHORT).show();
+                 }else {
+                     startActivity(i);
+                 }
+
 
             }
         });
-        ArrayList<services> al = new ArrayList<>();
 
-        FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("services").addValueEventListener(new ValueEventListener() {
+
+        FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("services").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<services> al = new ArrayList<>();
                 for (DataSnapshot datasnapshot : snapshot.getChildren()
                 ) {
                     services s = datasnapshot.getValue(services.class);
                     al.add(s);
                 }
-                serviceslist_of_selected_shop_adapter ad = new serviceslist_of_selected_shop_adapter(al, getContext());
+                ad = new serviceslist_of_selected_shop_adapter(al, getContext());
                 services_list_selected_shop.setAdapter(ad);
+                ad.a2.clear();
                 services_list_selected_shop.setLayoutManager(new LinearLayoutManager(getContext()));
 
             }
@@ -127,21 +127,7 @@ public class Serviceslist_of_selected_shop extends Fragment {
             }
         });
 
-        services_list_selected_shop.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), services_list_selected_shop, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
 
-
-                            //    Toast.makeText(getContext(), "name ="+al.get(position).getService_name(), Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                }));
 
 return view;
     }
