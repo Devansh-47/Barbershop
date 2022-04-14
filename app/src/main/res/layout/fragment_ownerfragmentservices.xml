@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:background="@color/white"
-    tools:context=".Ownerfragmentservices"
-    >
+    tools:context=".Ownerfragmentservices">
 
 
     <LinearLayout
@@ -21,7 +21,6 @@
             android:layout_height="35dp"
             android:background="#3d3d3d"
             android:minHeight="?attr/actionBarSize"
-            android:layout_marginBottom="7dp"
             android:theme="?attr/actionBarTheme">
 
             <TextView
@@ -54,14 +53,17 @@
         android:orientation="vertical"
         android:visibility="gone"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/add_servicebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:elevation="11dp"
-        android:src="@drawable/ic_baseline_add_circle_24"
-        android:layout_margin="16dp" />
+        android:padding="15dp"
+        android:elevation="33dp"
+        android:background="@drawable/rounded_edittext_field"
+        android:backgroundTint="#EB3D3D3D"
+        android:src="@drawable/ic_baseline_library_add_24"
+        android:layout_margin="12dp" />
 
     <LinearLayout
         android:id="@+id/services_container"

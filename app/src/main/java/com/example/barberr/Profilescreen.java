@@ -542,6 +542,7 @@ public class Profilescreen extends Fragment {
                     mAuth.signOut();
                     startActivity(new Intent(getActivity(), Login.class));
                     getActivity().finish();
+
                 }
             });
 

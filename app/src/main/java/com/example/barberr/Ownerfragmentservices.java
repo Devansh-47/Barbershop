@@ -60,7 +60,7 @@ public class Ownerfragmentservices extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    FloatingActionButton add_servicebtn;
+    ImageButton add_servicebtn;
     View view;
     RecyclerView recyclerView;
     FirebaseAuth mAuth;

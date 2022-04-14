@@ -9,16 +9,22 @@ public class appointment_in_userside {
     String appointment_date;
     String slot;
     String amount;
+    String status;
 
-    public appointment_in_userside(String shopname, String appointment_date, String services , String slot,String amount){
+    public appointment_in_userside(String shopname, String appointment_date, String services , String slot,String amount,String status){
        this.shopname=shopname;
        this.services=services;
        this.appointment_date=appointment_date;
        this.slot=slot;
        this.amount=amount;
+       this.status=status;
     }
 
     appointment_in_userside(){}
+
+    public String getStatus() {
+        return status;
+    }
 
     public String getServices() {
         return services;

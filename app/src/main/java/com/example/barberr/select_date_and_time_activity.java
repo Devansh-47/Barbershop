@@ -275,10 +275,11 @@ calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                 FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").child(shop_id).child("shop_name").setValue(shopname);
                 FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").child(shop_id).child("appointment_dates").child(appointment_date).child("slot").setValue(slot);
                 FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").child(shop_id).child("appointment_dates").child(appointment_date).child("total_amount").setValue(Total_amount);
-
-
                 FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(appointment_date).child("slot").setValue(slot);
                 FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(appointment_date).child("date").setValue(appointment_date);
+                FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(appointment_date).child("status").setValue("Pending");
+                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").child(shop_id).child("appointment_dates").child(appointment_date).child("status").setValue("Pending");
+
 
 
 
@@ -293,6 +294,18 @@ calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                     transaction_note=transaction_note+"\n"+s;
                     FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").child(shop_id).child("appointment_dates").child(appointment_date).child("services").child(s.substring(0,s.indexOf('-'))).setValue(s);
                 }
+
+                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("user_name").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("customer_name").setValue(snapshot.getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(appointment_date).child("Total_amount").setValue(Total_amount+"");
                 Uri uri =
                         new Uri.Builder()

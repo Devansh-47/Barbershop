@@ -226,7 +226,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:rating="3"
-                        android:progressTint="#E423605A"
+                        android:progressTint="#ED6EC3"
                         android:progressBackgroundTint="@color/black"
                         android:numStars="5"
                         android:scaleX="1.2"

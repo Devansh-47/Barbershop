@@ -221,8 +221,6 @@ public class showing_listofservices_for_shop extends Fragment {
         Bundle b=new Bundle();
         b.putString("ID",""+shop_id);
         f1.setArguments(b);
-
-
         fragmentTransaction.replace(R.id.fragment_container_for_service_review_about,f1).commit();
 
 

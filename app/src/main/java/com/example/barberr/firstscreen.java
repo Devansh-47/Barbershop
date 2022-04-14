@@ -98,6 +98,7 @@ public class firstscreen extends AppCompatActivity {
                             }
                             else {
                                 startActivity(new Intent(firstscreen.this,Ownerlogin.class));
+                                finish();
                                 //Toast.makeText(Ownerlogin.this,"Shop does not Exist",Toast.LENGTH_SHORT).show();
 
                             }
@@ -121,5 +122,11 @@ public class firstscreen extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }

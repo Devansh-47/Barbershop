@@ -1,16 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AFEFB2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".Ownerfragmentreviews">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="232dp"
-        android:layout_height="65dp"
-        android:layout_gravity="center"
-        android:text="Reviews"
-        android:textSize="34sp" />
-</FrameLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profilefragment_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#3d3d3d"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <TextView
+            android:id="@+id/Profiletext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="4dp"
+            android:typeface="monospace"
+            android:text="Shop Reviews"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        app:cardElevation="222dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="33dp"
+            android:background="#D8FBF4F9"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="1"
+                    android:progressTint="#ED6EC3"
+                    android:scaleY="0.4"
+                    android:scaleX="0.4"
+                    android:rating="1"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="16dp"
+                    android:text="4.5"
+                    android:layout_marginStart="-9dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#3d3d3d"
+                    android:id="@+id/avg_ratingtext"
+                    android:layout_marginBottom="3dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=" (334 Reviews)"
+                    android:layout_marginBottom="3dp"
+                    android:textSize="16dp"
+                    android:id="@+id/no_of_reviews"
+                    android:gravity="center_vertical"
+                    android:textColor="#3d3d3d"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:layout_marginEnd="-13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14dp"
+
+                    android:gravity="center_vertical"/>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.34"
+                    android:layout_gravity="center_vertical"
+                    android:scaleY="0.4"
+                    android:numStars="1"
+                    />
+                <ProgressBar
+                    android:id="@+id/progressBar_5_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:progress="100"
+                    android:layout_marginStart="-12dp"
+                    android:progressTint="#ED6EC3"
+                    android:scaleY="0.5"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/reviews_of_5_inpercent"
+                    android:layout_height="match_parent"
+                    android:text="95%"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-33dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:layout_marginEnd="-13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14dp"
+
+                    android:gravity="center_vertical"/>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.34"
+                    android:layout_gravity="center_vertical"
+                    android:scaleY="0.4"
+                    android:numStars="1"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_4_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:progress="66"
+                    android:layout_marginStart="-12dp"
+                    android:progressTint="#ED6EC3"
+                    android:scaleY="0.5"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/reviews_of_4_inpercent"
+                    android:layout_height="match_parent"
+                    android:text="9%"
+                    android:textSize="14dp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-33dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:layout_marginEnd="-13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14dp"
+
+                    android:gravity="center_vertical"/>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.34"
+                    android:layout_gravity="center_vertical"
+                    android:scaleY="0.4"
+                    android:numStars="1"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_3_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:progress="66"
+                    android:layout_marginStart="-12dp"
+                    android:progressTint="#ED6EC3"
+                    android:scaleY="0.5"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/reviews_of_3_inpercent"
+                    android:layout_height="match_parent"
+                    android:text="95%"
+                    android:textSize="14dp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-33dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:layout_marginEnd="-13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14dp"
+
+                    android:gravity="center_vertical"/>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.34"
+                    android:layout_gravity="center_vertical"
+                    android:scaleY="0.4"
+                    android:numStars="1"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_2_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:progress="66"
+                    android:layout_marginStart="-12dp"
+                    android:progressTint="#ED6EC3"
+                    android:scaleY="0.5"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/reviews_of_2_inpercent"
+                    android:layout_height="match_parent"
+                    android:text="95%"
+                    android:textSize="14dp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="233dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-33dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:layout_marginEnd="-13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="14dp"
+
+                    android:gravity="center_vertical"/>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.34"
+                    android:layout_gravity="center_vertical"
+                    android:scaleY="0.4"
+                    android:numStars="1"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_1_star"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:progress="66"
+                    android:layout_marginStart="-12dp"
+                    android:progressTint="#ED6EC3"
+                    android:scaleY="0.5"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/reviews_of_1_inpercent"
+                    android:layout_height="match_parent"
+                    android:text="95%"
+                    android:textSize="14dp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/reviews_list_of_shop"
+        />
+
+</LinearLayout>

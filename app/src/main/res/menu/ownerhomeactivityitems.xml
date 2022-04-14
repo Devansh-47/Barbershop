@@ -19,11 +19,7 @@
         android:title="services"
         />
 
-    <item
-        android:id="@+id/Payment"
-        android:icon="@drawable/payment"
-        android:title="Payment"
-        />
+
 
     <item
         android:id="@+id/reviews"

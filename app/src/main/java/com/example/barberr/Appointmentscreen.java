@@ -89,7 +89,7 @@ public class Appointmentscreen extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String shopname;
-                String apt_date="",slot="",amount="";
+                String apt_date="",slot="",amount="",status="pending";
 
                 all_appointments_info_of_user=new ArrayList<>();
                 for (DataSnapshot datasnapshot: snapshot.getChildren()
@@ -101,17 +101,19 @@ public class Appointmentscreen extends Fragment {
                         apt_date=datasnapshot1.getKey();
                         slot=datasnapshot1.child("slot").getValue(String.class);
                         amount=datasnapshot1.child("total_amount").getValue(Long.class)+"";
+                        status=datasnapshot1.child("status").getValue(String.class)+"";
+
+
                         services.clear();
                             String s="";
                         for (DataSnapshot datasnapshot2:datasnapshot1.child("services").getChildren()
                              ) {
-
                             s=s+datasnapshot2.getValue(String.class).substring(0,datasnapshot2.getValue(String.class).indexOf('-')).trim()+"\n";
                             services.add(datasnapshot2.getValue(String.class));
                             Log.d("QWWQ",datasnapshot1.child("services").getChildrenCount()+""+"s==="+datasnapshot2.getValue(String.class));
                         }
 
-                        appointment_in_userside full_apmt_info=new appointment_in_userside(shopname,apt_date,s,slot,amount);
+                        appointment_in_userside full_apmt_info=new appointment_in_userside(shopname,apt_date,s,slot,amount,status);
                         all_appointments_info_of_user.add(full_apmt_info);
                     }
                 }

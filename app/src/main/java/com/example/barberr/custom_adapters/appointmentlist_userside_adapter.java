@@ -6,6 +6,7 @@ package com.example.barberr.custom_adapters;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.Button;
+        import android.widget.ImageView;
         import android.widget.TextView;
         import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class appointmentlist_userside_adapter extends RecyclerView.Adapter<appoi
     private Context context;
 
 
+
     public appointmentlist_userside_adapter(ArrayList<appointment_in_userside> listt, Context context){
 
         list=listt;
@@ -46,6 +48,8 @@ public class appointmentlist_userside_adapter extends RecyclerView.Adapter<appoi
         view = LayoutInflater.from(context)
                 .inflate(R.layout.appointment_list_of_cust, parent, false);
 
+
+
         return new ViewHolder(view);
     }
 
@@ -59,6 +63,51 @@ public class appointmentlist_userside_adapter extends RecyclerView.Adapter<appoi
         holder.getSlot().setText(list.get(position).getSlot());
         holder.getAmount().setText(list.get(position).getAmount());
 
+
+
+
+
+                   if (list.get(holder.getAdapterPosition()).getStatus().equals("Pending")) {
+                       holder.getComplete_appointment_btn().setVisibility(View.VISIBLE);
+                       holder.getcancelBtn().setVisibility(View.VISIBLE);
+                       holder.getCompleted_icon().setVisibility(View.GONE);
+
+                   } else {
+                       holder.getComplete_appointment_btn().setVisibility(View.GONE);
+                       holder.getcancelBtn().setVisibility(View.GONE);
+                       holder.getCompleted_icon().setVisibility(View.VISIBLE);
+
+                   }
+
+        holder.getComplete_appointment_btn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference("Shops").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot datasnapshot: snapshot.getChildren()
+                        ) {
+                            if(datasnapshot.child("shop_details").child("shop_name").getValue(String.class).equals(list.get(holder.getAdapterPosition()).getShopname())){
+
+                                FirebaseDatabase.getInstance().getReference("Shops").child(datasnapshot.getKey()).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(list.get(holder.getAdapterPosition()).getAppointment_date()).child("status").setValue("Completed");
+                                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").child(datasnapshot.getKey()).child("appointment_dates").child(list.get(holder.getAdapterPosition()).getAppointment_date()).child("status").setValue("Completed");
+                                holder.getComplete_appointment_btn().setVisibility(View.GONE);
+                                holder.getcancelBtn().setVisibility(View.GONE);
+                                holder.getCompleted_icon().setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
+                    }
+                });
+
+
+
+            }
+        });
         holder.getcancelBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,15 +126,12 @@ public class appointmentlist_userside_adapter extends RecyclerView.Adapter<appoi
                                         if(error!=null){
                                             Log.d("Firebase", "Error deleting node"+ error.getMessage());
                                         }else {
-
                                             FirebaseDatabase.getInstance().getReference("Shops").addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     for (DataSnapshot datasnapshot: snapshot.getChildren()
                                                     ) {
-
                                                         if(datasnapshot.child("shop_details").child("shop_name").getValue(String.class).equals(shopname)){
-
                                                             FirebaseDatabase.getInstance().getReference("Shops").child(datasnapshot.getKey()).child("appointments").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(apmt_date).removeValue(new DatabaseReference.CompletionListener() {
                                                                 @Override
                                                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -140,7 +186,8 @@ public class appointmentlist_userside_adapter extends RecyclerView.Adapter<appoi
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView shopname,apmt_date,services,slot,amount;
-        private Button cancel_appointment_btn;
+        private Button cancel_appointment_btn,complete_appointment_btn;
+        private ImageView completed_icon,pendingicon;
 
         public ViewHolder(View view) {
             super(view);
@@ -150,9 +197,28 @@ public class appointmentlist_userside_adapter extends RecyclerView.Adapter<appoi
            slot=view.findViewById(R.id.slot_apmt_userside);
            amount=view.findViewById(R.id.amount_apmt_userside);
            cancel_appointment_btn=view.findViewById(R.id.cancel_appointment_btn);
+           completed_icon=view.findViewById(R.id.check_iconimg_appointment_cardview);
+           complete_appointment_btn=view.findViewById(R.id.done_appointment_btn);
+           pendingicon=view.findViewById(R.id.pending_iconimg_appointment_cardview);
+
+
+
           // cancel_appointment_btn.setOnClickListener(this);
 
         }
+
+        public ImageView getPendingicon() {
+            return pendingicon;
+        }
+
+        public ImageView getCompleted_icon() {
+            return completed_icon;
+        }
+
+        public Button getComplete_appointment_btn() {
+            return complete_appointment_btn;
+        }
+
         public Button getcancelBtn(){
             return cancel_appointment_btn;
         }

@@ -2,11 +2,26 @@ package com.example.barberr;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.barberr.custom_adapters.appointmentlist_ownerside_adapter;
+import com.example.barberr.custom_adapters.appointmentlist_userside_adapter;
+import com.example.barberr.userdetails.appointment_in_userside;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +74,59 @@ public class Ownerfragmentappointments extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ownerfragmentappointments, container, false);
+
+        View view= inflater.inflate(R.layout.fragment_ownerfragmentappointments, container, false);
+
+        RecyclerView appointmentlist_shop_recyclerview=view.findViewById(R.id.shop_appointments_recyclerview);
+
+
+        FirebaseDatabase.getInstance().getReference("Shops").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("appointments").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String custname;
+                String apt_date="",slot="",amount="",status="pending";
+                Log.d("QQQ","1");
+
+                ArrayList<appointment_in_userside> all_appointments_info_of_user=new ArrayList<>();
+
+                for (DataSnapshot datasnapshot: snapshot.getChildren()
+                ) {
+                    custname=datasnapshot.child("customer_name").getValue(String.class);
+                    for (DataSnapshot datasnapshot1: datasnapshot.getChildren()
+                    ) {
+                        apt_date=datasnapshot1.getKey();
+                        slot=datasnapshot1.child("slot").getValue(String.class);
+                        amount=datasnapshot1.child("Total_amount").getValue(String.class)+"";
+                        status=datasnapshot1.child("status").getValue(String.class)+"";
+
+                        String s="";
+                        for (DataSnapshot datasnapshot2:datasnapshot1.child("selected_services").getChildren()
+                        ) {
+                            s=s+datasnapshot2.getValue(String.class).substring(0,datasnapshot2.getValue(String.class).indexOf('-')).trim()+"\n";
+                            Log.d("QWWQ",datasnapshot1.child("services").getChildrenCount()+""+"s==="+datasnapshot2.getValue(String.class));
+                        }
+
+                        appointment_in_userside full_apmt_info=new appointment_in_userside(custname,apt_date,s,slot,amount,status);
+                        all_appointments_info_of_user.add(full_apmt_info);
+                    }
+                }
+
+                appointmentlist_ownerside_adapter ad=new appointmentlist_ownerside_adapter(all_appointments_info_of_user,getContext());
+                appointmentlist_shop_recyclerview.setAdapter(ad);
+                appointmentlist_shop_recyclerview.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        return view;
     }
 }

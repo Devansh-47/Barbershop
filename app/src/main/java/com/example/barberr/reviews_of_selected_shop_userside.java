@@ -7,10 +7,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +25,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -48,7 +52,7 @@ import java.util.ArrayList;
  * Use the {@link reviews_of_selected_shop_userside#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class reviews_of_selected_shop_userside extends Fragment {
+public class  reviews_of_selected_shop_userside extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,6 +73,7 @@ public class reviews_of_selected_shop_userside extends Fragment {
     int whichis_clicked=0;
     RatingBar ratingBar;
     String shop_id;
+
 
     public reviews_of_selected_shop_userside() {
         // Required empty public constructor
@@ -140,12 +145,14 @@ public class reviews_of_selected_shop_userside extends Fragment {
 
 
         giveFeedbackBtn=view.findViewById(R.id.give_feedback_btn);
-
         rv=view.findViewById(R.id.reviews_list_of_selected_shop);
 
 
 
+
+
         FirebaseDatabase.getInstance().getReference("Shops").child(shop_id).child("Reviews").addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -153,8 +160,11 @@ public class reviews_of_selected_shop_userside extends Fragment {
 
                 for (DataSnapshot datasnapshot1: snapshot.getChildren()
                 ) {
+
                 String cust_name = datasnapshot1.child("cust_name").getValue(String.class);
                 Float ratings = datasnapshot1.child("ratings").getValue(Float.class);
+
+
                     Log.d("RAtings",ratings+"");
                 String feedbacktext = datasnapshot1.child("feedback").getValue(String.class);
                 String img1 = "", img2 = "", img3 = "", img4 = "";
@@ -175,10 +185,12 @@ public class reviews_of_selected_shop_userside extends Fragment {
                     }
                     i++;
                 }
+
+
                 reviewdetail_class obj = new reviewdetail_class(cust_name, img1, img2, img3, img4, feedbacktext, ratings);
                 reviews_objcts_list.add(obj);
             }
-                reviews_list_selectedshop_adapter ad=new reviews_list_selectedshop_adapter(reviews_objcts_list,getContext());
+                 reviews_list_selectedshop_adapter ad=new reviews_list_selectedshop_adapter(reviews_objcts_list,getContext());
                 rv.setAdapter(ad);
                 rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
