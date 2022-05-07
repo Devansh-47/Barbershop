@@ -1,5 +1,5 @@
 # Barbershop
-Application in progress
+Application Ui snapshots...
 
 ---**Owner Side**----
 
