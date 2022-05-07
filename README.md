@@ -1,7 +1,7 @@
 # Barbershop
 Application in progress
 
-----------------------------------------------Owner Side--------------------------------------------------
+---**Owner Side**----
 
 ![owner_1](https://user-images.githubusercontent.com/99630855/167264514-368a735f-4009-4b56-92a4-a8ecef3044dd.jpeg)
 
@@ -46,7 +46,7 @@ Application in progress
 ![owner_19](https://user-images.githubusercontent.com/99630855/167264649-bfe6ea4e-6352-4882-a9f7-34d40b8892c5.jpeg)
 
 
----------------------------------------------------User Side-------------------------------------------------------
+----**User Side**----
 
 
 ![user1](https://user-images.githubusercontent.com/99630855/167265068-abf30d57-7a60-4112-a870-26e206c2c101.jpeg)
