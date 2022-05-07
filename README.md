@@ -1,6 +1,8 @@
 # Barbershop
 Application in progress
 
+-----------------------------------Owner Side-----------------------------------------
+
 ![owner_1](https://user-images.githubusercontent.com/99630855/167264514-368a735f-4009-4b56-92a4-a8ecef3044dd.jpeg)
 
 ![owner_2](https://user-images.githubusercontent.com/99630855/167264564-696dbe7e-6f4d-41bc-9c3e-b4736deb76ea.jpeg)
@@ -42,3 +44,8 @@ Application in progress
 ![owner_18](https://user-images.githubusercontent.com/99630855/167264646-eb6af5a1-6f61-41a2-8f3b-c08faa34df1b.jpeg)
 
 ![owner_19](https://user-images.githubusercontent.com/99630855/167264649-bfe6ea4e-6352-4882-a9f7-34d40b8892c5.jpeg)
+
+
+-----------------------------------User Side-----------------------------------------
+
+
